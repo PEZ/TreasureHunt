@@ -6,23 +6,24 @@
 //  Copyright (c) 2012 NA. All rights reserved.
 //
 
-#import "THDetailViewController.h"
+#import "THHuntViewController.h"
 
-@interface THDetailViewController ()
+@interface THHuntViewController ()
 - (void)configureView;
 @end
 
-@implementation THDetailViewController
+@implementation THHuntViewController
 
-@synthesize detailItem = _detailItem;
-@synthesize detailDescriptionLabel = _detailDescriptionLabel;
+@synthesize nameTextField = _nameTextField;
+@synthesize delegate = _delegate;
+@synthesize hunt = _hunt;
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(id)newDetailItem
+- (void)setHunt:(id)newDetailItem
 {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
+    if (_hunt != newDetailItem) {
+        _hunt = newDetailItem;
         
         // Update the view.
         [self configureView];
@@ -33,8 +34,8 @@
 {
     // Update the user interface for the detail item.
 
-  if (self.detailItem) {
-      self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"timeStamp"] description];
+  if (self.hunt) {
+      self.nameTextField.text = _hunt.title;
   }
 }
 
@@ -47,14 +48,29 @@
 
 - (void)viewDidUnload
 {
+    [self setNameTextField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-  self.detailDescriptionLabel = nil;
+  self.nameTextField = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    _hunt.title = textField.text;
+    [self.delegate huntEdited:self.hunt];
 }
 
 @end

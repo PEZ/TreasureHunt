@@ -8,7 +8,7 @@
 
 #import "THHuntsViewController.h"
 
-#import "THDetailViewController.h"
+#import "THHuntViewController.h"
 
 @interface THHuntsViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -19,6 +19,7 @@
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
 
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];
@@ -28,10 +29,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-  self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-  UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-  self.navigationItem.rightBarButtonItem = addButton;
+    //UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    //self.navigationItem.rightBarButtonItem = addButton;
 }
 
 - (void)viewDidUnload
@@ -45,7 +46,7 @@
   return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (void)insertNewObject:(id)sender
+- (Hunt*)insertNewObject
 {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
@@ -63,7 +64,9 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
+    return (Hunt*)newManagedObject;
 }
+
 
 #pragma mark - Table View
 
@@ -91,35 +94,55 @@
     return YES;
 }
 
+- (void)saveContext:(NSManagedObjectContext *)context
+{
+    NSError *error = nil;
+    if (![context save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        
-        NSError *error = nil;
-        if (![context save:&error]) {
-             // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
+        [self saveContext:context];
     }   
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // The table view should not be re-orderable.
-    return NO;
+    return YES;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[segue destinationViewController] setDetailItem:object];
+    Hunt* hunt;
+    BOOL isAddHunt = [[segue identifier] isEqualToString:@"AddHunt"];
+    if (isAddHunt) {
+        hunt = [self insertNewObject];
     }
+    if (isAddHunt || [[segue identifier] isEqualToString:@"ShowHunt"]) {
+        if (!hunt) {
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            hunt = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        }
+        THHuntViewController* huntController = [segue destinationViewController];
+        [huntController setHunt:hunt];
+        huntController.delegate = self;
+    }
+}
+
+#pragma mark - THHuntEditedDelegate
+
+- (void)huntEdited:(Hunt *)hunt {
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    [self saveContext:context]; 
 }
 
 #pragma mark - Fetched results controller
@@ -223,8 +246,8 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    Hunt *hunt = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = hunt.title;
 }
 
 @end

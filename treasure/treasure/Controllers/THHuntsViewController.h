@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import <CoreData/CoreData.h>
+#import "THHuntViewController.h"
 
-@interface THHuntsViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface THHuntsViewController : UITableViewController <NSFetchedResultsControllerDelegate, THEditHuntDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

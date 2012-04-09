@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Clue" isAbstract="YES" syncable="YES">
+    <entity name="Checkpoint" representedClassName="Clue" syncable="YES">
         <attribute name="displayOrder" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES" syncable="YES"/>
         <attribute name="isQR" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="fkHunt" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Hunt" inverseName="huntClues" inverseEntity="Hunt" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" maxValueString="50" defaultValueString="New clue" syncable="YES"/>
+        <relationship name="fkHunt" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Hunt" inverseName="huntCheckpoints" inverseEntity="Hunt" syncable="YES"/>
     </entity>
-    <entity name="Hunt">
+    <entity name="Hunt" representedClassName="Hunt">
         <attribute name="timeStamp" optional="YES" attributeType="Date"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="huntClues" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Clue" inverseName="fkHunt" inverseEntity="Clue" syncable="YES"/>
-    </entity>
-    <entity name="ImageClue" parentEntity="Clue" syncable="YES">
-        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="qrUrl" optional="YES" attributeType="String" maxValueString="1024" syncable="YES"/>
-    </entity>
-    <entity name="TextClue" parentEntity="Clue" syncable="YES">
-        <attribute name="text" optional="YES" attributeType="String" minValueString="0" maxValueString="500" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" maxValueString="75" syncable="YES"/>
+        <relationship name="huntCheckpoints" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Checkpoint" inverseName="fkHunt" inverseEntity="Checkpoint" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Hunt" positionX="261" positionY="189" width="128" height="90"/>
-        <element name="Clue" positionX="468" positionY="243" width="128" height="105"/>
-        <element name="TextClue" positionX="360" positionY="414" width="126" height="60"/>
-        <element name="ImageClue" positionX="529" positionY="414" width="128" height="75"/>
+        <element name="Checkpoint" positionX="277" positionY="252" width="128" height="135"/>
+        <element name="Hunt" positionX="81" positionY="189" width="128" height="90"/>
     </elements>
 </model>

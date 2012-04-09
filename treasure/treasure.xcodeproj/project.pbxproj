@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB6850801532D7B800A8B8B0 /* Clue.m in Sources */ = {isa = PBXBuildFile; fileRef = EB68507F1532D7B800A8B8B0 /* Clue.m */; };
+		EBE2ED4A1532D6C800808CC5 /* Hunt.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE2ED491532D6C800808CC5 /* Hunt.m */; };
 		EBE8D4671531859A003EF33F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4661531859A003EF33F /* UIKit.framework */; };
 		EBE8D4691531859A003EF33F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4681531859A003EF33F /* Foundation.framework */; };
 		EBE8D46B1531859A003EF33F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D46A1531859A003EF33F /* CoreGraphics.framework */; };
@@ -17,7 +19,7 @@
 		EBE8D47C1531859A003EF33F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBE8D47A1531859A003EF33F /* MainStoryboard.storyboard */; };
 		EBE8D47F1531859A003EF33F /* treasure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBE8D47D1531859A003EF33F /* treasure.xcdatamodeld */; };
 		EBE8D4821531859A003EF33F /* THHuntsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE8D4811531859A003EF33F /* THHuntsViewController.m */; };
-		EBE8D4851531859A003EF33F /* THDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE8D4841531859A003EF33F /* THDetailViewController.m */; };
+		EBE8D4851531859A003EF33F /* THHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE8D4841531859A003EF33F /* THHuntViewController.m */; };
 		EBE8D48D1531859A003EF33F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D48C1531859A003EF33F /* SenTestingKit.framework */; };
 		EBE8D48E1531859A003EF33F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4661531859A003EF33F /* UIKit.framework */; };
 		EBE8D48F1531859A003EF33F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4681531859A003EF33F /* Foundation.framework */; };
@@ -37,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EB68507E1532D7B800A8B8B0 /* Clue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clue.h; sourceTree = "<group>"; };
+		EB68507F1532D7B800A8B8B0 /* Clue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Clue.m; sourceTree = "<group>"; };
+		EBE2ED481532D6C800808CC5 /* Hunt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hunt.h; sourceTree = "<group>"; };
+		EBE2ED491532D6C800808CC5 /* Hunt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hunt.m; sourceTree = "<group>"; };
 		EBE8D4621531859A003EF33F /* treasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE8D4661531859A003EF33F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EBE8D4681531859A003EF33F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -50,10 +56,10 @@
 		EBE8D4781531859A003EF33F /* THAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THAppDelegate.m; sourceTree = "<group>"; };
 		EBE8D47B1531859A003EF33F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		EBE8D47E1531859A003EF33F /* treasure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = treasure.xcdatamodel; sourceTree = "<group>"; };
-		EBE8D4801531859A003EF33F /* THHuntsViewController.h */ = {isa = PBXFileReference; path = THHuntsViewController.h; sourceTree = "<group>"; };
+		EBE8D4801531859A003EF33F /* THHuntsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THHuntsViewController.h; sourceTree = "<group>"; };
 		EBE8D4811531859A003EF33F /* THHuntsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THHuntsViewController.m; sourceTree = "<group>"; };
-		EBE8D4831531859A003EF33F /* THDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THDetailViewController.h; sourceTree = "<group>"; };
-		EBE8D4841531859A003EF33F /* THDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THDetailViewController.m; sourceTree = "<group>"; };
+		EBE8D4831531859A003EF33F /* THHuntViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THHuntViewController.h; sourceTree = "<group>"; };
+		EBE8D4841531859A003EF33F /* THHuntViewController.m */ = {isa = PBXFileReference; path = THHuntViewController.m; sourceTree = "<group>"; };
 		EBE8D48B1531859A003EF33F /* treasureTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = treasureTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE8D48C1531859A003EF33F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		EBE8D4951531859A003EF33F /* treasureTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "treasureTests-Info.plist"; sourceTree = "<group>"; };
@@ -88,6 +94,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB685082153301EC00A8B8B0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EBE8D4801531859A003EF33F /* THHuntsViewController.h */,
+				EBE8D4811531859A003EF33F /* THHuntsViewController.m */,
+				EBE8D4831531859A003EF33F /* THHuntViewController.h */,
+				EBE8D4841531859A003EF33F /* THHuntViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		EBE2ED351531CD7600808CC5 /* images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		EBE2ED471532D64300808CC5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EBE2ED481532D6C800808CC5 /* Hunt.h */,
+				EBE2ED491532D6C800808CC5 /* Hunt.m */,
+				EB68507E1532D7B800A8B8B0 /* Clue.h */,
+				EB68507F1532D7B800A8B8B0 /* Clue.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		EBE8D4571531859A003EF33F = {
 			isa = PBXGroup;
 			children = (
@@ -123,13 +158,12 @@
 			isa = PBXGroup;
 			children = (
 				EBE8D46F1531859A003EF33F /* Supporting Files */,
+				EBE2ED471532D64300808CC5 /* Models */,
+				EB685082153301EC00A8B8B0 /* Controllers */,
+				EBE8D4A91531A79A003EF33F /* UI */,
 				EBE8D4771531859A003EF33F /* THAppDelegate.h */,
 				EBE8D4781531859A003EF33F /* THAppDelegate.m */,
 				EBE8D47A1531859A003EF33F /* MainStoryboard.storyboard */,
-				EBE8D4801531859A003EF33F /* THHuntsViewController.h */,
-				EBE8D4811531859A003EF33F /* THHuntsViewController.m */,
-				EBE8D4831531859A003EF33F /* THDetailViewController.h */,
-				EBE8D4841531859A003EF33F /* THDetailViewController.m */,
 				EBE8D47D1531859A003EF33F /* treasure.xcdatamodeld */,
 			);
 			path = treasure;
@@ -163,6 +197,14 @@
 				EBE8D4961531859A003EF33F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EBE8D4A91531A79A003EF33F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				EBE2ED351531CD7600808CC5 /* images */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,7 +319,9 @@
 				EBE8D4791531859A003EF33F /* THAppDelegate.m in Sources */,
 				EBE8D47F1531859A003EF33F /* treasure.xcdatamodeld in Sources */,
 				EBE8D4821531859A003EF33F /* THHuntsViewController.m in Sources */,
-				EBE8D4851531859A003EF33F /* THDetailViewController.m in Sources */,
+				EBE8D4851531859A003EF33F /* THHuntViewController.m in Sources */,
+				EBE2ED4A1532D6C800808CC5 /* Hunt.m in Sources */,
+				EB6850801532D7B800A8B8B0 /* Clue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
