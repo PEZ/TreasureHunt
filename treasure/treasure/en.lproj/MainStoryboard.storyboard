@@ -215,7 +215,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Image clue" id="ABJ-sW-783">
+                            <tableViewSection headerTitle="Image clue (double tap to change)" id="ABJ-sW-783">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="300" id="toR-dh-PJg">
                                         <rect key="frame" x="0.0" y="146" width="320" height="302"/>

@@ -47,6 +47,7 @@
         self.titleTextField.text = _checkpoint.title;
         self.textClueTextView.text = _checkpoint.textClue;
         self.isQRSwitch.on = [_checkpoint.isQR boolValue];
+        self.imageClueImageView.image = _checkpoint.imageClue;
         if (!_titleTextField.text || [_titleTextField.text isEqualToString:@""]) {
             [_titleTextField becomeFirstResponder];
         }
@@ -147,6 +148,8 @@
     [self.delegate checkpointEdited:_checkpoint];
 }
 
+#pragma mark - UIActionSheetDelegate
+
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
@@ -155,6 +158,16 @@
     imagePicker.allowsEditing = YES;
     
     [self presentModalViewController:imagePicker animated:YES];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSLog(@"info: %@", info);
+    [picker dismissModalViewControllerAnimated:YES];
+    _checkpoint.imageClue = _imageClueImageView.image = [info valueForKey:@"UIImagePickerControllerEditedImage"];
+    [self.delegate checkpointEdited:_checkpoint];
 }
 
 @end
