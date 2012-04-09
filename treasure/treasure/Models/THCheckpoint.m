@@ -1,21 +1,21 @@
 //
-//  Clue.m
+//  THCheckpoint.m
 //  treasure
 //
 //  Created by Peter Stromberg on 2012-04-09.
 //  Copyright (c) 2012 NA. All rights reserved.
 //
 
-#import "Clue.h"
-#import "Hunt.h"
+#import "THCheckpoint.h"
+#import "THHunt.h"
 
 
-@implementation Clue
+@implementation THCheckpoint
 
 @dynamic displayOrder;
-@dynamic image;
+@dynamic imageClue;
 @dynamic isQR;
-@dynamic text;
+@dynamic textClue;
 @dynamic title;
 @dynamic fkHunt;
 

@@ -2,10 +2,10 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Checkpoint" representedClassName="Clue" syncable="YES">
         <attribute name="displayOrder" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES" syncable="YES"/>
+        <attribute name="imageClue" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES" syncable="YES"/>
         <attribute name="isQR" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="text" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" maxValueString="50" defaultValueString="New clue" syncable="YES"/>
+        <attribute name="textClue" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" maxValueString="50" syncable="YES"/>
         <relationship name="fkHunt" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Hunt" inverseName="huntCheckpoints" inverseEntity="Hunt" syncable="YES"/>
     </entity>
     <entity name="Hunt" representedClassName="Hunt">

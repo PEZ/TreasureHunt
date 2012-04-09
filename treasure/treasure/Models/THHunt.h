@@ -1,5 +1,5 @@
 //
-//  Hunt.h
+//  THHunt.h
 //  treasure
 //
 //  Created by Peter Stromberg on 2012-04-09.
@@ -10,14 +10,14 @@
 #import <CoreData/CoreData.h>
 
 
-@interface Hunt : NSManagedObject
+@interface THHunt : NSManagedObject
 
 @property (nonatomic, retain) NSDate * timeStamp;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSOrderedSet *huntClues;
 @end
 
-@interface Hunt (CoreDataGeneratedAccessors)
+@interface THHunt (CoreDataGeneratedAccessors)
 
 - (void)insertObject:(NSManagedObject *)value inHuntCluesAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromHuntCluesAtIndex:(NSUInteger)idx;

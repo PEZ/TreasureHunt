@@ -1,5 +1,5 @@
 //
-//  Clue.h
+//  THCheckpoint.h
 //  treasure
 //
 //  Created by Peter Stromberg on 2012-04-09.
@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Hunt;
+@class THHunt;
 
-@interface Clue : NSManagedObject
+@interface THCheckpoint : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * displayOrder;
-@property (nonatomic, retain) id image;
+@property (nonatomic, retain) id imageClue;
 @property (nonatomic, retain) NSNumber * isQR;
-@property (nonatomic, retain) NSString * text;
+@property (nonatomic, retain) NSString * textClue;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) Hunt *fkHunt;
+@property (nonatomic, retain) THHunt *fkHunt;
 
 @end
