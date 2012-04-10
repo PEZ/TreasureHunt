@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSNumber * displayOrder;
 @property (nonatomic, retain) UIImage* imageClue;
+@property (nonatomic, retain) UIImage* imageClueThumbnail;
 @property (nonatomic, retain) NSNumber * isQR;
 @property (nonatomic, retain) NSString * textClue;
 @property (nonatomic, retain) NSString * title;

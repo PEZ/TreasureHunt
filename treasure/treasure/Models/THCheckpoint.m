@@ -14,6 +14,7 @@
 
 @dynamic displayOrder;
 @dynamic imageClue;
+@dynamic imageClueThumbnail;
 @dynamic isQR;
 @dynamic textClue;
 @dynamic title;

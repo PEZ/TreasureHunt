@@ -12,6 +12,8 @@
 		EB68508915331A1100A8B8B0 /* THCheckpointViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB68508815331A1100A8B8B0 /* THCheckpointViewController.m */; };
 		EB7CE84A15338D5100D5D77C /* gamma_gray_186_pixel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EB7CE84915338D5100D5D77C /* gamma_gray_186_pixel.jpg */; };
 		EB7CE84E1534C3A300D5D77C /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7CE84D1534C3A300D5D77C /* UIImage+Scale.m */; };
+		EB7CE8541534E33700D5D77C /* THCheckpointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7CE8531534E33700D5D77C /* THCheckpointCell.m */; };
+		EB7CE8551534F51900D5D77C /* THCheckpointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7CE8531534E33700D5D77C /* THCheckpointCell.m */; };
 		EBE2ED4A1532D6C800808CC5 /* THHunt.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE2ED491532D6C800808CC5 /* THHunt.m */; };
 		EBE8D4671531859A003EF33F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4661531859A003EF33F /* UIKit.framework */; };
 		EBE8D4691531859A003EF33F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4681531859A003EF33F /* Foundation.framework */; };
@@ -52,6 +54,8 @@
 		EB7CE84915338D5100D5D77C /* gamma_gray_186_pixel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gamma_gray_186_pixel.jpg; sourceTree = "<group>"; };
 		EB7CE84C1534C3A300D5D77C /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
 		EB7CE84D1534C3A300D5D77C /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
+		EB7CE8521534E33700D5D77C /* THCheckpointCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THCheckpointCell.h; sourceTree = "<group>"; };
+		EB7CE8531534E33700D5D77C /* THCheckpointCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THCheckpointCell.m; sourceTree = "<group>"; };
 		EBE2ED481532D6C800808CC5 /* THHunt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHunt.h; sourceTree = "<group>"; };
 		EBE2ED491532D6C800808CC5 /* THHunt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THHunt.m; sourceTree = "<group>"; };
 		EBE8D4621531859A003EF33F /* treasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,6 +232,8 @@
 		EBE8D4A91531A79A003EF33F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				EB7CE8521534E33700D5D77C /* THCheckpointCell.h */,
+				EB7CE8531534E33700D5D77C /* THCheckpointCell.m */,
 				EBE2ED351531CD7600808CC5 /* images */,
 			);
 			path = UI;
@@ -352,6 +358,7 @@
 				EB6850851533092900A8B8B0 /* NSDate+FormattingAdditions.m in Sources */,
 				EB68508915331A1100A8B8B0 /* THCheckpointViewController.m in Sources */,
 				EB7CE84E1534C3A300D5D77C /* UIImage+Scale.m in Sources */,
+				EB7CE8551534F51900D5D77C /* THCheckpointCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBE8D49B1531859A003EF33F /* treasureTests.m in Sources */,
+				EB7CE8541534E33700D5D77C /* THCheckpointCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

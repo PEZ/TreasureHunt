@@ -3,6 +3,7 @@
     <entity name="Checkpoint" representedClassName="Clue" syncable="YES">
         <attribute name="displayOrder" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="imageClue" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES" syncable="YES"/>
+        <attribute name="imageClueThumbnail" optional="YES" attributeType="Transformable" storedInTruthFile="YES" syncable="YES"/>
         <attribute name="isQR" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="textClue" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" maxValueString="50" syncable="YES"/>
@@ -14,7 +15,7 @@
         <relationship name="checkpoints" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Checkpoint" inverseName="hunt" inverseEntity="Checkpoint" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkpoint" positionX="277" positionY="252" width="128" height="135"/>
+        <element name="Checkpoint" positionX="277" positionY="252" width="128" height="150"/>
         <element name="Hunt" positionX="81" positionY="189" width="128" height="90"/>
     </elements>
 </model>

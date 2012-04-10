@@ -9,10 +9,11 @@
 #import "THHuntViewController.h"
 #import "THCheckpointViewController.h"
 #import "THCheckpoint.h"
+#import "THCheckpointCell.h"
 
 @interface THHuntViewController ()
 - (void)configureView;
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(THCheckpointCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
 @implementation THHuntViewController
@@ -109,7 +110,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckpointCell"];
+    THCheckpointCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckpointCell"];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -151,10 +152,12 @@
     }
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(THCheckpointCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     THCheckpoint *checkpoint = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = (checkpoint.title && ![checkpoint.title isEqualToString:@""]) ? checkpoint.title : @"(Untitled checkpoint)";
+    cell.titleLabel.text = (checkpoint.title && ![checkpoint.title isEqualToString:@""]) ? checkpoint.title : @"(Untitled checkpoint)";
+    cell.textClueLabel.text = checkpoint.textClue;
+    cell.imageClueImageView.image = checkpoint.imageClueThumbnail;
 }
 
 #pragma mark - THCheckpointEditedDelegate

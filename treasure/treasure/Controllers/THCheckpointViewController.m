@@ -174,7 +174,9 @@
 {
     [picker dismissModalViewControllerAnimated:YES];
     UIImage *image = [info valueForKey:@"UIImagePickerControllerEditedImage"];
-    _checkpoint.imageClue = _imageClueImageView.image = [image scaleToSize:_imageClueImageView.frame.size];
+    UIImage *clueImage = [image scaleToSize:_imageClueImageView.frame.size];
+    _checkpoint.imageClue = _imageClueImageView.image = clueImage;
+    _checkpoint.imageClueThumbnail = [clueImage scaleToSize:CGSizeMake(48, 48)];
     [self.delegate checkpointEdited:_checkpoint];
 }
 
