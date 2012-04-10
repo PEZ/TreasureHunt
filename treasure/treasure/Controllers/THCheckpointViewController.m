@@ -6,7 +6,10 @@
 //  Copyright (c) 2012 NA. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "THCheckpointViewController.h"
+#import "UIImage+Scale.h"
 
 @interface THCheckpointViewController ()
 - (void)configureView;
@@ -47,7 +50,11 @@
         self.titleTextField.text = _checkpoint.title;
         self.textClueTextView.text = _checkpoint.textClue;
         self.isQRSwitch.on = [_checkpoint.isQR boolValue];
+        
         self.imageClueImageView.image = _checkpoint.imageClue;
+        self.imageClueImageView.layer.cornerRadius = 5.0;
+        self.imageClueImageView.layer.masksToBounds = YES;
+        
         if (!_titleTextField.text || [_titleTextField.text isEqualToString:@""]) {
             [_titleTextField becomeFirstResponder];
         }
@@ -152,21 +159,22 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.sourceType =  buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
-    imagePicker.delegate = self;    
-    imagePicker.allowsEditing = YES;
-    
-    [self presentModalViewController:imagePicker animated:YES];
+    if (buttonIndex < 2) {
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.sourceType =  buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePicker.delegate = self;    
+        imagePicker.allowsEditing = YES;        
+        [self presentModalViewController:imagePicker animated:YES];
+    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSLog(@"info: %@", info);
     [picker dismissModalViewControllerAnimated:YES];
-    _checkpoint.imageClue = _imageClueImageView.image = [info valueForKey:@"UIImagePickerControllerEditedImage"];
+    UIImage *image = [info valueForKey:@"UIImagePickerControllerEditedImage"];
+    _checkpoint.imageClue = _imageClueImageView.image = [image scaleToSize:_imageClueImageView.frame.size];
     [self.delegate checkpointEdited:_checkpoint];
 }
 
