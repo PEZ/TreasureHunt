@@ -235,8 +235,8 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     THHunt *hunt = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = hunt.title;
-    cell.detailTextLabel.text = [hunt.timeStamp asLocalizedDateTimeString];
+    cell.textLabel.text = (hunt.title && ![hunt.title isEqualToString:@""]) ? hunt.title : @"(Untitled hunt)";
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d checkpoints, created: %@", [hunt.checkpoints count], [hunt.timeStamp asLocalizedDateString]];
 }
 
 @end

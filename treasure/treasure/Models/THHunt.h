@@ -10,23 +10,26 @@
 #import <CoreData/CoreData.h>
 
 
+@class Checkpoint;
+
 @interface THHunt : NSManagedObject
 
 @property (nonatomic, retain) NSDate * timeStamp;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSOrderedSet *huntClues;
+@property (nonatomic, retain) NSOrderedSet *checkpoints;
 @end
 
 @interface THHunt (CoreDataGeneratedAccessors)
 
-- (void)insertObject:(NSManagedObject *)value inHuntCluesAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromHuntCluesAtIndex:(NSUInteger)idx;
-- (void)insertHuntClues:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeHuntCluesAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInHuntCluesAtIndex:(NSUInteger)idx withObject:(NSManagedObject *)value;
-- (void)replaceHuntCluesAtIndexes:(NSIndexSet *)indexes withHuntClues:(NSArray *)values;
-- (void)addHuntCluesObject:(NSManagedObject *)value;
-- (void)removeHuntCluesObject:(NSManagedObject *)value;
-- (void)addHuntClues:(NSOrderedSet *)values;
-- (void)removeHuntClues:(NSOrderedSet *)values;
+- (void)insertObject:(Checkpoint *)value inCheckpointsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromCheckpointsAtIndex:(NSUInteger)idx;
+- (void)insertCheckpoints:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeCheckpointsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInCheckpointsAtIndex:(NSUInteger)idx withObject:(Checkpoint *)value;
+- (void)replaceCheckpointsAtIndexes:(NSIndexSet *)indexes withCheckpoints:(NSArray *)values;
+- (void)addCheckpointsObject:(Checkpoint *)value;
+- (void)removeCheckpointsObject:(Checkpoint *)value;
+- (void)addCheckpoints:(NSOrderedSet *)values;
+- (void)removeCheckpoints:(NSOrderedSet *)values;
 @end
+

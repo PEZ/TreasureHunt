@@ -10,6 +10,7 @@
 
 @interface NSDate (FormattingAdditions)
 
+- (NSString*)asLocalizedDateString;
 - (NSString*)asLocalizedDateTimeString;
 
 @end

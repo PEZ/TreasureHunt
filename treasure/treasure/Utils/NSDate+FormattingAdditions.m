@@ -10,6 +10,11 @@
 
 @implementation NSDate (FormattingAdditions)
 
+- (NSString*)asLocalizedDateString
+{
+    return [NSDateFormatter localizedStringFromDate:self dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle];
+}
+
 - (NSString*)asLocalizedDateTimeString
 {
     return [NSDateFormatter localizedStringFromDate:self dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];

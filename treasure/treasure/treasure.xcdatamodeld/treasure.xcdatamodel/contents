@@ -6,12 +6,12 @@
         <attribute name="isQR" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="textClue" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" maxValueString="50" syncable="YES"/>
-        <relationship name="hunt" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Hunt" inverseName="huntCheckpoints" inverseEntity="Hunt" syncable="YES"/>
+        <relationship name="hunt" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Hunt" inverseName="checkpoints" inverseEntity="Hunt" syncable="YES"/>
     </entity>
     <entity name="Hunt" representedClassName="Hunt">
         <attribute name="timeStamp" optional="YES" attributeType="Date"/>
         <attribute name="title" optional="YES" attributeType="String" maxValueString="75" syncable="YES"/>
-        <relationship name="huntCheckpoints" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Checkpoint" inverseName="hunt" inverseEntity="Checkpoint" syncable="YES"/>
+        <relationship name="checkpoints" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Checkpoint" inverseName="hunt" inverseEntity="Checkpoint" syncable="YES"/>
     </entity>
     <elements>
         <element name="Checkpoint" positionX="277" positionY="252" width="128" height="135"/>

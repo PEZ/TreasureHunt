@@ -154,7 +154,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     THCheckpoint *checkpoint = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = checkpoint.title;
+    cell.textLabel.text = (checkpoint.title && ![checkpoint.title isEqualToString:@""]) ? checkpoint.title : @"(Untitled checkpoint)";
 }
 
 #pragma mark - THCheckpointEditedDelegate

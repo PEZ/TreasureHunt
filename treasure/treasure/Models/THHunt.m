@@ -13,6 +13,6 @@
 
 @dynamic timeStamp;
 @dynamic title;
-@dynamic huntClues;
+@dynamic checkpoints;
 
 @end
