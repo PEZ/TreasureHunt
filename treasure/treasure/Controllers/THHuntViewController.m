@@ -85,13 +85,15 @@
 {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    THCheckpoint *checkpoint = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    
+    checkpoint.hunt = _hunt;
     
     // If appropriate, configure the new managed object.
     //[newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
     
     [self saveContext:context];
-    return (THCheckpoint *)newManagedObject;
+    return checkpoint;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -171,7 +173,9 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"hunt == %@", _hunt];
+    [fetchRequest setPredicate:pred];
+
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Checkpoint" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
@@ -186,7 +190,8 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Checkpoints"];
+    NSString *cacheName = [NSString stringWithFormat:@"Checkpoints_%@", _hunt];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:cacheName];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     

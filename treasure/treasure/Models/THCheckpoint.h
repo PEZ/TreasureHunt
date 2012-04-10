@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface ImageToDataTransformer : NSValueTransformer {
-}
-@end
-
 @class THHunt;
 
 @interface THCheckpoint : NSManagedObject
@@ -22,6 +18,6 @@
 @property (nonatomic, retain) NSNumber * isQR;
 @property (nonatomic, retain) NSString * textClue;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) THHunt *fkHunt;
+@property (nonatomic, retain) THHunt *hunt;
 
 @end
