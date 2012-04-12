@@ -14,6 +14,8 @@
 		EB7CE84E1534C3A300D5D77C /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7CE84D1534C3A300D5D77C /* UIImage+Scale.m */; };
 		EB7CE8541534E33700D5D77C /* THCheckpointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7CE8531534E33700D5D77C /* THCheckpointCell.m */; };
 		EB7CE8551534F51900D5D77C /* THCheckpointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7CE8531534E33700D5D77C /* THCheckpointCell.m */; };
+		EB7CE85715361A4000D5D77C /* hunt-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB7CE85615361A4000D5D77C /* hunt-bg@2x.png */; };
+		EB7CE85915361AF500D5D77C /* hunt-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EB7CE85815361AF500D5D77C /* hunt-bg.png */; };
 		EBE2ED4A1532D6C800808CC5 /* THHunt.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE2ED491532D6C800808CC5 /* THHunt.m */; };
 		EBE8D4671531859A003EF33F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4661531859A003EF33F /* UIKit.framework */; };
 		EBE8D4691531859A003EF33F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4681531859A003EF33F /* Foundation.framework */; };
@@ -56,6 +58,8 @@
 		EB7CE84D1534C3A300D5D77C /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
 		EB7CE8521534E33700D5D77C /* THCheckpointCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THCheckpointCell.h; sourceTree = "<group>"; };
 		EB7CE8531534E33700D5D77C /* THCheckpointCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THCheckpointCell.m; sourceTree = "<group>"; };
+		EB7CE85615361A4000D5D77C /* hunt-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hunt-bg@2x.png"; sourceTree = "<group>"; };
+		EB7CE85815361AF500D5D77C /* hunt-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hunt-bg.png"; sourceTree = "<group>"; };
 		EBE2ED481532D6C800808CC5 /* THHunt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHunt.h; sourceTree = "<group>"; };
 		EBE2ED491532D6C800808CC5 /* THHunt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THHunt.m; sourceTree = "<group>"; };
 		EBE8D4621531859A003EF33F /* treasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +140,8 @@
 		EBE2ED351531CD7600808CC5 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				EB7CE85815361AF500D5D77C /* hunt-bg.png */,
+				EB7CE85615361A4000D5D77C /* hunt-bg@2x.png */,
 				EB7CE84915338D5100D5D77C /* gamma_gray_186_pixel.jpg */,
 			);
 			path = images;
@@ -314,6 +320,8 @@
 				EBE8D4731531859A003EF33F /* InfoPlist.strings in Resources */,
 				EBE8D47C1531859A003EF33F /* MainStoryboard.storyboard in Resources */,
 				EB7CE84A15338D5100D5D77C /* gamma_gray_186_pixel.jpg in Resources */,
+				EB7CE85715361A4000D5D77C /* hunt-bg@2x.png in Resources */,
+				EB7CE85915361AF500D5D77C /* hunt-bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
