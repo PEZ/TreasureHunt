@@ -17,6 +17,8 @@
 		EB7CE85715361A4000D5D77C /* hunt-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB7CE85615361A4000D5D77C /* hunt-bg@2x.png */; };
 		EB7CE85915361AF500D5D77C /* hunt-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EB7CE85815361AF500D5D77C /* hunt-bg.png */; };
 		EB7CE85C15375BFC00D5D77C /* THUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7CE85B15375BFC00D5D77C /* THUtils.m */; };
+		EBAB81E91537910F00DFC232 /* THHuntBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */; };
+		EBAB81EA1537910F00DFC232 /* THHuntBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */; };
 		EBE2ED4A1532D6C800808CC5 /* THHunt.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE2ED491532D6C800808CC5 /* THHunt.m */; };
 		EBE8D4671531859A003EF33F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4661531859A003EF33F /* UIKit.framework */; };
 		EBE8D4691531859A003EF33F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4681531859A003EF33F /* Foundation.framework */; };
@@ -35,6 +37,8 @@
 		EBE8D4901531859A003EF33F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D46C1531859A003EF33F /* CoreData.framework */; };
 		EBE8D4981531859A003EF33F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBE8D4961531859A003EF33F /* InfoPlist.strings */; };
 		EBE8D49B1531859A003EF33F /* treasureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE8D49A1531859A003EF33F /* treasureTests.m */; };
+		EBEDCE1015377DD5005F3613 /* map-trail.png in Resources */ = {isa = PBXBuildFile; fileRef = EBEDCE0E15377DD5005F3613 /* map-trail.png */; };
+		EBEDCE1115377DD5005F3613 /* map-trail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBEDCE0F15377DD5005F3613 /* map-trail@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,9 @@
 		EB7CE85815361AF500D5D77C /* hunt-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hunt-bg.png"; sourceTree = "<group>"; };
 		EB7CE85A15375BFC00D5D77C /* THUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THUtils.h; sourceTree = "<group>"; };
 		EB7CE85B15375BFC00D5D77C /* THUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THUtils.m; sourceTree = "<group>"; };
+		EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHuntBackgroundViewController.h; sourceTree = "<group>"; };
+		EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THHuntBackgroundViewController.m; sourceTree = "<group>"; };
+		EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = THHuntBackgroundView.xib; sourceTree = "<group>"; };
 		EBE2ED481532D6C800808CC5 /* THHunt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHunt.h; sourceTree = "<group>"; };
 		EBE2ED491532D6C800808CC5 /* THHunt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THHunt.m; sourceTree = "<group>"; };
 		EBE8D4621531859A003EF33F /* treasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +95,8 @@
 		EBE8D4971531859A003EF33F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EBE8D4991531859A003EF33F /* treasureTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = treasureTests.h; sourceTree = "<group>"; };
 		EBE8D49A1531859A003EF33F /* treasureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = treasureTests.m; sourceTree = "<group>"; };
+		EBEDCE0E15377DD5005F3613 /* map-trail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-trail.png"; sourceTree = "<group>"; };
+		EBEDCE0F15377DD5005F3613 /* map-trail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-trail@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +154,8 @@
 		EBE2ED351531CD7600808CC5 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				EBEDCE0E15377DD5005F3613 /* map-trail.png */,
+				EBEDCE0F15377DD5005F3613 /* map-trail@2x.png */,
 				EB7CE85815361AF500D5D77C /* hunt-bg.png */,
 				EB7CE85615361A4000D5D77C /* hunt-bg@2x.png */,
 				EB7CE84915338D5100D5D77C /* gamma_gray_186_pixel.jpg */,
@@ -243,9 +254,12 @@
 		EBE8D4A91531A79A003EF33F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				EBE2ED351531CD7600808CC5 /* images */,
 				EB7CE8521534E33700D5D77C /* THCheckpointCell.h */,
 				EB7CE8531534E33700D5D77C /* THCheckpointCell.m */,
-				EBE2ED351531CD7600808CC5 /* images */,
+				EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */,
+				EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */,
+				EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -327,6 +341,9 @@
 				EB7CE84A15338D5100D5D77C /* gamma_gray_186_pixel.jpg in Resources */,
 				EB7CE85715361A4000D5D77C /* hunt-bg@2x.png in Resources */,
 				EB7CE85915361AF500D5D77C /* hunt-bg.png in Resources */,
+				EBEDCE1015377DD5005F3613 /* map-trail.png in Resources */,
+				EBEDCE1115377DD5005F3613 /* map-trail@2x.png in Resources */,
+				EBAB81EA1537910F00DFC232 /* THHuntBackgroundView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +390,7 @@
 				EB7CE84E1534C3A300D5D77C /* UIImage+Scale.m in Sources */,
 				EB7CE8551534F51900D5D77C /* THCheckpointCell.m in Sources */,
 				EB7CE85C15375BFC00D5D77C /* THUtils.m in Sources */,
+				EBAB81E91537910F00DFC232 /* THHuntBackgroundViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

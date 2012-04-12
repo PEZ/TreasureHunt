@@ -88,10 +88,11 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GSV-pR-bPP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="pUu-eN-m76" customClass="THHuntViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="BGs-oz-ffh">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="BGs-oz-ffh">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="G3e-uu-44d">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -124,12 +125,12 @@
                             <gestureRecognizers/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="mcl-U4-Xkx">
-                            <rect key="frame" x="0.0" y="162" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <rect key="frame" x="0.0" y="163" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckpointCell" rowHeight="65" id="VcS-Da-rqZ" userLabel="CheckpointCell" customClass="THCheckpointCell">
-                                <rect key="frame" x="0.0" y="97" width="320" height="65"/>
+                                <rect key="frame" x="0.0" y="97" width="320" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="64"/>
@@ -153,11 +154,17 @@
                                             <rect key="frame" x="8" y="5" width="48" height="48"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
+                                        <view contentMode="scaleToFill" id="veB-G0-HkH" userLabel="MapTrailImageView">
+                                            <rect key="frame" x="65" y="0.0" width="2" height="65"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <connections>
                                     <outlet property="imageClueImageView" destination="O3g-fH-pDh" id="ryl-NP-XxW"/>
+                                    <outlet property="mapTrailView" destination="veB-G0-HkH" id="fXA-b2-h9Q"/>
                                     <outlet property="textClueLabel" destination="tVs-u0-ODq" id="m0J-FL-GS1"/>
                                     <outlet property="titleLabel" destination="iWr-JI-tg4" id="RPt-oM-luf"/>
                                     <segue destination="pyy-Rc-WiZ" kind="push" identifier="ShowCheckpoint" id="Yh2-nS-7mP"/>
@@ -318,6 +325,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/THCheckpointCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="imageClueImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="mapTrailView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="textClueLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
             </relationships>
@@ -336,6 +344,7 @@
         <class className="THHuntViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/THHuntViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="mapTrailView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
             </relationships>
         </class>

@@ -10,6 +10,7 @@
 
 @interface THCheckpointCell : UITableViewCell
 
+@property (nonatomic, strong) IBOutlet UIView *mapTrailView;
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *textClueLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *imageClueImageView;

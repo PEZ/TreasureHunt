@@ -11,6 +11,7 @@
 #import "THCheckpoint.h"
 #import "THCheckpointCell.h"
 #import "THUtils.h"
+#import "THHuntBackgroundViewController.h"
 
 @interface THHuntViewController ()
 - (void)configureView;
@@ -23,6 +24,7 @@
 @synthesize managedObjectContext = __managedObjectContext;
 
 @synthesize nameTextField = _nameTextField;
+@synthesize mapTrailView = _mapTrailView;
 @synthesize delegate = _delegate;
 @synthesize hunt = _hunt;
 
@@ -38,12 +40,12 @@
 
 - (void)configureView
 {
-  if (self.hunt && self.nameTextField) {
-      self.nameTextField.text = _hunt.title;
-      if (!_nameTextField.text || [_nameTextField.text isEqualToString:@""]) {
-          [_nameTextField becomeFirstResponder];
-      }
-  }
+    if (self.hunt && self.nameTextField) {
+        self.nameTextField.text = _hunt.title;
+        if (!_nameTextField.text || [_nameTextField.text isEqualToString:@""]) {
+            [_nameTextField becomeFirstResponder];
+        }
+    }
 }
 
 - (void)awakeFromNib
@@ -55,7 +57,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hunt-bg.png"]];
+    self.tableView.backgroundView = [[THHuntBackgroundViewController alloc] initWithNibName:@"THHuntBackgroundView" bundle:nil].view;
     [self configureView];
 }
 
@@ -64,6 +66,7 @@
     [self setNameTextField:nil];
     // Release any retained subviews of the main view.
     self.nameTextField = nil;
+    [self setMapTrailView:nil];
     [super viewDidUnload];
 }
 

@@ -10,6 +10,7 @@
 
 @implementation THCheckpointCell
 
+@synthesize mapTrailView;
 @synthesize titleLabel;
 @synthesize textClueLabel;
 @synthesize imageClueImageView;
@@ -18,9 +19,13 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    mapTrailView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"map-trail.png"]];
+    mapTrailView.opaque = NO;    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
