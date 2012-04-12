@@ -10,6 +10,7 @@
 #import "THCheckpointViewController.h"
 #import "THCheckpoint.h"
 #import "THCheckpointCell.h"
+#import "THUtils.h"
 
 @interface THHuntViewController ()
 - (void)configureView;
@@ -71,18 +72,6 @@
   return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-
-- (void)saveContext:(NSManagedObjectContext *)context
-{
-    NSError *error = nil;
-    if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-}
-
 - (THCheckpoint *)insertNewObject
 {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
@@ -94,7 +83,7 @@
     // If appropriate, configure the new managed object.
     //[newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
     
-    [self saveContext:context];
+    [THUtils saveContext:context];
     return checkpoint;
 }
 
@@ -126,7 +115,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        [self saveContext:context];
+        [THUtils saveContext:context];
     }   
 }
 
@@ -165,7 +154,7 @@
 
 - (void)checkpointEdited:(THCheckpoint *)checkpoint {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    [self saveContext:context]; 
+    [THUtils saveContext:context]; 
 }
 
 #pragma mark - Fetched results controller
@@ -201,10 +190,7 @@
     
 	NSError *error = nil;
 	if (![self.fetchedResultsController performFetch:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
 	}
     
     return __fetchedResultsController;
@@ -272,6 +258,14 @@
 {
     _hunt.title = textField.text;
     [self.delegate huntEdited:self.hunt];
+}
+
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    return [THUtils isTextReplacementWithinMaxLength:HUNT_TITLE_MAXLENGTH
+                                            forRange:range
+                                          andOldText:textField.text
+                                          andNewText:string];
 }
 
 @end

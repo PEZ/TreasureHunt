@@ -9,6 +9,7 @@
 #import "NSDate+FormattingAdditions.h"
 #import "THHuntsViewController.h"
 #import "THHuntViewController.h"
+#import "THUtils.h"
 
 @interface THHuntsViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -42,17 +43,6 @@
   return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (void)saveContext:(NSManagedObjectContext *)context
-{
-    NSError *error = nil;
-    if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-}
-
 - (THHunt*)insertNewObject
 {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
@@ -63,7 +53,7 @@
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
     
-    [self saveContext:context];
+    [THUtils saveContext:context];
     return (THHunt*)newManagedObject;
 }
 
@@ -98,7 +88,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        [self saveContext:context];
+        [THUtils saveContext:context];
     }   
 }
 
@@ -130,7 +120,7 @@
 
 - (void)huntEdited:(THHunt *)hunt {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    [self saveContext:context]; 
+    [THUtils saveContext:context]; 
 }
 
 #pragma mark - Fetched results controller
@@ -163,10 +153,7 @@
     
 	NSError *error = nil;
 	if (![self.fetchedResultsController performFetch:&error]) {
-	     // Replace this implementation with code to handle the error appropriately.
-	     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
 	}
     
     return __fetchedResultsController;

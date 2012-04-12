@@ -10,6 +10,7 @@
 
 #import "THCheckpointViewController.h"
 #import "UIImage+Scale.h"
+#import "THUtils.h"
 
 @interface THCheckpointViewController ()
 - (void)configureView;
@@ -140,6 +141,14 @@
     [self.delegate checkpointEdited:_checkpoint];
 }
 
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    return [THUtils isTextReplacementWithinMaxLength:CHECKPOINT_TITLE_MAXLENGTH
+                                            forRange:range
+                                          andOldText:textField.text
+                                          andNewText:string];
+}
+
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -153,6 +162,14 @@
 {
     _checkpoint.textClue = textView.text;
     [self.delegate checkpointEdited:_checkpoint];
+}
+
+- (BOOL)textView:(UITextView *) textView shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    return [THUtils isTextReplacementWithinMaxLength:CHECKPOINT_TEXTCLUE_MAXLENGTH
+                                            forRange:range
+                                          andOldText:textView.text
+                                          andNewText:string];
 }
 
 #pragma mark - UIActionSheetDelegate

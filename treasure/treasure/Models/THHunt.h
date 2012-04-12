@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+//Todo: Can this be done from querying the model?
+#define HUNT_TITLE_MAXLENGTH 50
 
 @class Checkpoint;
 
@@ -31,5 +33,6 @@
 - (void)removeCheckpointsObject:(Checkpoint *)value;
 - (void)addCheckpoints:(NSOrderedSet *)values;
 - (void)removeCheckpoints:(NSOrderedSet *)values;
+
 @end
 

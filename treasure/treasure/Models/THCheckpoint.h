@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+//Todo: See if the model can be queried for these attributes
+#define CHECKPOINT_TITLE_MAXLENGTH 50
+#define CHECKPOINT_TEXTCLUE_MAXLENGTH 1000
+
 @class THHunt;
 
 @interface THCheckpoint : NSManagedObject
