@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Checkpoint" representedClassName="Clue" syncable="YES">
+    <entity name="Checkpoint" representedClassName="THCheckpoint" syncable="YES">
         <attribute name="displayOrder" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="imageClue" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES" syncable="YES"/>
         <attribute name="imageClueThumbnail" optional="YES" attributeType="Transformable" storedInTruthFile="YES" syncable="YES"/>
@@ -9,7 +9,7 @@
         <attribute name="title" optional="YES" attributeType="String" maxValueString="50" syncable="YES"/>
         <relationship name="hunt" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Hunt" inverseName="checkpoints" inverseEntity="Hunt" syncable="YES"/>
     </entity>
-    <entity name="Hunt" representedClassName="Hunt">
+    <entity name="Hunt" representedClassName="THHunt">
         <attribute name="timeStamp" optional="YES" attributeType="Date"/>
         <attribute name="title" optional="YES" attributeType="String" maxValueString="50" syncable="YES"/>
         <relationship name="checkpoints" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Checkpoint" inverseName="hunt" inverseEntity="Checkpoint" syncable="YES"/>

@@ -19,6 +19,10 @@
 		EB7CE85C15375BFC00D5D77C /* THUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7CE85B15375BFC00D5D77C /* THUtils.m */; };
 		EBAB81E91537910F00DFC232 /* THHuntBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */; };
 		EBAB81EA1537910F00DFC232 /* THHuntBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */; };
+		EBAB81ED15398D3400DFC232 /* trail-point-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81EB15398D3400DFC232 /* trail-point-icon.png */; };
+		EBAB81EE15398D3400DFC232 /* trail-point-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81EC15398D3400DFC232 /* trail-point-icon@2x.png */; };
+		EBAB81F115399AD300DFC232 /* trail-point-missing-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81EF15399AD200DFC232 /* trail-point-missing-icon.png */; };
+		EBAB81F215399AD300DFC232 /* trail-point-missing-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81F015399AD200DFC232 /* trail-point-missing-icon@2x.png */; };
 		EBE2ED4A1532D6C800808CC5 /* THHunt.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE2ED491532D6C800808CC5 /* THHunt.m */; };
 		EBE8D4671531859A003EF33F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4661531859A003EF33F /* UIKit.framework */; };
 		EBE8D4691531859A003EF33F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4681531859A003EF33F /* Foundation.framework */; };
@@ -67,9 +71,13 @@
 		EB7CE85815361AF500D5D77C /* hunt-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hunt-bg.png"; sourceTree = "<group>"; };
 		EB7CE85A15375BFC00D5D77C /* THUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THUtils.h; sourceTree = "<group>"; };
 		EB7CE85B15375BFC00D5D77C /* THUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THUtils.m; sourceTree = "<group>"; };
-		EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHuntBackgroundViewController.h; sourceTree = "<group>"; };
-		EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THHuntBackgroundViewController.m; sourceTree = "<group>"; };
+		EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = THHuntBackgroundViewController.h; path = ../UI/THHuntBackgroundViewController.h; sourceTree = "<group>"; };
+		EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = THHuntBackgroundViewController.m; path = ../UI/THHuntBackgroundViewController.m; sourceTree = "<group>"; };
 		EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = THHuntBackgroundView.xib; sourceTree = "<group>"; };
+		EBAB81EB15398D3400DFC232 /* trail-point-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-point-icon.png"; sourceTree = "<group>"; };
+		EBAB81EC15398D3400DFC232 /* trail-point-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-point-icon@2x.png"; sourceTree = "<group>"; };
+		EBAB81EF15399AD200DFC232 /* trail-point-missing-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-point-missing-icon.png"; sourceTree = "<group>"; };
+		EBAB81F015399AD200DFC232 /* trail-point-missing-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-point-missing-icon@2x.png"; sourceTree = "<group>"; };
 		EBE2ED481532D6C800808CC5 /* THHunt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHunt.h; sourceTree = "<group>"; };
 		EBE2ED491532D6C800808CC5 /* THHunt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THHunt.m; sourceTree = "<group>"; };
 		EBE8D4621531859A003EF33F /* treasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +142,8 @@
 				EBE8D4841531859A003EF33F /* THHuntViewController.m */,
 				EB68508715331A1100A8B8B0 /* THCheckpointViewController.h */,
 				EB68508815331A1100A8B8B0 /* THCheckpointViewController.m */,
+				EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */,
+				EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -154,6 +164,10 @@
 		EBE2ED351531CD7600808CC5 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				EBAB81EB15398D3400DFC232 /* trail-point-icon.png */,
+				EBAB81EC15398D3400DFC232 /* trail-point-icon@2x.png */,
+				EBAB81EF15399AD200DFC232 /* trail-point-missing-icon.png */,
+				EBAB81F015399AD200DFC232 /* trail-point-missing-icon@2x.png */,
 				EBEDCE0E15377DD5005F3613 /* map-trail.png */,
 				EBEDCE0F15377DD5005F3613 /* map-trail@2x.png */,
 				EB7CE85815361AF500D5D77C /* hunt-bg.png */,
@@ -257,8 +271,6 @@
 				EBE2ED351531CD7600808CC5 /* images */,
 				EB7CE8521534E33700D5D77C /* THCheckpointCell.h */,
 				EB7CE8531534E33700D5D77C /* THCheckpointCell.m */,
-				EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */,
-				EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */,
 				EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */,
 			);
 			path = UI;
@@ -344,6 +356,10 @@
 				EBEDCE1015377DD5005F3613 /* map-trail.png in Resources */,
 				EBEDCE1115377DD5005F3613 /* map-trail@2x.png in Resources */,
 				EBAB81EA1537910F00DFC232 /* THHuntBackgroundView.xib in Resources */,
+				EBAB81ED15398D3400DFC232 /* trail-point-icon.png in Resources */,
+				EBAB81EE15398D3400DFC232 /* trail-point-icon@2x.png in Resources */,
+				EBAB81F115399AD300DFC232 /* trail-point-missing-icon.png in Resources */,
+				EBAB81F215399AD300DFC232 /* trail-point-missing-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

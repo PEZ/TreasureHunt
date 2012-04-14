@@ -25,4 +25,6 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) THHunt *hunt;
 
+@property (readonly) BOOL hasClue;
+
 @end

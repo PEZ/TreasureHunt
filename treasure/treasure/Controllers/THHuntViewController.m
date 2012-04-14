@@ -127,6 +127,20 @@
     return YES;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    int height = CHECKPOINT_CELL_MIN_HEIGHT;
+    THCheckpoint *checkpoint = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+
+    if (checkpoint.imageClue) {
+        height = MAX(CHECKPOINT_CELL_THUMBNAIL_HEIGHT, height);
+    }
+    
+    height += CHECKPOINT_CELL_MARGIN * 2;
+    height = [THCheckpointCell heightRoundedToTileHeight:height tileHeight:MAP_TRAIL_IMAGE_HEIGHT];
+    return height;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     THCheckpoint* checkpoint;
@@ -147,7 +161,21 @@
 
 - (void)configureCell:(THCheckpointCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    THCheckpoint *checkpoint = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    THCheckpoint *checkpoint = (THCheckpoint *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    CGFloat trailIconCenterY = cell.textClueLabel.frame.origin.y - 2;
+    if (checkpoint.imageClue) {
+        trailIconCenterY = cell.imageClueImageView.frame.origin.y + cell.imageClueImageView.frame.size.height / 2;
+    }
+    cell.trailIconImageView.frame = CGRectMake(cell.trailIconImageView.frame.origin.x,
+                                               trailIconCenterY - cell.trailIconImageView.frame.size.height / 2,
+                                               cell.trailIconImageView.frame.size.width,
+                                               cell.trailIconImageView.frame.size.height);
+    if (checkpoint.hasClue) {
+        cell.trailIconImageView.image = [UIImage imageNamed:@"trail-point-icon.png"];
+    }
+    else {
+        cell.trailIconImageView.image = [UIImage imageNamed:@"trail-point-missing-icon.png"];
+    }
     cell.titleLabel.text = (checkpoint.title && ![checkpoint.title isEqualToString:@""]) ? checkpoint.title : @"(Untitled checkpoint)";
     cell.textClueLabel.text = checkpoint.textClue;
     cell.imageClueImageView.image = checkpoint.imageClueThumbnail;

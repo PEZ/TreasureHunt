@@ -14,6 +14,14 @@
 @synthesize titleLabel;
 @synthesize textClueLabel;
 @synthesize imageClueImageView;
+@synthesize trailIconImageView;
+
++ (CGFloat)heightRoundedToTileHeight:(int)height tileHeight:(int)tileHeight {
+    if (!(height % tileHeight)) {
+        return height;
+    }
+    return height + tileHeight - (height % tileHeight);
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
