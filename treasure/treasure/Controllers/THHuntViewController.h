@@ -26,6 +26,5 @@ NSFetchedResultsControllerDelegate, THEditCheckpointDelegate>
 @property (strong, nonatomic) id<THEditHuntDelegate> delegate;
 @property (strong, nonatomic) THHunt* hunt;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
-@property (strong, nonatomic) IBOutlet UIView *mapTrailView;
 
 @end

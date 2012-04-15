@@ -23,6 +23,7 @@
 		EBAB81EE15398D3400DFC232 /* trail-point-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81EC15398D3400DFC232 /* trail-point-icon@2x.png */; };
 		EBAB81F115399AD300DFC232 /* trail-point-missing-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81EF15399AD200DFC232 /* trail-point-missing-icon.png */; };
 		EBAB81F215399AD300DFC232 /* trail-point-missing-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81F015399AD200DFC232 /* trail-point-missing-icon@2x.png */; };
+		EBAB81F41539F9B100DFC232 /* THStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81F31539F9B100DFC232 /* THStoryboard.storyboard */; };
 		EBE2ED4A1532D6C800808CC5 /* THHunt.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE2ED491532D6C800808CC5 /* THHunt.m */; };
 		EBE8D4671531859A003EF33F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4661531859A003EF33F /* UIKit.framework */; };
 		EBE8D4691531859A003EF33F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4681531859A003EF33F /* Foundation.framework */; };
@@ -31,7 +32,6 @@
 		EBE8D4731531859A003EF33F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBE8D4711531859A003EF33F /* InfoPlist.strings */; };
 		EBE8D4751531859A003EF33F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE8D4741531859A003EF33F /* main.m */; };
 		EBE8D4791531859A003EF33F /* THAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE8D4781531859A003EF33F /* THAppDelegate.m */; };
-		EBE8D47C1531859A003EF33F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBE8D47A1531859A003EF33F /* MainStoryboard.storyboard */; };
 		EBE8D47F1531859A003EF33F /* treasure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBE8D47D1531859A003EF33F /* treasure.xcdatamodeld */; };
 		EBE8D4821531859A003EF33F /* THHuntsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE8D4811531859A003EF33F /* THHuntsViewController.m */; };
 		EBE8D4851531859A003EF33F /* THHuntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE8D4841531859A003EF33F /* THHuntViewController.m */; };
@@ -78,6 +78,7 @@
 		EBAB81EC15398D3400DFC232 /* trail-point-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-point-icon@2x.png"; sourceTree = "<group>"; };
 		EBAB81EF15399AD200DFC232 /* trail-point-missing-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-point-missing-icon.png"; sourceTree = "<group>"; };
 		EBAB81F015399AD200DFC232 /* trail-point-missing-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-point-missing-icon@2x.png"; sourceTree = "<group>"; };
+		EBAB81F31539F9B100DFC232 /* THStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = THStoryboard.storyboard; path = UI/THStoryboard.storyboard; sourceTree = "<group>"; };
 		EBE2ED481532D6C800808CC5 /* THHunt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHunt.h; sourceTree = "<group>"; };
 		EBE2ED491532D6C800808CC5 /* THHunt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THHunt.m; sourceTree = "<group>"; };
 		EBE8D4621531859A003EF33F /* treasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,7 +92,6 @@
 		EBE8D4761531859A003EF33F /* treasure-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "treasure-Prefix.pch"; sourceTree = "<group>"; };
 		EBE8D4771531859A003EF33F /* THAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THAppDelegate.h; sourceTree = "<group>"; };
 		EBE8D4781531859A003EF33F /* THAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THAppDelegate.m; sourceTree = "<group>"; };
-		EBE8D47B1531859A003EF33F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		EBE8D47E1531859A003EF33F /* treasure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = treasure.xcdatamodel; sourceTree = "<group>"; };
 		EBE8D4801531859A003EF33F /* THHuntsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THHuntsViewController.h; sourceTree = "<group>"; };
 		EBE8D4811531859A003EF33F /* THHuntsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THHuntsViewController.m; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 				EB685082153301EC00A8B8B0 /* Controllers */,
 				EBE8D4771531859A003EF33F /* THAppDelegate.h */,
 				EBE8D4781531859A003EF33F /* THAppDelegate.m */,
-				EBE8D47A1531859A003EF33F /* MainStoryboard.storyboard */,
+				EBAB81F31539F9B100DFC232 /* THStoryboard.storyboard */,
 				EBE8D47D1531859A003EF33F /* treasure.xcdatamodeld */,
 				EBE8D4A91531A79A003EF33F /* UI */,
 			);
@@ -349,7 +349,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBE8D4731531859A003EF33F /* InfoPlist.strings in Resources */,
-				EBE8D47C1531859A003EF33F /* MainStoryboard.storyboard in Resources */,
 				EB7CE84A15338D5100D5D77C /* gamma_gray_186_pixel.jpg in Resources */,
 				EB7CE85715361A4000D5D77C /* hunt-bg@2x.png in Resources */,
 				EB7CE85915361AF500D5D77C /* hunt-bg.png in Resources */,
@@ -360,6 +359,7 @@
 				EBAB81EE15398D3400DFC232 /* trail-point-icon@2x.png in Resources */,
 				EBAB81F115399AD300DFC232 /* trail-point-missing-icon.png in Resources */,
 				EBAB81F215399AD300DFC232 /* trail-point-missing-icon@2x.png in Resources */,
+				EBAB81F41539F9B100DFC232 /* THStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,14 +436,6 @@
 				EBE8D4721531859A003EF33F /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		EBE8D47A1531859A003EF33F /* MainStoryboard.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EBE8D47B1531859A003EF33F /* en */,
-			);
-			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
 		EBE8D4961531859A003EF33F /* InfoPlist.strings */ = {

@@ -24,7 +24,6 @@
 @synthesize managedObjectContext = __managedObjectContext;
 
 @synthesize nameTextField = _nameTextField;
-@synthesize mapTrailView = _mapTrailView;
 @synthesize delegate = _delegate;
 @synthesize hunt = _hunt;
 
@@ -55,8 +54,8 @@
 
 - (void)viewDidLoad
 {
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     self.tableView.backgroundView = [[THHuntBackgroundViewController alloc] initWithNibName:@"THHuntBackgroundView" bundle:nil].view;
     [self configureView];
 }
@@ -66,7 +65,6 @@
     [self setNameTextField:nil];
     // Release any retained subviews of the main view.
     self.nameTextField = nil;
-    [self setMapTrailView:nil];
     [super viewDidUnload];
 }
 
@@ -82,9 +80,6 @@
     THCheckpoint *checkpoint = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     
     checkpoint.hunt = _hunt;
-    
-    // If appropriate, configure the new managed object.
-    //[newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
     
     [THUtils saveContext:context];
     return checkpoint;
@@ -125,6 +120,43 @@
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {         
+    
+    NSUInteger fromIndex = fromIndexPath.row;  
+    NSUInteger toIndex = toIndexPath.row;
+    
+    if (fromIndex == toIndex) {
+        return;
+    }
+    
+    THCheckpoint *affectedObject = [self.fetchedResultsController.fetchedObjects objectAtIndex:fromIndex];  
+    affectedObject.displayOrder = [NSNumber numberWithInt:toIndex];
+    
+    NSUInteger start, end;
+    int delta;
+    
+    if (fromIndex < toIndex) {
+        // move was down, need to shift up
+        delta = -1;
+        start = fromIndex + 1;
+        end = toIndex;
+    } else { // fromIndex > toIndex
+             // move was up, need to shift down
+        delta = 1;
+        start = toIndex;
+        end = fromIndex - 1;
+    }
+    
+    for (NSUInteger i = start; i <= end; i++) {
+        THCheckpoint *otherObject = [self.fetchedResultsController.fetchedObjects objectAtIndex:i];  
+        //NSLog(@"Updated %@ from %@ to %@", otherObject.title, otherObject.displayOrder, otherObject.displayOrder + delta);  
+        otherObject.displayOrder = [NSNumber numberWithInt:[otherObject.displayOrder intValue] + delta];
+    }
+    
+    NSError *error;
+    [self.fetchedResultsController performFetch:&error];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -203,17 +235,13 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Checkpoint" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
-    // Edit the sort key as appropriate.
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"displayOrder" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
     NSString *cacheName = [NSString stringWithFormat:@"Checkpoints_%@", _hunt];
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:cacheName];
     aFetchedResultsController.delegate = self;
@@ -298,5 +326,6 @@
                                           andOldText:textField.text
                                           andNewText:string];
 }
+
 
 @end
