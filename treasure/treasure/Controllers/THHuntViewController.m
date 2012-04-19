@@ -23,7 +23,7 @@
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
 
-@synthesize nameTextField = _nameTextField;
+@synthesize titleTextField = _titleTextField;
 @synthesize delegate = _delegate;
 @synthesize hunt = _hunt;
 
@@ -39,32 +39,24 @@
 
 - (void)configureView
 {
-    if (self.hunt && self.nameTextField) {
-        self.nameTextField.text = _hunt.title;
-        if (!_nameTextField.text || [_nameTextField.text isEqualToString:@""]) {
-            [_nameTextField becomeFirstResponder];
+    if (self.hunt && self.titleTextField) {
+        self.titleTextField.text = _hunt.title;
+        if (!_titleTextField.text || [_titleTextField.text isEqualToString:@""]) {
+            [_titleTextField becomeFirstResponder];
         }
     }
 }
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-}
-
 - (void)viewDidLoad
 {
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [super viewDidLoad];
-    self.tableView.backgroundView = [[THHuntBackgroundViewController alloc] initWithNibName:@"THHuntBackgroundView" bundle:nil].view;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;    
     [self configureView];
 }
 
 - (void)viewDidUnload
 {
-    [self setNameTextField:nil];
-    // Release any retained subviews of the main view.
-    self.nameTextField = nil;
+    self.titleTextField = nil;
     [super viewDidUnload];
 }
 
@@ -84,6 +76,8 @@
     [THUtils saveContext:context];
     return checkpoint;
 }
+
+#pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -142,8 +136,8 @@
         delta = -1;
         start = fromIndex + 1;
         end = toIndex;
-    } else { // fromIndex > toIndex
-             // move was up, need to shift down
+    } else {
+        // move was up, need to shift down
         delta = 1;
         start = toIndex;
         end = fromIndex - 1;
@@ -190,6 +184,8 @@
         checkpointController.delegate = self;
     }
 }
+
+#pragma mark - Helpers
 
 - (void)configureCell:(THCheckpointCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {

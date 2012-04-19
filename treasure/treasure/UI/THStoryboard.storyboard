@@ -88,7 +88,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YYH-VB-3Sy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="bhC-XX-rcd" customClass="THHuntViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="cA7-lT-opb">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="cA7-lT-opb">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -145,7 +145,7 @@
                             </subviews>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" showsReorderControl="YES" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="CheckpointCell" rowHeight="65" id="OGB-PZ-Bzx" userLabel="CheckpointCell" customClass="THCheckpointCell">
+                            <tableViewCell contentMode="center" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckpointCell" rowHeight="65" id="OGB-PZ-Bzx" userLabel="Checkpoint Cell" customClass="THCheckpointCell">
                                 <rect key="frame" x="0.0" y="97" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -199,7 +199,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Hunt" id="ItK-O1-rfs"/>
                     <connections>
-                        <outlet property="nameTextField" destination="UKJ-xD-vPG" id="5wK-A7-SgQ"/>
+                        <outlet property="titleTextField" destination="UKJ-xD-vPG" id="VK8-cZ-8T5"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -360,7 +360,7 @@
         <class className="THHuntViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/THHuntViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
             </relationships>
         </class>
         <class className="THHuntsViewController" superclassName="UITableViewController">
@@ -374,6 +374,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="dW2-xH-Wb0"/>
-        <segue reference="OqZ-DK-ueX"/>
+        <segue reference="IZx-Jw-TZ6"/>
     </inferredMetricsTieBreakers>
 </document>

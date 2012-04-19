@@ -10,5 +10,4 @@
 
 @interface THHuntBackgroundViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UIView *mapTrailView;
 @end
