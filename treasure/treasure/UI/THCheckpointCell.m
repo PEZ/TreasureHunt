@@ -32,8 +32,9 @@
 }
 
 - (void)layoutSubviews {
+    [super layoutSubviews];
     mapTrailView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"map-trail.png"]];
-    mapTrailView.opaque = NO;    
+    mapTrailView.opaque = NO;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
