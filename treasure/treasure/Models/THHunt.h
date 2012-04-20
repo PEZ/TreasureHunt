@@ -2,7 +2,7 @@
 //  THHunt.h
 //  treasure
 //
-//  Created by Peter Stromberg on 2012-04-09.
+//  Created by Peter Stromberg on 2012-04-19.
 //  Copyright (c) 2012 NA. All rights reserved.
 //
 
@@ -12,7 +12,7 @@
 //Todo: Can this be done from querying the model?
 #define HUNT_TITLE_MAXLENGTH 50
 
-@class Checkpoint;
+@class THCheckpoint;
 
 @interface THHunt : NSManagedObject
 
@@ -23,16 +23,14 @@
 
 @interface THHunt (CoreDataGeneratedAccessors)
 
-- (void)insertObject:(Checkpoint *)value inCheckpointsAtIndex:(NSUInteger)idx;
+- (void)insertObject:(THCheckpoint *)value inCheckpointsAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromCheckpointsAtIndex:(NSUInteger)idx;
 - (void)insertCheckpoints:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
 - (void)removeCheckpointsAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInCheckpointsAtIndex:(NSUInteger)idx withObject:(Checkpoint *)value;
+- (void)replaceObjectInCheckpointsAtIndex:(NSUInteger)idx withObject:(THCheckpoint *)value;
 - (void)replaceCheckpointsAtIndexes:(NSIndexSet *)indexes withCheckpoints:(NSArray *)values;
-- (void)addCheckpointsObject:(Checkpoint *)value;
-- (void)removeCheckpointsObject:(Checkpoint *)value;
+- (void)addCheckpointsObject:(THCheckpoint *)value;
+- (void)removeCheckpointsObject:(THCheckpoint *)value;
 - (void)addCheckpoints:(NSOrderedSet *)values;
 - (void)removeCheckpoints:(NSOrderedSet *)values;
-
 @end
-

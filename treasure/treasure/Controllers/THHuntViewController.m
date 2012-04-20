@@ -71,7 +71,9 @@
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     THCheckpoint *checkpoint = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     
+    //[_hunt addCheckpointsObject:checkpoint];
     checkpoint.hunt = _hunt;
+    checkpoint.displayOrder = [NSNumber numberWithInt:[_hunt.checkpoints count]];
     
     [THUtils saveContext:context];
     return checkpoint;
@@ -108,7 +110,7 @@
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
         [THUtils saveContext:context];
-    }   
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath

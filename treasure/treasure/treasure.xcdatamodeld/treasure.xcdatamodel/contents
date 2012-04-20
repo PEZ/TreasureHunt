@@ -5,7 +5,7 @@
         <attribute name="imageClue" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES" syncable="YES"/>
         <attribute name="imageClueThumbnail" optional="YES" attributeType="Transformable" storedInTruthFile="YES" syncable="YES"/>
         <attribute name="isQR" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="textClue" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
+        <attribute name="textClue" optional="YES" attributeType="String" maxValueString="100" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" maxValueString="50" syncable="YES"/>
         <relationship name="hunt" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Hunt" inverseName="checkpoints" inverseEntity="Hunt" syncable="YES"/>
     </entity>
