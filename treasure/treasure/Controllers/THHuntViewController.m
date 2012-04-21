@@ -14,7 +14,10 @@
 #import "THHunt+OrderedCheckpoints.h"
 #import "THHuntBackgroundViewController.h"
 
-@interface THHuntViewController ()
+@interface THHuntViewController () {
+    THCheckpointCell *_measurementCell;
+}
+
 - (void)configureView;
 - (void)configureCell:(THCheckpointCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
@@ -50,13 +53,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;    
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    _measurementCell = [self.tableView dequeueReusableCellWithIdentifier:@"CheckpointCell"];
     [self configureView];
 }
 
 - (void)viewDidUnload
 {
     self.titleTextField = nil;
+    self.delegate = nil;
+    self.hunt = nil;
+    _measurementCell = nil;
     [super viewDidUnload];
 }
 
@@ -126,6 +133,13 @@
     if (checkpoint.imageClue) {
         height = MAX(CHECKPOINT_CELL_THUMBNAIL_HEIGHT, height);
     }
+    if (checkpoint.textClue && checkpoint.textClue.length > 0) {
+        UILabel *clueLabel = _measurementCell.textClueLabel;
+        height = clueLabel.frame.origin.y + clueLabel.frame.size.height;
+        clueLabel.text = checkpoint.textClue;
+        [clueLabel sizeToFit];
+        height = MAX(height, clueLabel.frame.origin.y + clueLabel.frame.size.height);
+    }
     
     height += CHECKPOINT_CELL_MARGIN * 2;
     height = [THCheckpointCell heightRoundedToTileHeight:height tileHeight:MAP_TRAIL_IMAGE_HEIGHT];
@@ -173,6 +187,12 @@
     }
     cell.titleLabel.text = (checkpoint.title && ![checkpoint.title isEqualToString:@""]) ? checkpoint.title : @"(Untitled checkpoint)";
     cell.textClueLabel.text = checkpoint.textClue;
+    NSUInteger originalWidth = cell.textClueLabel.frame.size.width;
+    [cell.textClueLabel sizeToFit];
+    cell.textClueLabel.frame = CGRectMake(cell.textClueLabel.frame.origin.x,
+                                          cell.textClueLabel.frame.origin.y,
+                                          originalWidth,
+                                          cell.textClueLabel.frame.size.height);
     cell.imageClueImageView.image = checkpoint.imageClueThumbnail;
 }
 

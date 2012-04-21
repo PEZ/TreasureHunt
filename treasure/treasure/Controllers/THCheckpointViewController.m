@@ -115,15 +115,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.section) {
-        case 0:
-            [_titleTextField becomeFirstResponder];
-            break;
-        case 3:
-            [_textClueTextField becomeFirstResponder];
-            break;
-        default:
-            break;
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        [_titleTextField becomeFirstResponder];
+    }
+    else if (indexPath.section == 1) {
+        [_textClueTextField becomeFirstResponder];
     }
 }
 
