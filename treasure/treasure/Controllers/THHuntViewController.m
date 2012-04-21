@@ -135,7 +135,6 @@
     }
     if (checkpoint.textClue && checkpoint.textClue.length > 0) {
         UILabel *clueLabel = _measurementCell.textClueLabel;
-        height = clueLabel.frame.origin.y + clueLabel.frame.size.height;
         clueLabel.text = checkpoint.textClue;
         [clueLabel sizeToFit];
         height = MAX(height, clueLabel.frame.origin.y + clueLabel.frame.size.height);

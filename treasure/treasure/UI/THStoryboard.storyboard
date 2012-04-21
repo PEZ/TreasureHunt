@@ -93,7 +93,7 @@
                             <outlet property="delegate" destination="7lc-TC-oKX" id="R3j-uC-XuY"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Hunts" id="tWD-Mk-KXb"/>
+                    <navigationItem key="navigationItem" title="Treasure Hunt Creator" id="tWD-Mk-KXb"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="459" y="64"/>
@@ -350,6 +350,38 @@
             <point key="canvasLocation" x="1437" y="64"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="THCheckpointCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/THCheckpointCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageClueImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="mapTrailView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="textClueLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="trailIconImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="THCheckpointViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/THCheckpointViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="clueImageDoubleTapped:" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="action" name="qrSwitchChanged:"/>
+                <relationship kind="outlet" name="imageClueImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="isQRSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="textClueTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="THHuntViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/THHuntViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="THHuntsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/THHuntsViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
