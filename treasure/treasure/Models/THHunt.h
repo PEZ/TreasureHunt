@@ -33,4 +33,5 @@
 - (void)removeCheckpointsObject:(THCheckpoint *)value;
 - (void)addCheckpoints:(NSOrderedSet *)values;
 - (void)removeCheckpoints:(NSOrderedSet *)values;
+
 @end

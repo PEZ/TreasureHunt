@@ -46,14 +46,10 @@
 {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
-    
+    THHunt *hunt = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    hunt.timeStamp = [NSDate date];
     [THUtils saveContext:context];
-    return (THHunt*)newManagedObject;
+    return hunt;
 }
 
 
@@ -99,15 +95,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     THHunt* hunt;
-    BOOL isAddHunt = [[segue identifier] isEqualToString:@"AddHunt"];
-    if (isAddHunt) {
+    if ([[segue identifier] isEqualToString:@"AddHunt"]) {
         hunt = [self insertNewObject];
     }
-    if (isAddHunt || [[segue identifier] isEqualToString:@"ShowHunt"]) {
-        if (!hunt) {
-            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-            hunt = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        }
+    else if ([[segue identifier] isEqualToString:@"ShowHunt"]) {
+        hunt = [[self fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    }
+    if (hunt) {
         THHuntViewController* huntController = [segue destinationViewController];
         huntController.hunt = hunt;
         huntController.managedObjectContext = self.managedObjectContext;

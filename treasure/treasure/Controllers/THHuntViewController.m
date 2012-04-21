@@ -11,6 +11,7 @@
 #import "THCheckpoint.h"
 #import "THCheckpointCell.h"
 #import "THUtils.h"
+#import "THHunt+OrderedCheckpoints.h"
 #import "THHuntBackgroundViewController.h"
 
 @interface THHuntViewController ()
@@ -20,7 +21,6 @@
 
 @implementation THHuntViewController
 
-@synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
 
 @synthesize titleTextField = _titleTextField;
@@ -67,15 +67,9 @@
 
 - (THCheckpoint *)insertNewObject
 {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    THCheckpoint *checkpoint = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
-    //[_hunt addCheckpointsObject:checkpoint];
-    checkpoint.hunt = _hunt;
-    checkpoint.displayOrder = [NSNumber numberWithInt:[_hunt.checkpoints count]];
-    
-    [THUtils saveContext:context];
+    THCheckpoint *checkpoint = [NSEntityDescription insertNewObjectForEntityForName:@"Checkpoint" inManagedObjectContext:self.managedObjectContext];
+    [self.hunt addCheckpointsObject:checkpoint];    
+    [THUtils saveContext:self.managedObjectContext];
     return checkpoint;
 }
 
@@ -83,13 +77,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[self.fetchedResultsController sections] count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    return [self.hunt.checkpoints count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,9 +100,9 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        [THUtils saveContext:context];
+        [self.hunt removeCheckpointsObject:[self.hunt.checkpoints objectAtIndex:indexPath.row]];
+        [THUtils saveContext:self.managedObjectContext];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -119,46 +112,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {         
-    
-    NSUInteger fromIndex = fromIndexPath.row;  
-    NSUInteger toIndex = toIndexPath.row;
-    
-    if (fromIndex == toIndex) {
-        return;
-    }
-    
-    THCheckpoint *affectedObject = [self.fetchedResultsController.fetchedObjects objectAtIndex:fromIndex];  
-    affectedObject.displayOrder = [NSNumber numberWithInt:toIndex];
-    
-    NSUInteger start, end;
-    int delta;
-    
-    if (fromIndex < toIndex) {
-        // move was down, need to shift up
-        delta = -1;
-        start = fromIndex + 1;
-        end = toIndex;
-    } else {
-        // move was up, need to shift down
-        delta = 1;
-        start = toIndex;
-        end = fromIndex - 1;
-    }
-    
-    for (NSUInteger i = start; i <= end; i++) {
-        THCheckpoint *otherObject = [self.fetchedResultsController.fetchedObjects objectAtIndex:i];  
-        //NSLog(@"Updated %@ from %@ to %@", otherObject.title, otherObject.displayOrder, otherObject.displayOrder + delta);  
-        otherObject.displayOrder = [NSNumber numberWithInt:[otherObject.displayOrder intValue] + delta];
-    }
-    
-    NSError *error;
-    [self.fetchedResultsController performFetch:&error];
+    THCheckpoint *checkpoint = [self.hunt.checkpoints objectAtIndex:fromIndexPath.row];
+    [self.hunt removeCheckpointsObject:checkpoint];
+    [self.hunt insertObject:checkpoint inCheckpointsAtIndex:toIndexPath.row];
+    [THUtils saveContext:self.managedObjectContext];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int height = CHECKPOINT_CELL_MIN_HEIGHT;
-    THCheckpoint *checkpoint = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    THCheckpoint *checkpoint = [self.hunt.checkpoints objectAtIndex:indexPath.row];
 
     if (checkpoint.imageClue) {
         height = MAX(CHECKPOINT_CELL_THUMBNAIL_HEIGHT, height);
@@ -175,11 +138,13 @@
     BOOL isAddCheckpoint = [[segue identifier] isEqualToString:@"AddCheckpoint"];
     if (isAddCheckpoint) {
         checkpoint = [self insertNewObject];
+        NSArray *indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_hunt.checkpoints count]-1 inSection:0]];
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
     }
     if (isAddCheckpoint || [[segue identifier] isEqualToString:@"ShowCheckpoint"]) {
         if (!checkpoint) {
             NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-            checkpoint = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+            checkpoint = [self.hunt.checkpoints objectAtIndex:indexPath.row];
         }
         THCheckpointViewController* checkpointController = [segue destinationViewController];
         [checkpointController setCheckpoint:checkpoint];
@@ -191,7 +156,7 @@
 
 - (void)configureCell:(THCheckpointCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    THCheckpoint *checkpoint = (THCheckpoint *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    THCheckpoint *checkpoint = [self.hunt.checkpoints objectAtIndex:indexPath.row];
     CGFloat trailIconCenterY = cell.textClueLabel.frame.origin.y - 2;
     if (checkpoint.imageClue) {
         trailIconCenterY = cell.imageClueImageView.frame.origin.y + cell.imageClueImageView.frame.size.height / 2;
@@ -214,94 +179,10 @@
 #pragma mark - THCheckpointEditedDelegate
 
 - (void)checkpointEdited:(THCheckpoint *)checkpoint {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    [THUtils saveContext:context]; 
+    [THUtils saveContext:self.managedObjectContext];
+    [self.tableView reloadData];
 }
 
-#pragma mark - Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (__fetchedResultsController != nil) {
-        return __fetchedResultsController;
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"hunt == %@", _hunt];
-    [fetchRequest setPredicate:pred];
-
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Checkpoint" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"displayOrder" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
-    
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    NSString *cacheName = [NSString stringWithFormat:@"Checkpoints_%@", _hunt];
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:cacheName];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	}
-    
-    return __fetchedResultsController;
-}    
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    UITableView *tableView = self.tableView;
-    
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView endUpdates];
-}
 
 #pragma mark - UITextFieldDelegate
 

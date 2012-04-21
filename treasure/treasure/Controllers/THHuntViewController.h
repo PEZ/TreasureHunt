@@ -17,10 +17,8 @@
 - (void)huntEdited:(THHunt*)hunt;
 @end
 
-@interface THHuntViewController : UITableViewController <UITextFieldDelegate,
-NSFetchedResultsControllerDelegate, THEditCheckpointDelegate>
+@interface THHuntViewController : UITableViewController <UITextFieldDelegate, THEditCheckpointDelegate>
 
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) id<THEditHuntDelegate> delegate;
