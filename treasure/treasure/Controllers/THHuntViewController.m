@@ -130,29 +130,16 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int height = CHECKPOINT_CELL_MIN_HEIGHT;
+    [self configureCell:_measurementCell atIndexPath:indexPath];
     THCheckpoint *checkpoint = [self.hunt.checkpoints objectAtIndex:indexPath.row];
-
-    NSUInteger clueLabelX = _measurementCell.imageClueImageView.frame.origin.x +
-                            _measurementCell.imageClueImageView.frame.size.width + DEFAULT_PADDING;
-    if (checkpoint.imageClue) {
-        height = MAX(_measurementCell.imageClueImageView.frame.origin.y +
-                     _measurementCell.imageClueImageView.frame.size.height + DEFAULT_PADDING, height);
+    if (checkpoint.hasClue) {
+        if (checkpoint.imageClue) {
+            height = MAX(_measurementCell.imageClueImageView.bottom, _measurementCell.textClueLabel.bottom);
+        }
+        else {
+            height = _measurementCell.textClueLabel.bottom;
+        }
     }
-    else {
-        clueLabelX = _measurementCell.imageClueImageView.frame.origin.x;
-    }
-    if (checkpoint.textClue && checkpoint.textClue.length > 0) {
-        UILabel *clueLabel = _measurementCell.textClueLabel;
-        clueLabel.frame = CGRectMake(clueLabelX,
-                                     clueLabel.frame.origin.y,
-                                     _measurementCell.contentView.frame.size.width - clueLabelX - DEFAULT_PADDING,
-                                     0);
-        clueLabel.text = checkpoint.textClue;
-        [clueLabel sizeToFit];
-        height = MAX(height, clueLabel.frame.origin.y + clueLabel.frame.size.height);
-    }
-    
-    height += CHECKPOINT_CELL_MARGIN * 2;
     height = [THCheckpointCell heightRoundedToTileHeight:height tileHeight:MAP_TRAIL_IMAGE_HEIGHT];
     return height;
 }

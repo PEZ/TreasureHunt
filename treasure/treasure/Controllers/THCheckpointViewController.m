@@ -10,6 +10,7 @@
 
 #import "THCheckpointViewController.h"
 #import "UIImage+Scale.h"
+#import "UIImage+ProportionalFill.h"
 #import "THUtils.h"
 
 @interface THCheckpointViewController ()
@@ -186,12 +187,14 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [picker dismissModalViewControllerAnimated:YES];
     UIImage *image = [info valueForKey:@"UIImagePickerControllerEditedImage"];
+    NSUInteger shortest = MIN(image.size.width, image.size.height);
+    image = [image imageCroppedToFitSize:CGSizeMake(shortest, shortest)];
     UIImage *clueImage = [image scaleToSize:_imageClueImageView.frame.size];
     _checkpoint.imageClue = _imageClueImageView.image = clueImage;
     _checkpoint.imageClueThumbnail = [clueImage scaleToSize:_checkpointCell.imageClueImageView.frame.size];
     [self.delegate checkpointEdited:_checkpoint];
+    [picker dismissModalViewControllerAnimated:YES];
 }
 
 @end

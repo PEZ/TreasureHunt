@@ -12,4 +12,6 @@
 
 @interface UIView (Additions)
 
+@property (readonly, atomic) NSUInteger bottom;
+
 @end
