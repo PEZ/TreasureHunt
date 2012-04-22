@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "THCheckpoint.h"
+#import "THCheckpointCell.h"
 
 @class THCheckpointViewController;
 
@@ -25,6 +26,7 @@ UITextViewDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIIma
 @property (strong, nonatomic) IBOutlet UITextField *titleTextField;
 @property (strong, nonatomic) IBOutlet UITextView *textClueTextView;
 @property (strong, nonatomic) IBOutlet UIImageView *imageClueImageView;
+@property (strong, nonatomic) THCheckpointCell* checkpointCell;
 
 - (IBAction)qrSwitchChanged:(id)sender;
 - (IBAction)clueImageDoubleTapped:(UITapGestureRecognizer *)sender;

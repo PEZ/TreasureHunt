@@ -24,6 +24,7 @@
 @synthesize textClueTextView = _textClueTextField;
 @synthesize imageClueImageView = _imageClueImageView;
 @synthesize checkpoint = _checkpoint;
+@synthesize checkpointCell = _checkpointCell;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -137,7 +138,7 @@
     [self.delegate checkpointEdited:_checkpoint];
 }
 
-- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     return [THUtils isTextReplacementWithinMaxLength:CHECKPOINT_TITLE_MAXLENGTH
                                             forRange:range
@@ -160,12 +161,12 @@
     [self.delegate checkpointEdited:_checkpoint];
 }
 
-- (BOOL)textView:(UITextView *) textView shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     return [THUtils isTextReplacementWithinMaxLength:CHECKPOINT_TEXTCLUE_MAXLENGTH
                                             forRange:range
                                           andOldText:textView.text
-                                          andNewText:string];
+                                          andNewText:text];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -189,7 +190,7 @@
     UIImage *image = [info valueForKey:@"UIImagePickerControllerEditedImage"];
     UIImage *clueImage = [image scaleToSize:_imageClueImageView.frame.size];
     _checkpoint.imageClue = _imageClueImageView.image = clueImage;
-    _checkpoint.imageClueThumbnail = [clueImage scaleToSize:CGSizeMake(48, 48)];
+    _checkpoint.imageClueThumbnail = [clueImage scaleToSize:_checkpointCell.imageClueImageView.frame.size];
     [self.delegate checkpointEdited:_checkpoint];
 }
 

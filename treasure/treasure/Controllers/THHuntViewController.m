@@ -13,6 +13,7 @@
 #import "THUtils.h"
 #import "THHunt+OrderedCheckpoints.h"
 #import "THHuntBackgroundViewController.h"
+#import "UIView+Additions.h"
 
 @interface THHuntViewController () {
     THCheckpointCell *_measurementCell;
@@ -123,6 +124,7 @@
     [self.hunt removeCheckpointsObject:checkpoint];
     [self.hunt insertObject:checkpoint inCheckpointsAtIndex:toIndexPath.row];
     [THUtils saveContext:self.managedObjectContext];
+    [tableView performSelector:@selector(reloadData) withObject:tableView afterDelay:0.3];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,11 +132,21 @@
     int height = CHECKPOINT_CELL_MIN_HEIGHT;
     THCheckpoint *checkpoint = [self.hunt.checkpoints objectAtIndex:indexPath.row];
 
+    NSUInteger clueLabelX = _measurementCell.imageClueImageView.frame.origin.x +
+                            _measurementCell.imageClueImageView.frame.size.width + DEFAULT_PADDING;
     if (checkpoint.imageClue) {
-        height = MAX(CHECKPOINT_CELL_THUMBNAIL_HEIGHT, height);
+        height = MAX(_measurementCell.imageClueImageView.frame.origin.y +
+                     _measurementCell.imageClueImageView.frame.size.height + DEFAULT_PADDING, height);
+    }
+    else {
+        clueLabelX = _measurementCell.imageClueImageView.frame.origin.x;
     }
     if (checkpoint.textClue && checkpoint.textClue.length > 0) {
         UILabel *clueLabel = _measurementCell.textClueLabel;
+        clueLabel.frame = CGRectMake(clueLabelX,
+                                     clueLabel.frame.origin.y,
+                                     _measurementCell.contentView.frame.size.width - clueLabelX - DEFAULT_PADDING,
+                                     0);
         clueLabel.text = checkpoint.textClue;
         [clueLabel sizeToFit];
         height = MAX(height, clueLabel.frame.origin.y + clueLabel.frame.size.height);
@@ -162,6 +174,7 @@
         THCheckpointViewController* checkpointController = [segue destinationViewController];
         [checkpointController setCheckpoint:checkpoint];
         checkpointController.delegate = self;
+        checkpointController.checkpointCell = _measurementCell;
     }
 }
 
@@ -170,21 +183,37 @@
 - (void)configureCell:(THCheckpointCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     THCheckpoint *checkpoint = [self.hunt.checkpoints objectAtIndex:indexPath.row];
-    CGFloat trailIconCenterY = cell.textClueLabel.frame.origin.y - 2;
-    if (checkpoint.imageClue) {
-        trailIconCenterY = cell.imageClueImageView.frame.origin.y + cell.imageClueImageView.frame.size.height / 2;
-    }
-    cell.trailIconImageView.frame = CGRectMake(cell.trailIconImageView.frame.origin.x,
-                                               trailIconCenterY - cell.trailIconImageView.frame.size.height / 2,
-                                               cell.trailIconImageView.frame.size.width,
-                                               cell.trailIconImageView.frame.size.height);
     if (checkpoint.hasClue) {
-        cell.trailIconImageView.image = [UIImage imageNamed:@"trail-point-icon.png"];
+        if (indexPath.row == 0) {
+            cell.trailIconImageView.image = [UIImage imageNamed:@"trail-start-icon.png"];
+        }
+        else if (indexPath.row == [_hunt.checkpoints count] - 1) {
+            cell.trailIconImageView.image = [UIImage imageNamed:@"trail-goal-icon.png"];
+        }
+        else {
+            cell.trailIconImageView.image = [UIImage imageNamed:@"trail-point-icon.png"];
+        }
     }
     else {
         cell.trailIconImageView.image = [UIImage imageNamed:@"trail-point-missing-icon.png"];
     }
+    
+    NSUInteger clueLabelX = cell.imageClueImageView.frame.origin.x +
+    cell.imageClueImageView.frame.size.width + DEFAULT_PADDING;
+    if (!checkpoint.imageClue) {
+        clueLabelX = cell.imageClueImageView.frame.origin.x;
+    }
+    if (checkpoint.textClue && checkpoint.textClue.length > 0) {
+        UILabel *clueLabel = cell.textClueLabel;
+        clueLabel.frame = CGRectMake(clueLabelX,
+                                     clueLabel.frame.origin.y,
+                                     cell.contentView.frame.size.width - clueLabelX - DEFAULT_PADDING,
+                                     0);
+    }
+
+    
     cell.titleLabel.text = (checkpoint.title && ![checkpoint.title isEqualToString:@""]) ? checkpoint.title : @"(Untitled checkpoint)";
+
     cell.textClueLabel.text = checkpoint.textClue;
     NSUInteger originalWidth = cell.textClueLabel.frame.size.width;
     [cell.textClueLabel sizeToFit];

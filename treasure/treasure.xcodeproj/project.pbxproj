@@ -18,6 +18,11 @@
 		EB7CE85915361AF500D5D77C /* hunt-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EB7CE85815361AF500D5D77C /* hunt-bg.png */; };
 		EB7CE85C15375BFC00D5D77C /* THUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7CE85B15375BFC00D5D77C /* THUtils.m */; };
 		EB80424B1542AC5D00863A9A /* THHunt+OrderedCheckpoints.m in Sources */ = {isa = PBXBuildFile; fileRef = EB80424A1542AC5C00863A9A /* THHunt+OrderedCheckpoints.m */; };
+		EB8042501544047D00863A9A /* trail-goal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EB80424C1544047D00863A9A /* trail-goal-icon.png */; };
+		EB8042511544047D00863A9A /* trail-goal-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB80424D1544047D00863A9A /* trail-goal-icon@2x.png */; };
+		EB8042521544047D00863A9A /* trail-start-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EB80424E1544047D00863A9A /* trail-start-icon.png */; };
+		EB8042531544047D00863A9A /* trail-start-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB80424F1544047D00863A9A /* trail-start-icon@2x.png */; };
+		EB80425615440DB300863A9A /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = EB80425515440DB300863A9A /* UIView+Additions.m */; };
 		EBAB81E91537910F00DFC232 /* THHuntBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */; };
 		EBAB81EA1537910F00DFC232 /* THHuntBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */; };
 		EBAB81ED15398D3400DFC232 /* trail-point-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81EB15398D3400DFC232 /* trail-point-icon.png */; };
@@ -74,6 +79,12 @@
 		EB7CE85B15375BFC00D5D77C /* THUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THUtils.m; sourceTree = "<group>"; };
 		EB8042491542AC5C00863A9A /* THHunt+OrderedCheckpoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "THHunt+OrderedCheckpoints.h"; sourceTree = "<group>"; };
 		EB80424A1542AC5C00863A9A /* THHunt+OrderedCheckpoints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "THHunt+OrderedCheckpoints.m"; sourceTree = "<group>"; };
+		EB80424C1544047D00863A9A /* trail-goal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-goal-icon.png"; sourceTree = "<group>"; };
+		EB80424D1544047D00863A9A /* trail-goal-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-goal-icon@2x.png"; sourceTree = "<group>"; };
+		EB80424E1544047D00863A9A /* trail-start-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-start-icon.png"; sourceTree = "<group>"; };
+		EB80424F1544047D00863A9A /* trail-start-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-start-icon@2x.png"; sourceTree = "<group>"; };
+		EB80425415440DB300863A9A /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
+		EB80425515440DB300863A9A /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = THHuntBackgroundViewController.h; path = ../UI/THHuntBackgroundViewController.h; sourceTree = "<group>"; };
 		EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = THHuntBackgroundViewController.m; path = ../UI/THHuntBackgroundViewController.m; sourceTree = "<group>"; };
 		EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = THHuntBackgroundView.xib; sourceTree = "<group>"; };
@@ -169,6 +180,10 @@
 			children = (
 				EBAB81EB15398D3400DFC232 /* trail-point-icon.png */,
 				EBAB81EC15398D3400DFC232 /* trail-point-icon@2x.png */,
+				EB80424C1544047D00863A9A /* trail-goal-icon.png */,
+				EB80424D1544047D00863A9A /* trail-goal-icon@2x.png */,
+				EB80424E1544047D00863A9A /* trail-start-icon.png */,
+				EB80424F1544047D00863A9A /* trail-start-icon@2x.png */,
 				EBAB81EF15399AD200DFC232 /* trail-point-missing-icon.png */,
 				EBAB81F015399AD200DFC232 /* trail-point-missing-icon@2x.png */,
 				EBEDCE0E15377DD5005F3613 /* map-trail.png */,
@@ -277,6 +292,8 @@
 				EB7CE8521534E33700D5D77C /* THCheckpointCell.h */,
 				EB7CE8531534E33700D5D77C /* THCheckpointCell.m */,
 				EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */,
+				EB80425415440DB300863A9A /* UIView+Additions.h */,
+				EB80425515440DB300863A9A /* UIView+Additions.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -365,6 +382,10 @@
 				EBAB81F115399AD300DFC232 /* trail-point-missing-icon.png in Resources */,
 				EBAB81F215399AD300DFC232 /* trail-point-missing-icon@2x.png in Resources */,
 				EBAB81F41539F9B100DFC232 /* THStoryboard.storyboard in Resources */,
+				EB8042501544047D00863A9A /* trail-goal-icon.png in Resources */,
+				EB8042511544047D00863A9A /* trail-goal-icon@2x.png in Resources */,
+				EB8042521544047D00863A9A /* trail-start-icon.png in Resources */,
+				EB8042531544047D00863A9A /* trail-start-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +434,7 @@
 				EB7CE85C15375BFC00D5D77C /* THUtils.m in Sources */,
 				EBAB81E91537910F00DFC232 /* THHuntBackgroundViewController.m in Sources */,
 				EB80424B1542AC5D00863A9A /* THHunt+OrderedCheckpoints.m in Sources */,
+				EB80425615440DB300863A9A /* UIView+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
