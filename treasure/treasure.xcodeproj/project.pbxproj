@@ -24,6 +24,8 @@
 		EB8042531544047D00863A9A /* trail-start-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB80424F1544047D00863A9A /* trail-start-icon@2x.png */; };
 		EB80425615440DB300863A9A /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = EB80425515440DB300863A9A /* UIView+Additions.m */; };
 		EB8042591544307800863A9A /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8042581544307800863A9A /* UIImage+ProportionalFill.m */; };
+		EB80425D1544403100863A9A /* THPDFGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EB80425C1544403100863A9A /* THPDFGenerator.m */; };
+		EB80426015448EAC00863A9A /* THPDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB80425F15448EAB00863A9A /* THPDFViewController.m */; };
 		EBAB81E91537910F00DFC232 /* THHuntBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */; };
 		EBAB81EA1537910F00DFC232 /* THHuntBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */; };
 		EBAB81ED15398D3400DFC232 /* trail-point-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81EB15398D3400DFC232 /* trail-point-icon.png */; };
@@ -88,6 +90,10 @@
 		EB80425515440DB300863A9A /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		EB8042571544307800863A9A /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
 		EB8042581544307800863A9A /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
+		EB80425B1544403100863A9A /* THPDFGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPDFGenerator.h; sourceTree = "<group>"; };
+		EB80425C1544403100863A9A /* THPDFGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPDFGenerator.m; sourceTree = "<group>"; };
+		EB80425E15448EAB00863A9A /* THPDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPDFViewController.h; sourceTree = "<group>"; };
+		EB80425F15448EAB00863A9A /* THPDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPDFViewController.m; sourceTree = "<group>"; };
 		EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = THHuntBackgroundViewController.h; path = ../UI/THHuntBackgroundViewController.h; sourceTree = "<group>"; };
 		EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = THHuntBackgroundViewController.m; path = ../UI/THHuntBackgroundViewController.m; sourceTree = "<group>"; };
 		EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = THHuntBackgroundView.xib; sourceTree = "<group>"; };
@@ -161,6 +167,8 @@
 				EB68508815331A1100A8B8B0 /* THCheckpointViewController.m */,
 				EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */,
 				EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */,
+				EB80425E15448EAB00863A9A /* THPDFViewController.h */,
+				EB80425F15448EAB00863A9A /* THPDFViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -174,6 +182,16 @@
 				EB7CE85B15375BFC00D5D77C /* THUtils.m */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		EB80425A15443D5B00863A9A /* Ouput */ = {
+			isa = PBXGroup;
+			children = (
+				EB80425B1544403100863A9A /* THPDFGenerator.h */,
+				EB80425C1544403100863A9A /* THPDFGenerator.m */,
+			);
+			name = Ouput;
+			path = Output;
 			sourceTree = "<group>";
 		};
 		EBE2ED351531CD7600808CC5 /* images */ = {
@@ -243,6 +261,7 @@
 		EBE8D46E1531859A003EF33F /* treasure */ = {
 			isa = PBXGroup;
 			children = (
+				EB80425A15443D5B00863A9A /* Ouput */,
 				EB6850861533093300A8B8B0 /* Utils */,
 				EBE8D46F1531859A003EF33F /* Supporting Files */,
 				EBE2ED471532D64300808CC5 /* Models */,
@@ -441,6 +460,8 @@
 				EB80424B1542AC5D00863A9A /* THHunt+OrderedCheckpoints.m in Sources */,
 				EB80425615440DB300863A9A /* UIView+Additions.m in Sources */,
 				EB8042591544307800863A9A /* UIImage+ProportionalFill.m in Sources */,
+				EB80425D1544403100863A9A /* THPDFGenerator.m in Sources */,
+				EB80426015448EAC00863A9A /* THPDFViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

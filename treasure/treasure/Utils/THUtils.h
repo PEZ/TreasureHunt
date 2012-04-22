@@ -17,4 +17,6 @@
 
 + (void)saveContext:(NSManagedObjectContext *)context;
 
++ (NSString*) sha1ForString:(NSString*)input;
+
 @end

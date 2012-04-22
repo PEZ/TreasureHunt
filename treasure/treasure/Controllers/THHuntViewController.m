@@ -8,6 +8,7 @@
 
 #import "THHuntViewController.h"
 #import "THCheckpointViewController.h"
+#import "THPDFViewController.h"
 #import "THCheckpoint.h"
 #import "THCheckpointCell.h"
 #import "THUtils.h"
@@ -146,22 +147,28 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    THCheckpoint* checkpoint;
-    BOOL isAddCheckpoint = [[segue identifier] isEqualToString:@"AddCheckpoint"];
-    if (isAddCheckpoint) {
-        checkpoint = [self insertNewObject];
-        NSArray *indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_hunt.checkpoints count]-1 inSection:0]];
-        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    if ([[segue identifier] isEqualToString:@"GeneratePDF"]) {
+        THPDFViewController *pdfController = [segue destinationViewController];
+        pdfController.hunt = _hunt;
     }
-    if (isAddCheckpoint || [[segue identifier] isEqualToString:@"ShowCheckpoint"]) {
-        if (!checkpoint) {
-            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-            checkpoint = [self.hunt.checkpoints objectAtIndex:indexPath.row];
+    else {
+        THCheckpoint* checkpoint;
+        BOOL isAddCheckpoint = [[segue identifier] isEqualToString:@"AddCheckpoint"];
+        if (isAddCheckpoint) {
+            checkpoint = [self insertNewObject];
+            NSArray *indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_hunt.checkpoints count]-1 inSection:0]];
+            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
         }
-        THCheckpointViewController* checkpointController = [segue destinationViewController];
-        [checkpointController setCheckpoint:checkpoint];
-        checkpointController.delegate = self;
-        checkpointController.checkpointCell = _measurementCell;
+        if (isAddCheckpoint || [[segue identifier] isEqualToString:@"ShowCheckpoint"]) {
+            if (!checkpoint) {
+                NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+                checkpoint = [self.hunt.checkpoints objectAtIndex:indexPath.row];
+            }
+            THCheckpointViewController* checkpointController = [segue destinationViewController];
+            [checkpointController setCheckpoint:checkpoint];
+            checkpointController.delegate = self;
+            checkpointController.checkpointCell = _measurementCell;
+        }
     }
 }
 
