@@ -11,8 +11,19 @@
 #import "THHunt.h"
 
 @interface THPDFViewController : UIViewController <THPDFGeneratorDelegate, UIActionSheetDelegate,
-UIDocumentInteractionControllerDelegate>
+UIPrintInteractionControllerDelegate>
 
 @property (strong, nonatomic) THHunt *hunt;
+@property (strong, nonatomic) IBOutlet UIWebView *pdfWebView;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *printButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *emailButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *toolbarSpacer;
+@property (nonatomic) CGSize paperSize;
+@property (strong, nonatomic) NSString *pdfFilePath;
+
+- (IBAction)doneButtonPressed:(id)sender;
+- (IBAction)printButtonPressed:(id)sender;
 
 @end

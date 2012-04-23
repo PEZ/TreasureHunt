@@ -17,12 +17,14 @@
 - (void)huntEdited:(THHunt*)hunt;
 @end
 
-@interface THHuntViewController : UITableViewController <UITextFieldDelegate, THEditCheckpointDelegate>
+@interface THHuntViewController : UITableViewController <UITextFieldDelegate, THEditCheckpointDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) id<THEditHuntDelegate> delegate;
 @property (strong, nonatomic) THHunt* hunt;
 @property (strong, nonatomic) IBOutlet UITextField *titleTextField;
+
+- (IBAction)generateButtonPressed:(id)sender;
 
 @end

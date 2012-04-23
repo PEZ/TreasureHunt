@@ -16,7 +16,7 @@
 
 + (NSString*)filePath {
     THAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    return [[[delegate applicationDocumentsDirectory] URLByAppendingPathComponent:PDF_FILE_PATH] absoluteString];
+    return [[[delegate applicationDocumentsDirectory] URLByAppendingPathComponent:PDF_FILE_NAME] path];
 }
 
 - (id)initWithDelegate:(id<THPDFGeneratorDelegate>)delegate
@@ -30,12 +30,13 @@
 - (void)generatePDFForHunt:(THHunt*)hunt withPageSize:(CGSize)pageSize
 {
     NSString *pdfFilePath = [THPDFGenerator filePath];
-    UIImage *bgImage = [UIImage imageWithContentsOfFile:PDF_BG_A4];
-    UIGraphicsBeginPDFContextToFile(pdfFilePath, CGRectMake(0, 0, pageSize.width, pageSize.height), nil);
-    UIGraphicsBeginPDFPage();
-    [bgImage drawAtPoint:CGPointMake(0, 0)];
-    UIGraphicsEndPDFContext();
-    [self.delegate PDFGenerated:pdfFilePath];
+    UIImage *bgImage = [UIImage imageNamed:PDF_BG_A4];
+    if (UIGraphicsBeginPDFContextToFile(pdfFilePath, CGRectMake(0, 0, pageSize.width, pageSize.height), nil)) {
+        UIGraphicsBeginPDFPage();
+        [bgImage drawAtPoint:CGPointMake(0, 0)];
+        UIGraphicsEndPDFContext();
+        [self.delegate PDFGenerated:pdfFilePath];
+    }
     self.delegate = nil;
 }
 

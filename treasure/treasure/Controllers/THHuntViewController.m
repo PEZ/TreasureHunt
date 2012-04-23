@@ -248,5 +248,26 @@
                                           andNewText:string];
 }
 
+- (IBAction)generateButtonPressed:(id)sender {
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Select paper size"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"Letter", @"A4", nil];
+    [sheet showInView:self.view];
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    CGSize paperSize = buttonIndex == 0 ? PDF_PAGE_SIZE_LETTER_LANDSCAPE : PDF_PAGE_SIZE_A4_LANDSCAPE;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"THStoryboard"
+                                                         bundle:nil];
+    THPDFViewController *viewController =
+    [storyboard instantiateViewControllerWithIdentifier:@"PDFViewController"];
+    viewController.hunt = _hunt;
+    viewController.paperSize = paperSize;
+    [self presentModalViewController:viewController animated:YES];
+}
 
 @end

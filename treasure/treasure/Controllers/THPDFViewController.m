@@ -15,6 +15,14 @@
 @implementation THPDFViewController
 
 @synthesize hunt = _hunt;
+@synthesize pdfWebView = _pdfWebView;
+@synthesize toolbar = _toolbar;
+@synthesize doneButton = _doneButton;
+@synthesize printButton = _printButton;
+@synthesize emailButton = _emailButton;
+@synthesize toolbarSpacer = _toolbarSpacer;
+@synthesize paperSize = _paperSize;
+@synthesize pdfFilePath = _pdfFilePath;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,16 +36,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Select paper size"
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:@"Letter", @"A4", nil];
-    [sheet showInView:self.view];
+    NSMutableArray *toolbarItems = [NSMutableArray arrayWithArray:_toolbar.items];
+    if (![UIPrintInteractionController isPrintingAvailable]) {
+        [toolbarItems removeObject:_printButton];
+    }
+    _toolbar.items = toolbarItems;
+    THPDFGenerator *generator = [[THPDFGenerator alloc] initWithDelegate:self];
+    [generator generatePDFForHunt:_hunt withPageSize:_paperSize];
 }
 
 - (void)viewDidUnload
 {
+    self.pdfWebView = nil;
+    self.doneButton = nil;
+    self.printButton = nil;
+    self.hunt = nil;
+    self.pdfFilePath = nil;
+    [self setEmailButton:nil];
+    [self setToolbarSpacer:nil];
+    [self setToolbar:nil];
     [super viewDidUnload];
 }
 
@@ -46,28 +63,51 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void)loadDocument:(NSString*)filePath inView:(UIWebView*)webView
+{
+    NSURL *targetURL = [NSURL fileURLWithPath:filePath];
+    NSURLRequest *request = [NSURLRequest requestWithURL:targetURL];
+    [webView loadRequest:request];
+}
+
 - (void)PDFGenerated:(NSString*)pdfFilePath
 {
+    _pdfFilePath = pdfFilePath;
     NSLog(@"PDF Generated: %@", pdfFilePath);
-    NSURL *targetURL = [NSURL fileURLWithPath:pdfFilePath];
+    [self loadDocument:pdfFilePath inView:self.pdfWebView];
     
-    UIDocumentInteractionController *document = [UIDocumentInteractionController interactionControllerWithURL: targetURL];
-    document.delegate = self;
-    [document presentPreviewAnimated:YES];
+    //UIDocumentInteractionController *document = [UIDocumentInteractionController interactionControllerWithURL: targetURL];
+    //document.delegate = self;
+    //[document presentPreviewAnimated:YES];
 }
 
-#pragma mark - UIActionSheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    CGSize paperSize = buttonIndex == 0 ? PDF_PAGE_SIZE_LETTER_LANDSCAPE : PDF_PAGE_SIZE_A4_LANDSCAPE;
-    THPDFGenerator *generator = [[THPDFGenerator alloc] initWithDelegate:self];
-    [generator generatePDFForHunt:_hunt withPageSize:paperSize];
+- (IBAction)doneButtonPressed:(id)sender {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
-#pragma mark - UIDocumentInteractionControllerDelegate
--(UIViewController *)documentInteractionControllerViewControllerForPreview: (UIDocumentInteractionController *) controller
-{
-    return self;
+- (IBAction)printButtonPressed:(id)sender {
+    UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+    controller.delegate = self;
+    controller.printingItem = [NSURL fileURLWithPath:_pdfFilePath];
+    UIPrintInfo *printInfo = [UIPrintInfo printInfo];
+    printInfo.outputType = UIPrintInfoOutputGeneral;
+    printInfo.orientation = UIPrintInfoOrientationLandscape;
+    printInfo.jobName = [_pdfFilePath lastPathComponent];
+    printInfo.duplex = UIPrintInfoDuplexNone;
+    controller.printInfo = printInfo;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [controller presentFromBarButtonItem:self.printButton animated:YES
+                           completionHandler:nil];
+    } else {
+        [controller presentAnimated:YES completionHandler:nil];
+    }
 }
 
+#pragma mark - UIPrintInteractionControllerDelegate
+
+- (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)pic
+                                 choosePaper:(NSArray *)paperList {
+    return [UIPrintPaper bestPaperForPageSize:self.paperSize
+                          withPapersFromArray:paperList];
+}
 @end

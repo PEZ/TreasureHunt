@@ -26,6 +26,7 @@
 		EB8042591544307800863A9A /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8042581544307800863A9A /* UIImage+ProportionalFill.m */; };
 		EB80425D1544403100863A9A /* THPDFGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EB80425C1544403100863A9A /* THPDFGenerator.m */; };
 		EB80426015448EAC00863A9A /* THPDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB80425F15448EAB00863A9A /* THPDFViewController.m */; };
+		EB8042D21546050E00863A9A /* huntpdf-bg-a4.png in Resources */ = {isa = PBXBuildFile; fileRef = EB8042D11546050E00863A9A /* huntpdf-bg-a4.png */; };
 		EBAB81E91537910F00DFC232 /* THHuntBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */; };
 		EBAB81EA1537910F00DFC232 /* THHuntBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */; };
 		EBAB81ED15398D3400DFC232 /* trail-point-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81EB15398D3400DFC232 /* trail-point-icon.png */; };
@@ -94,6 +95,7 @@
 		EB80425C1544403100863A9A /* THPDFGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPDFGenerator.m; sourceTree = "<group>"; };
 		EB80425E15448EAB00863A9A /* THPDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPDFViewController.h; sourceTree = "<group>"; };
 		EB80425F15448EAB00863A9A /* THPDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPDFViewController.m; sourceTree = "<group>"; };
+		EB8042D11546050E00863A9A /* huntpdf-bg-a4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "huntpdf-bg-a4.png"; sourceTree = "<group>"; };
 		EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = THHuntBackgroundViewController.h; path = ../UI/THHuntBackgroundViewController.h; sourceTree = "<group>"; };
 		EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = THHuntBackgroundViewController.m; path = ../UI/THHuntBackgroundViewController.m; sourceTree = "<group>"; };
 		EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = THHuntBackgroundView.xib; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				EB7CE85815361AF500D5D77C /* hunt-bg.png */,
 				EB7CE85615361A4000D5D77C /* hunt-bg@2x.png */,
 				EB7CE84915338D5100D5D77C /* gamma_gray_186_pixel.jpg */,
+				EB8042D11546050E00863A9A /* huntpdf-bg-a4.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				EB8042511544047D00863A9A /* trail-goal-icon@2x.png in Resources */,
 				EB8042521544047D00863A9A /* trail-start-icon.png in Resources */,
 				EB8042531544047D00863A9A /* trail-start-icon@2x.png in Resources */,
+				EB8042D21546050E00863A9A /* huntpdf-bg-a4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
