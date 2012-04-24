@@ -190,7 +190,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="E4P-69-y3t" userLabel="textClue">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="E4P-69-y3t" userLabel="textClue">
                                             <rect key="frame" x="130" y="27" width="170" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -416,52 +416,6 @@
             <point key="canvasLocation" x="1437" y="80"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="THCheckpointCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/THCheckpointCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageClueImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="mapTrailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="textClueLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="trailIconImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="THCheckpointViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/THCheckpointViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="clueImageDoubleTapped:" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="action" name="qrSwitchChanged:"/>
-                <relationship kind="outlet" name="imageClueImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="isQRSwitch" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="textClueTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="THHuntViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/THHuntViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="generateButtonPressed:"/>
-                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="THHuntsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/THHuntsViewController.h"/>
-        </class>
-        <class className="THPDFViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/THPDFViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="doneButtonPressed:"/>
-                <relationship kind="action" name="printButtonPressed:"/>
-                <relationship kind="outlet" name="doneButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="emailButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="pdfWebView" candidateClass="UIWebView"/>
-                <relationship kind="outlet" name="printButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-                <relationship kind="outlet" name="toolbarSpacer" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

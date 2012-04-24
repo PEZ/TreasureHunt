@@ -11,8 +11,14 @@
 #import "THCheckpoint.h"
 
 #define CARD_MARGIN 30
+
 #define CLUE_NUMBER_FONT_SIZE 18
 #define CLUE_NUMBER_FONT [UIFont systemFontOfSize:CLUE_NUMBER_FONT_SIZE]
+
+#define TEXT_CLUE_FONT_SIZE 14
+#define TEXT_CLUE_FONT [UIFont systemFontOfSize:TEXT_CLUE_FONT_SIZE]
+#define TEXT_CLUE_MARGIN 20
+
 #define IMAGE_SIDE_LENGTH_RATIO 1 / 3.5
 
 @implementation THPDFGenerator
@@ -22,13 +28,14 @@
     return [[[delegate applicationDocumentsDirectory] URLByAppendingPathComponent:PDF_FILE_NAME] path];
 }
 
-- (void)drawText:(NSString*)text withFont:(UIFont*)font andMaxSize:(CGSize)maxSize centeredAtPoint:(CGPoint)point
+- (void)drawText:(NSString*)text withFont:(UIFont*)font andMaxSize:(CGSize)maxSize
+centeredAtPoint:(CGPoint)point alsoCenterVertically:(BOOL)centerVertically
 {
     CGSize textSize = [text sizeWithFont:font
                        constrainedToSize:maxSize
                            lineBreakMode:UILineBreakModeWordWrap];
     CGRect textRect = CGRectMake(point.x - textSize.width / 2.0,
-                                 point.y,
+                                 point.y - (centerVertically ? textSize.height / 2.0 : 0),
                                  textSize.width,
                                  textSize.height);
     [text drawInRect:textRect withFont:font];
@@ -60,9 +67,18 @@
 
             [self drawText:[NSString stringWithFormat:@"%d.", i + 1]
                   withFont:CLUE_NUMBER_FONT
-                andMaxSize:CGSizeMake(imageSideLength, imageSideLength / 4)
-           centeredAtPoint:CGPointMake(ul_x + CARD_MARGIN, ul_y + CARD_MARGIN - CLUE_NUMBER_FONT_SIZE)];
+                andMaxSize:CGSizeMake(CLUE_NUMBER_FONT_SIZE * 10, CLUE_NUMBER_FONT_SIZE * 5)
+           centeredAtPoint:CGPointMake(ul_x + CARD_MARGIN, ul_y + CARD_MARGIN - CLUE_NUMBER_FONT_SIZE)
+             alsoCenterVertically:NO];
 
+            if (checkpoint.textClue && [checkpoint.textClue length] > 0) {
+                int ty = (checkpoint.imageClue ? iy + imageSideLength + TEXT_CLUE_MARGIN : center_y);
+                [self drawText:checkpoint.textClue
+                      withFont:TEXT_CLUE_FONT
+                    andMaxSize:CGSizeMake(imageSideLength, imageSideLength)
+               centeredAtPoint:CGPointMake(center_x, ty)
+                 alsoCenterVertically:checkpoint.imageClue == nil];
+            }            
         }
         UIGraphicsEndPDFContext();
         [delegate PDFGenerated:pdfFilePath];
