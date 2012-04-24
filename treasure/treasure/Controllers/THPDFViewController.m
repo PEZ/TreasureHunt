@@ -88,9 +88,9 @@
     UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
     controller.delegate = self;
     controller.printingItem = [NSURL fileURLWithPath:_pdfFilePath];
+    controller.showsPageRange = YES;
     UIPrintInfo *printInfo = [UIPrintInfo printInfo];
     printInfo.outputType = UIPrintInfoOutputGeneral;
-    printInfo.orientation = UIPrintInfoOrientationLandscape;
     printInfo.jobName = [_pdfFilePath lastPathComponent];
     printInfo.duplex = UIPrintInfoDuplexNone;
     controller.printInfo = printInfo;

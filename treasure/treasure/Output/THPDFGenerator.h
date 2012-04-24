@@ -11,8 +11,8 @@
 
 #define PDF_FILE_NAME @"Hunt.pdf"
 #define PDF_BG_A4 @"huntpdf-bg-a4.png"
-#define PDF_PAGE_SIZE_A4_LANDSCAPE CGSizeMake(842, 595)
-#define PDF_PAGE_SIZE_LETTER_LANDSCAPE CGSizeMake(792, 612)
+#define PDF_PAGE_SIZE_A4_LANDSCAPE CGSizeMake(592, 842)
+#define PDF_PAGE_SIZE_LETTER_LANDSCAPE CGSizeMake(612, 792)
 
 @protocol THPDFGeneratorDelegate <NSObject>
 
