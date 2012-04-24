@@ -41,8 +41,7 @@
         [toolbarItems removeObject:_printButton];
     }
     _toolbar.items = toolbarItems;
-    THPDFGenerator *generator = [[THPDFGenerator alloc] initWithDelegate:self];
-    [generator generatePDFForHunt:_hunt withPageSize:_paperSize];
+    [[[THPDFGenerator alloc] init] generatePDFForHunt:_hunt withPageSize:_paperSize andDelegate:self];
 }
 
 - (void)viewDidUnload

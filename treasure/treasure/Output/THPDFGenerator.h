@@ -22,10 +22,7 @@
 
 @interface THPDFGenerator : NSObject
 
-@property (strong, nonatomic) id<THPDFGeneratorDelegate> delegate;
-
-- (id)initWithDelegate:(id<THPDFGeneratorDelegate>)delegate;
-- (void)generatePDFForHunt:(THHunt*)hunt withPageSize:(CGSize)pageSize;
+- (void)generatePDFForHunt:(THHunt*)hunt withPageSize:(CGSize)pageSize andDelegate:(id<THPDFGeneratorDelegate>)delegate;
 
 @end
 
