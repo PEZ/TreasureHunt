@@ -24,7 +24,9 @@
 @property (strong, nonatomic) id<THEditHuntDelegate> delegate;
 @property (strong, nonatomic) THHunt* hunt;
 @property (strong, nonatomic) IBOutlet UITextField *titleTextField;
+@property (strong, nonatomic) IBOutlet UIButton *reorderButton;
 
 - (IBAction)generateButtonPressed:(id)sender;
+- (IBAction)reorderButtonPressed:(id)sender;
 
 @end

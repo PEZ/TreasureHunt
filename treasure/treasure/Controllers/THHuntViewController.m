@@ -11,6 +11,7 @@
 #import "THPDFViewController.h"
 #import "THCheckpoint.h"
 #import "THCheckpointCell.h"
+#import "THSparePartsViewController.h"
 #import "THUtils.h"
 #import "THHunt+OrderedCheckpoints.h"
 #import "THHuntBackgroundViewController.h"
@@ -18,6 +19,8 @@
 
 @interface THHuntViewController () {
     THCheckpointCell *_measurementCell;
+    THSparePartsViewController *_sparePartsViewController;
+    BOOL _isReordering;
 }
 
 - (void)configureView;
@@ -29,6 +32,7 @@
 @synthesize managedObjectContext = __managedObjectContext;
 
 @synthesize titleTextField = _titleTextField;
+@synthesize reorderButton = _reorderButton;
 @synthesize delegate = _delegate;
 @synthesize hunt = _hunt;
 
@@ -49,14 +53,18 @@
         if (!_titleTextField.text || [_titleTextField.text isEqualToString:@""]) {
             [_titleTextField becomeFirstResponder];
         }
+        UIButton *reorderButton = _sparePartsViewController.checkpointsReorderButton;
+        [reorderButton addTarget:self action:@selector(reorderButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     _measurementCell = [self.tableView dequeueReusableCellWithIdentifier:@"CheckpointCell"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"THStoryboard" bundle:nil];
+    _sparePartsViewController = [storyboard instantiateViewControllerWithIdentifier:@"SpareParts"];
+    [_sparePartsViewController loadView];
     [self configureView];
 }
 
@@ -66,6 +74,8 @@
     self.delegate = nil;
     self.hunt = nil;
     _measurementCell = nil;
+    [self setReorderButton:nil];
+    _sparePartsViewController = nil;
     [super viewDidUnload];
 }
 
@@ -94,6 +104,14 @@
     return [self.hunt.checkpoints count];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return _sparePartsViewController.checkpointsSectionHeaderView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return _sparePartsViewController.checkpointsSectionHeaderView.frame.size.height;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     THCheckpointCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckpointCell"];
@@ -104,6 +122,14 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return _isReordering ? UITableViewCellEditingStyleNone : UITableViewCellEditingStyleDelete;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -255,6 +281,12 @@
                                          destructiveButtonTitle:nil
                                               otherButtonTitles:@"Letter", @"A4", nil];
     [sheet showInView:self.view];
+}
+
+- (IBAction)reorderButtonPressed:(id)sender {
+    _isReordering = !self.editing;
+    [self setEditing:!self.editing animated:YES];
+    [_sparePartsViewController.checkpointsReorderButton setTitle:(self.editing ? @"Done" : @"Reorder") forState:UIControlStateNormal];
 }
 
 #pragma mark - UIActionSheetDelegate

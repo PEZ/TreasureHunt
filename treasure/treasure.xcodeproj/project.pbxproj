@@ -27,6 +27,7 @@
 		EB80425D1544403100863A9A /* THPDFGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EB80425C1544403100863A9A /* THPDFGenerator.m */; };
 		EB80426015448EAC00863A9A /* THPDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB80425F15448EAB00863A9A /* THPDFViewController.m */; };
 		EB8042D21546050E00863A9A /* huntpdf-bg-a4.png in Resources */ = {isa = PBXBuildFile; fileRef = EB8042D11546050E00863A9A /* huntpdf-bg-a4.png */; };
+		EB8042D715487C5100863A9A /* THSparePartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8042D615487C5100863A9A /* THSparePartsViewController.m */; };
 		EBAB81E91537910F00DFC232 /* THHuntBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */; };
 		EBAB81EA1537910F00DFC232 /* THHuntBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */; };
 		EBAB81ED15398D3400DFC232 /* trail-point-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBAB81EB15398D3400DFC232 /* trail-point-icon.png */; };
@@ -96,6 +97,8 @@
 		EB80425E15448EAB00863A9A /* THPDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPDFViewController.h; sourceTree = "<group>"; };
 		EB80425F15448EAB00863A9A /* THPDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPDFViewController.m; sourceTree = "<group>"; };
 		EB8042D11546050E00863A9A /* huntpdf-bg-a4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "huntpdf-bg-a4.png"; sourceTree = "<group>"; };
+		EB8042D515487C5100863A9A /* THSparePartsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THSparePartsViewController.h; sourceTree = "<group>"; };
+		EB8042D615487C5100863A9A /* THSparePartsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THSparePartsViewController.m; sourceTree = "<group>"; };
 		EBAB81E61537910F00DFC232 /* THHuntBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = THHuntBackgroundViewController.h; path = ../UI/THHuntBackgroundViewController.h; sourceTree = "<group>"; };
 		EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = THHuntBackgroundViewController.m; path = ../UI/THHuntBackgroundViewController.m; sourceTree = "<group>"; };
 		EBAB81E81537910F00DFC232 /* THHuntBackgroundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = THHuntBackgroundView.xib; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 				EBAB81E71537910F00DFC232 /* THHuntBackgroundViewController.m */,
 				EB80425E15448EAB00863A9A /* THPDFViewController.h */,
 				EB80425F15448EAB00863A9A /* THPDFViewController.m */,
+				EB8042D515487C5100863A9A /* THSparePartsViewController.h */,
+				EB8042D615487C5100863A9A /* THSparePartsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -264,16 +269,16 @@
 		EBE8D46E1531859A003EF33F /* treasure */ = {
 			isa = PBXGroup;
 			children = (
-				EB80425A15443D5B00863A9A /* Ouput */,
-				EB6850861533093300A8B8B0 /* Utils */,
-				EBE8D46F1531859A003EF33F /* Supporting Files */,
-				EBE2ED471532D64300808CC5 /* Models */,
-				EB685082153301EC00A8B8B0 /* Controllers */,
 				EBE8D4771531859A003EF33F /* THAppDelegate.h */,
 				EBE8D4781531859A003EF33F /* THAppDelegate.m */,
 				EBAB81F31539F9B100DFC232 /* THStoryboard.storyboard */,
 				EBE8D47D1531859A003EF33F /* treasure.xcdatamodeld */,
+				EBE8D46F1531859A003EF33F /* Supporting Files */,
 				EBE8D4A91531A79A003EF33F /* UI */,
+				EB685082153301EC00A8B8B0 /* Controllers */,
+				EB80425A15443D5B00863A9A /* Ouput */,
+				EB6850861533093300A8B8B0 /* Utils */,
+				EBE2ED471532D64300808CC5 /* Models */,
 			);
 			path = treasure;
 			sourceTree = "<group>";
@@ -466,6 +471,7 @@
 				EB8042591544307800863A9A /* UIImage+ProportionalFill.m in Sources */,
 				EB80425D1544403100863A9A /* THPDFGenerator.m in Sources */,
 				EB80426015448EAC00863A9A /* THPDFViewController.m in Sources */,
+				EB8042D715487C5100863A9A /* THSparePartsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
