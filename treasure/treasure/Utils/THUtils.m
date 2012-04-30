@@ -50,4 +50,17 @@
     return output;
 }
 
++ (NSString*)trim:(NSString *)string fromCharacterSet:(NSCharacterSet*)characterSet
+{
+    NSString *new_string;
+    if (string) {
+        new_string = [string stringByTrimmingCharactersInSet:characterSet];
+    }
+    return new_string;
+}
+
++ (NSString*)trim:(NSString *)string {
+    return [THUtils trim:string fromCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+
 @end

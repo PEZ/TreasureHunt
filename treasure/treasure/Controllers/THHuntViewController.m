@@ -6,10 +6,12 @@
 //  Copyright (c) 2012 NA. All rights reserved.
 //
 
+#import "THHunt+Behavior.h"
 #import "THHuntViewController.h"
 #import "THCheckpointViewController.h"
 #import "THPDFViewController.h"
 #import "THCheckpoint.h"
+#import "THCheckpoint+Behavior.h"
 #import "THCheckpointCell.h"
 #import "THSparePartsViewController.h"
 #import "THUtils.h"
@@ -262,7 +264,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    _hunt.title = textField.text;
+    _hunt.title = [THUtils trim:textField.text];
     [self.delegate huntEdited:self.hunt];
 }
 
@@ -275,12 +277,22 @@
 }
 
 - (IBAction)generateButtonPressed:(id)sender {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Select paper size"
-                                                       delegate:self
+    if (_hunt.isComplete) {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Select paper size"
+                                                           delegate:self
+                                                  cancelButtonTitle:nil
+                                             destructiveButtonTitle:nil
+                                                  otherButtonTitles:@"Letter", @"A4", nil];
+        [sheet showInView:self.view];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete hunt"
+                                                        message:@"In order to generate a PDF, you need at least two checkpoints and all checkpoints must have at least one clue."
+                                                       delegate:nil
                                               cancelButtonTitle:nil
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:@"Letter", @"A4", nil];
-    [sheet showInView:self.view];
+                                              otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
 }
 
 - (IBAction)reorderButtonPressed:(id)sender {

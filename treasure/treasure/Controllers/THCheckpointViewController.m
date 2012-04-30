@@ -135,7 +135,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    _checkpoint.title = textField.text;
+    _checkpoint.title = [THUtils trim:textField.text];
     [self.delegate checkpointEdited:_checkpoint];
 }
 
@@ -158,7 +158,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    _checkpoint.textClue = textView.text;
+    _checkpoint.textClue = [THUtils trim:textView.text];
     [self.delegate checkpointEdited:_checkpoint];
 }
 

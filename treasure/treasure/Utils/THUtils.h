@@ -19,4 +19,14 @@
 
 + (NSString*) sha1ForString:(NSString*)input;
 
+/*
+ Trims a string of leading and trailing characters from characterSet.
+ */
++ (NSString*)trim:(NSString *)string fromCharacterSet:(NSCharacterSet*)characterSet;
+
+/*
+ Trims a string of leading and trailing white space.
+ */
++ (NSString*)trim:(NSString *)string;
+
 @end

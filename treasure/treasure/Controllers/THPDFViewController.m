@@ -41,6 +41,8 @@
         [toolbarItems removeObject:_printButton];
     }
     _toolbar.items = toolbarItems;
+    _printButton.enabled = NO;
+    _emailButton.enabled = NO;
     [[[THPDFGenerator alloc] init] generatePDFForHunt:_hunt withPageSize:_paperSize andDelegate:self];
 }
 
@@ -67,12 +69,13 @@
     NSURL *targetURL = [NSURL fileURLWithPath:filePath];
     NSURLRequest *request = [NSURLRequest requestWithURL:targetURL];
     [webView loadRequest:request];
+    _printButton.enabled = YES;
+    _emailButton.enabled = YES;
 }
 
 - (void)PDFGenerated:(NSString*)pdfFilePath
 {
     _pdfFilePath = pdfFilePath;
-    NSLog(@"PDF Generated: %@", pdfFilePath);
     [self loadDocument:pdfFilePath inView:self.pdfWebView];
     
     //UIDocumentInteractionController *document = [UIDocumentInteractionController interactionControllerWithURL: targetURL];

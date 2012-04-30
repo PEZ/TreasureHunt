@@ -20,9 +20,4 @@
 @dynamic title;
 @dynamic hunt;
 
-- (BOOL)hasClue
-{
-    return self.imageClue || (self.textClue && ![self.textClue isEqualToString:@""]);
-}
-
 @end

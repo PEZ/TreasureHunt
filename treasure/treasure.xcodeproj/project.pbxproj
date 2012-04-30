@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB0EFA17154E84AF00567DCE /* THHunt+Behavior.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0EFA16154E84AF00567DCE /* THHunt+Behavior.m */; };
+		EB0EFA1B154E84FC00567DCE /* THCheckpoint+Behavior.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0EFA1A154E84FC00567DCE /* THCheckpoint+Behavior.m */; };
 		EB6850801532D7B800A8B8B0 /* THCheckpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = EB68507F1532D7B800A8B8B0 /* THCheckpoint.m */; };
 		EB6850851533092900A8B8B0 /* NSDate+FormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6850841533092900A8B8B0 /* NSDate+FormattingAdditions.m */; };
 		EB68508915331A1100A8B8B0 /* THCheckpointViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB68508815331A1100A8B8B0 /* THCheckpointViewController.m */; };
@@ -67,6 +69,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EB0EFA15154E84AF00567DCE /* THHunt+Behavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "THHunt+Behavior.h"; sourceTree = "<group>"; };
+		EB0EFA16154E84AF00567DCE /* THHunt+Behavior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "THHunt+Behavior.m"; sourceTree = "<group>"; };
+		EB0EFA19154E84FC00567DCE /* THCheckpoint+Behavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "THCheckpoint+Behavior.h"; sourceTree = "<group>"; };
+		EB0EFA1A154E84FC00567DCE /* THCheckpoint+Behavior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "THCheckpoint+Behavior.m"; sourceTree = "<group>"; };
 		EB68507E1532D7B800A8B8B0 /* THCheckpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THCheckpoint.h; sourceTree = "<group>"; };
 		EB68507F1532D7B800A8B8B0 /* THCheckpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THCheckpoint.m; sourceTree = "<group>"; };
 		EB6850831533092900A8B8B0 /* NSDate+FormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+FormattingAdditions.h"; sourceTree = "<group>"; };
@@ -225,12 +231,16 @@
 		EBE2ED471532D64300808CC5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EBE2ED481532D6C800808CC5 /* THHunt.h */,
-				EBE2ED491532D6C800808CC5 /* THHunt.m */,
 				EB68507E1532D7B800A8B8B0 /* THCheckpoint.h */,
 				EB68507F1532D7B800A8B8B0 /* THCheckpoint.m */,
+				EB0EFA19154E84FC00567DCE /* THCheckpoint+Behavior.h */,
+				EB0EFA1A154E84FC00567DCE /* THCheckpoint+Behavior.m */,
+				EBE2ED481532D6C800808CC5 /* THHunt.h */,
+				EBE2ED491532D6C800808CC5 /* THHunt.m */,
 				EB8042491542AC5C00863A9A /* THHunt+OrderedCheckpoints.h */,
 				EB80424A1542AC5C00863A9A /* THHunt+OrderedCheckpoints.m */,
+				EB0EFA15154E84AF00567DCE /* THHunt+Behavior.h */,
+				EB0EFA16154E84AF00567DCE /* THHunt+Behavior.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -472,6 +482,8 @@
 				EB80425D1544403100863A9A /* THPDFGenerator.m in Sources */,
 				EB80426015448EAC00863A9A /* THPDFViewController.m in Sources */,
 				EB8042D715487C5100863A9A /* THSparePartsViewController.m in Sources */,
+				EB0EFA17154E84AF00567DCE /* THHunt+Behavior.m in Sources */,
+				EB0EFA1B154E84FC00567DCE /* THCheckpoint+Behavior.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
