@@ -35,22 +35,19 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wtB-VO-zF6">
-                                    <rect key="frame" x="65" y="2" width="191" height="38"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="add-hunt-arrow.png" id="U3Q-Lx-AOX">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Start by creating a new hunt" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2Kd-Cq-UzE">
+                                    <rect key="frame" x="10" y="0.0" width="233" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                    <state key="normal" title="Start a new hunt">
-                                        <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <segue destination="bhC-XX-rcd" kind="push" identifier="AddHunt" id="ccg-Y5-vjY"/>
-                                    </connections>
-                                </button>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="vbD-zW-lmF">
                             <rect key="frame" x="0.0" y="116" width="320" height="44"/>
@@ -94,7 +91,16 @@
                             <outlet property="delegate" destination="7lc-TC-oKX" id="R3j-uC-XuY"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Treasure Hunt Creator" id="tWD-Mk-KXb"/>
+                    <navigationItem key="navigationItem" title="Treasure Hunt Creator" id="tWD-Mk-KXb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ehx-D9-7D7">
+                            <connections>
+                                <segue destination="bhC-XX-rcd" kind="push" identifier="AddHunt" id="VUp-b8-jnO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="headerView" destination="ecu-rh-v1z" id="QpG-hN-UQm"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="459" y="64"/>
@@ -198,7 +204,7 @@
                             </subviews>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="center" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="CheckpointCell" rowHeight="130" id="Fpt-o6-ZNB" userLabel="Checkpoint Cell" customClass="THCheckpointCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="center" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="CheckpointCell" rowHeight="130" id="Fpt-o6-ZNB" userLabel="Checkpoint Cell" customClass="THCheckpointCell">
                                 <rect key="frame" x="0.0" y="68" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -225,7 +231,7 @@
                                         </imageView>
                                         <view contentMode="scaleToFill" id="vAP-bH-NZP" userLabel="MapTrailImageView">
                                             <rect key="frame" x="13" y="0.0" width="2" height="130"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </view>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="vt5-pb-dDF" userLabel="trailPointIcon">
                                             <rect key="frame" x="6" y="6" width="16" height="16"/>
@@ -445,6 +451,9 @@
             <point key="canvasLocation" x="1437" y="80"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="add-hunt-arrow.png" width="320" height="44"/>
+    </resources>
     <classes>
         <class className="THCheckpointCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/THCheckpointCell.h"/>
@@ -478,6 +487,9 @@
         </class>
         <class className="THHuntsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/THHuntsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="headerView" candidateClass="UIView"/>
+            </relationships>
         </class>
         <class className="THPDFViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/THPDFViewController.h"/>
@@ -507,7 +519,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ccg-Y5-vjY"/>
+        <segue reference="VUp-b8-jnO"/>
         <segue reference="2l3-Hs-HHJ"/>
     </inferredMetricsTieBreakers>
 </document>

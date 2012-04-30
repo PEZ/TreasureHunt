@@ -140,6 +140,7 @@
         [self.hunt removeCheckpointsObject:[self.hunt.checkpoints objectAtIndex:indexPath.row]];
         [THUtils saveContext:self.managedObjectContext];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView performSelector:@selector(reloadData) withObject:tableView afterDelay:0.3];
     }
 }
 
@@ -205,20 +206,29 @@
 - (void)configureCell:(THCheckpointCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     THCheckpoint *checkpoint = [self.hunt.checkpoints objectAtIndex:indexPath.row];
+    CGFloat mapTrailStartY = 0;
+    CGFloat mapTrailEndY = 260;
     if (checkpoint.hasClue) {
         if (indexPath.row == 0) {
             cell.trailIconImageView.image = [UIImage imageNamed:@"trail-start-icon.png"];
+            mapTrailStartY = [THCheckpointCell heightRoundedToTileHeight:cell.trailIconImageView.frame.origin.y tileHeight:MAP_TRAIL_IMAGE_HEIGHT];
         }
         else if (indexPath.row == [_hunt.checkpoints count] - 1) {
             cell.trailIconImageView.image = [UIImage imageNamed:@"trail-goal-icon.png"];
+            mapTrailEndY = cell.trailIconImageView.frame.origin.y;
         }
         else {
             cell.trailIconImageView.image = [UIImage imageNamed:@"trail-point-icon.png"];
         }
     }
     else {
+        mapTrailEndY = 0;
         cell.trailIconImageView.image = [UIImage imageNamed:@"trail-point-missing-icon.png"];
     }
+    cell.mapTrailView.frame = CGRectMake(cell.mapTrailView.frame.origin.x,
+                                         mapTrailStartY,
+                                         cell.mapTrailView.frame.size.width,
+                                         mapTrailEndY - mapTrailStartY);
     
     NSUInteger clueLabelX = cell.imageClueImageView.frame.origin.x +
     cell.imageClueImageView.frame.size.width + DEFAULT_PADDING;

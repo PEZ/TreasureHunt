@@ -17,9 +17,19 @@
 
 @implementation THHuntsViewController
 
+@synthesize headerView = _headerView;
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
 
+- (void)configureView
+{
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        self.tableView.tableHeaderView = _headerView;
+    }
+    else {
+        self.tableView.tableHeaderView = nil;
+    }
+}
 
 - (void)awakeFromNib
 {
@@ -29,10 +39,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self configureView];
 }
 
 - (void)viewDidUnload
 {
+    [self setHeaderView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -200,6 +212,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView endUpdates];
+    [self configureView];
 }
 
 /*
