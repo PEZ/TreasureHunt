@@ -11,6 +11,9 @@
 		EB0EFA1B154E84FC00567DCE /* THCheckpoint+Behavior.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0EFA1A154E84FC00567DCE /* THCheckpoint+Behavior.m */; };
 		EB0EFA1E154EA06E00567DCE /* add-hunt-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = EB0EFA1C154EA06E00567DCE /* add-hunt-arrow.png */; };
 		EB0EFA1F154EA06E00567DCE /* add-hunt-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB0EFA1D154EA06E00567DCE /* add-hunt-arrow@2x.png */; };
+		EB0EFA21154EBD8800567DCE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0EFA20154EBD8800567DCE /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		EB0EFA24154EC3B900567DCE /* AlToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0EFA23154EC3B900567DCE /* AlToastView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EB0EFA26154EC41A00567DCE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0EFA25154EC41A00567DCE /* QuartzCore.framework */; };
 		EB6850801532D7B800A8B8B0 /* THCheckpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = EB68507F1532D7B800A8B8B0 /* THCheckpoint.m */; };
 		EB6850851533092900A8B8B0 /* NSDate+FormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6850841533092900A8B8B0 /* NSDate+FormattingAdditions.m */; };
 		EB68508915331A1100A8B8B0 /* THCheckpointViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB68508815331A1100A8B8B0 /* THCheckpointViewController.m */; };
@@ -77,6 +80,10 @@
 		EB0EFA1A154E84FC00567DCE /* THCheckpoint+Behavior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "THCheckpoint+Behavior.m"; sourceTree = "<group>"; };
 		EB0EFA1C154EA06E00567DCE /* add-hunt-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-hunt-arrow.png"; sourceTree = "<group>"; };
 		EB0EFA1D154EA06E00567DCE /* add-hunt-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-hunt-arrow@2x.png"; sourceTree = "<group>"; };
+		EB0EFA20154EBD8800567DCE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		EB0EFA22154EC3B900567DCE /* AlToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlToastView.h; sourceTree = "<group>"; };
+		EB0EFA23154EC3B900567DCE /* AlToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlToastView.m; sourceTree = "<group>"; };
+		EB0EFA25154EC41A00567DCE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EB68507E1532D7B800A8B8B0 /* THCheckpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THCheckpoint.h; sourceTree = "<group>"; };
 		EB68507F1532D7B800A8B8B0 /* THCheckpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THCheckpoint.m; sourceTree = "<group>"; };
 		EB6850831533092900A8B8B0 /* NSDate+FormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+FormattingAdditions.h"; sourceTree = "<group>"; };
@@ -150,6 +157,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB0EFA26154EC41A00567DCE /* QuartzCore.framework in Frameworks */,
+				EB0EFA21154EBD8800567DCE /* MessageUI.framework in Frameworks */,
 				EBE8D4671531859A003EF33F /* UIKit.framework in Frameworks */,
 				EBE8D4691531859A003EF33F /* Foundation.framework in Frameworks */,
 				EBE8D46B1531859A003EF33F /* CoreGraphics.framework in Frameworks */,
@@ -254,6 +263,7 @@
 		EBE8D4571531859A003EF33F = {
 			isa = PBXGroup;
 			children = (
+				EB0EFA25154EC41A00567DCE /* QuartzCore.framework */,
 				EBE8D46E1531859A003EF33F /* treasure */,
 				EBE8D4931531859A003EF33F /* treasureTests */,
 				EBE8D4651531859A003EF33F /* Frameworks */,
@@ -273,6 +283,7 @@
 		EBE8D4651531859A003EF33F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EB0EFA20154EBD8800567DCE /* MessageUI.framework */,
 				EBE8D4661531859A003EF33F /* UIKit.framework */,
 				EBE8D4681531859A003EF33F /* Foundation.framework */,
 				EBE8D46A1531859A003EF33F /* CoreGraphics.framework */,
@@ -342,6 +353,8 @@
 				EB7CE84D1534C3A300D5D77C /* UIImage+Scale.m */,
 				EB8042571544307800863A9A /* UIImage+ProportionalFill.h */,
 				EB8042581544307800863A9A /* UIImage+ProportionalFill.m */,
+				EB0EFA22154EC3B900567DCE /* AlToastView.h */,
+				EB0EFA23154EC3B900567DCE /* AlToastView.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -492,6 +505,7 @@
 				EB8042D715487C5100863A9A /* THSparePartsViewController.m in Sources */,
 				EB0EFA17154E84AF00567DCE /* THHunt+Behavior.m in Sources */,
 				EB0EFA1B154E84FC00567DCE /* THCheckpoint+Behavior.m in Sources */,
+				EB0EFA24154EC3B900567DCE /* AlToastView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

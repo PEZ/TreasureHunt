@@ -7,6 +7,7 @@
 //
 
 #import "THPDFViewController.h"
+#import "ALToastView.h"
 
 @interface THPDFViewController ()
 
@@ -39,6 +40,9 @@
     NSMutableArray *toolbarItems = [NSMutableArray arrayWithArray:_toolbar.items];
     if (![UIPrintInteractionController isPrintingAvailable]) {
         [toolbarItems removeObject:_printButton];
+    }
+    if (![MFMailComposeViewController canSendMail]) {
+        [toolbarItems removeObject:_emailButton];
     }
     _toolbar.items = toolbarItems;
     _printButton.enabled = NO;
@@ -105,6 +109,19 @@
     }
 }
 
+- (IBAction)emailButtonPressed:(id)sender {
+    MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+    
+    [controller setSubject:[NSString stringWithFormat:@"Treasure hunt PDF: %@", _hunt.title]];
+    [controller addAttachmentData:[NSData dataWithContentsOfFile:_pdfFilePath]
+                         mimeType:@"application/pdf"
+                         fileName:[NSString stringWithFormat:@"Treasure hunt - %@.pdf", _hunt.title]];
+    [controller setMessageBody:@"Print it and enjoy!" isHTML:NO];
+    
+    controller.mailComposeDelegate = self;
+    [self presentModalViewController:controller animated:YES];
+}
+
 #pragma mark - UIPrintInteractionControllerDelegate
 
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)pic
@@ -112,4 +129,24 @@
     return [UIPrintPaper bestPaperForPageSize:self.paperSize
                           withPapersFromArray:paperList];
 }
+
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    [controller dismissModalViewControllerAnimated:YES];
+    if (result == MFMailComposeResultSent) {
+        [ALToastView toastInView:self.view withText:@"E-mail queued successfully"];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error sending e-mail"
+                                                        message:[error localizedDescription]
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+}
+
 @end

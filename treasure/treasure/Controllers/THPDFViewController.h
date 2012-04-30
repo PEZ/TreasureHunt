@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
+
 #import "THPDFGenerator.h"
 #import "THHunt.h"
 
 @interface THPDFViewController : UIViewController <THPDFGeneratorDelegate, UIActionSheetDelegate,
-UIPrintInteractionControllerDelegate>
+UIPrintInteractionControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) THHunt *hunt;
 @property (strong, nonatomic) IBOutlet UIWebView *pdfWebView;
@@ -25,5 +28,6 @@ UIPrintInteractionControllerDelegate>
 
 - (IBAction)doneButtonPressed:(id)sender;
 - (IBAction)printButtonPressed:(id)sender;
+- (IBAction)emailButtonPressed:(id)sender;
 
 @end
