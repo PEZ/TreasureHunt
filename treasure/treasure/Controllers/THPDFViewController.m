@@ -122,6 +122,11 @@
     [self presentModalViewController:controller animated:YES];
 }
 
+- (void)showToastWithMessage:(NSString*)message
+{
+    [ALToastView toastInView:self.view withText:message];    
+}
+
 #pragma mark - UIPrintInteractionControllerDelegate
 
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)pic
@@ -137,9 +142,9 @@
 {
     [controller dismissModalViewControllerAnimated:YES];
     if (result == MFMailComposeResultSent) {
-        [ALToastView toastInView:self.view withText:@"E-mail queued successfully"];
+        [self performSelector:@selector(showToastWithMessage:) withObject:@"E-mail message queued successfully" afterDelay:0.5];
     }
-    else {
+    else if (result == MFMailComposeResultFailed) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error sending e-mail"
                                                         message:[error localizedDescription]
                                                        delegate:nil

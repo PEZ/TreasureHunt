@@ -12,7 +12,9 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u9J-gh-eSM" sceneMemberID="firstResponder"/>
                 <navigationController id="wNF-P3-3mE" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="oDl-0A-uNu">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="oDl-0A-uNu">
+                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -204,22 +206,22 @@
                             </subviews>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="center" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="CheckpointCell" rowHeight="130" id="Fpt-o6-ZNB" userLabel="Checkpoint Cell" customClass="THCheckpointCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="center" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="CheckpointCell" rowHeight="130" id="Fpt-o6-ZNB" userLabel="Checkpoint Cell" customClass="THCheckpointCell">
                                 <rect key="frame" x="0.0" y="68" width="320" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="129"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="SlT-oE-zhX" userLabel="title">
-                                            <rect key="frame" x="30" y="6" width="290" height="21"/>
+                                            <rect key="frame" x="30" y="6" width="270" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="Vh2-99-xP5" userLabel="textClue">
-                                            <rect key="frame" x="130" y="27" width="190" height="21"/>
+                                            <rect key="frame" x="130" y="27" width="170" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.50543478259999997" green="0.50543478259999997" blue="0.50543478259999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -458,6 +460,66 @@
     <resources>
         <image name="add-hunt-arrow.png" width="320" height="44"/>
     </resources>
+    <classes>
+        <class className="THCheckpointCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/THCheckpointCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageClueImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="mapTrailView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="textClueLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="trailIconImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="THCheckpointViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/THCheckpointViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="clueImageDoubleTapped:" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="action" name="qrSwitchChanged:"/>
+                <relationship kind="outlet" name="imageClueImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="isQRSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="textClueTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="THHuntViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/THHuntViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="generateButtonPressed:"/>
+                <relationship kind="action" name="reorderButtonPressed:"/>
+                <relationship kind="outlet" name="reorderButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="THHuntsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/THHuntsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="headerView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="THPDFViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/THPDFViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doneButtonPressed:"/>
+                <relationship kind="action" name="emailButtonPressed:"/>
+                <relationship kind="action" name="printButtonPressed:"/>
+                <relationship kind="outlet" name="doneButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="emailButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="pdfWebView" candidateClass="UIWebView"/>
+                <relationship kind="outlet" name="printButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="toolbarSpacer" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="THSparePartsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/THSparePartsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="checkPointsHeaderLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="checkpointsReorderButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkpointsSectionHeaderView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
