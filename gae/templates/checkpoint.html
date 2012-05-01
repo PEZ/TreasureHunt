@@ -1,0 +1,6 @@
+  <div id="clue">
+    {% if checkpoint.has_image_clue %}
+        <img src="{{image_clue_url}}" />
+    {% endif %}
+    <p>{{checkpoint.text_clue}}</p>
+  </div>

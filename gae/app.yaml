@@ -12,3 +12,9 @@ handlers:
 
 threadsafe:
 - yes
+
+builtins:
+- admin_redirect: on
+- appstats: on
+- deferred: on
+- remote_api: on

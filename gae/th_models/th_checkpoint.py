@@ -13,5 +13,37 @@ class THCheckpoint(db.Model):
     created_at = db.DateTimeProperty(auto_now_add=True)
     updated_at = db.DateTimeProperty(auto_now=True)
     title = db.StringProperty(default='')
-    image_clue = blobstore.BlobReferenceProperty()
     text_clue = db.StringProperty(default='')
+    has_image_clue = db.BooleanProperty(default=False)
+
+    def as_dict(self, full=False):
+        return_dict = {'key': str(self.key()),
+                       'title': self.title,
+                       'created_at': self.created_at.isoformat(),
+                       'updated_at': self.updated_at.isoformat(),
+                       'has_image_clue': self.has_image_clue}
+        if full:
+            image_clue_key = self.image_clue_key
+            if image_clue_key is not None:
+                image_clue_key = str(image_clue_key)
+            return_dict.update({'text_clue': self.text_clue,
+                               'image_clue_key': image_clue_key})
+        return return_dict
+    
+    @property
+    def image_clue_key(self):
+        return THCheckpointImage.all(keys_only=True).ancestor(self).get()
+
+    @property
+    def image_clue_blob_info_key(self):
+        if self.has_image_clue:
+            image = THCheckpointImage.get(self.image_clue_key)
+            if image is not None:
+                return image.image.key()
+
+    @property
+    def has_text_clue(self):
+        return self.text_clue is not None and self.text_clue.trim() != ""
+
+class THCheckpointImage(db.Model):
+    image = blobstore.BlobReferenceProperty()
