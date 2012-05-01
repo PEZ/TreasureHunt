@@ -81,10 +81,11 @@
 {
     _pdfFilePath = pdfFilePath;
     [self loadDocument:pdfFilePath inView:self.pdfWebView];
-    
-    //UIDocumentInteractionController *document = [UIDocumentInteractionController interactionControllerWithURL: targetURL];
-    //document.delegate = self;
-    //[document presentPreviewAnimated:YES];
+}
+
+- (void)showToastWithMessage:(NSString*)message
+{
+    [ALToastView toastInView:self.view withText:message];    
 }
 
 - (IBAction)doneButtonPressed:(id)sender {
@@ -112,19 +113,14 @@
 - (IBAction)emailButtonPressed:(id)sender {
     MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
     
-    [controller setSubject:[NSString stringWithFormat:@"Treasure hunt PDF: %@", _hunt.title]];
+    [controller setSubject:[NSString stringWithFormat:@"Trail of Clues PDF: %@", _hunt.title]];
     [controller addAttachmentData:[NSData dataWithContentsOfFile:_pdfFilePath]
                          mimeType:@"application/pdf"
-                         fileName:[NSString stringWithFormat:@"Treasure hunt - %@.pdf", _hunt.title]];
+                         fileName:[NSString stringWithFormat:@"Trail of Clues - %@.pdf", _hunt.title]];
     [controller setMessageBody:@"Print it and enjoy!" isHTML:NO];
     
     controller.mailComposeDelegate = self;
     [self presentModalViewController:controller animated:YES];
-}
-
-- (void)showToastWithMessage:(NSString*)message
-{
-    [ALToastView toastInView:self.view withText:message];    
 }
 
 #pragma mark - UIPrintInteractionControllerDelegate

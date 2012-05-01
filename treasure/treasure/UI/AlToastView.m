@@ -85,11 +85,6 @@ static NSMutableArray *toasts;
 }
 
 
-- (void)dealloc {
-	[_textLabel release];
-    
-	[super dealloc];
-}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +112,6 @@ static NSMutableArray *toasts;
 		[toasts addObject:view];
 	}
 	
-    [view release];
 }
 
 
@@ -134,11 +128,10 @@ static NSMutableArray *toasts;
                      completion:^(BOOL finished){
                          UIView *parentView = self.superview;
                          [self removeFromSuperview];
-                         
+                         _textLabel = nil;
                          // Remove current view from array
                          [toasts removeObject:self];
                          if ([toasts count] == 0) {
-                             [toasts release];
                              toasts = nil;
                          }
                          else

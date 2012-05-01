@@ -13,17 +13,12 @@
 #import "THCheckpoint.h"
 #import "THCheckpoint+Behavior.h"
 #import "THCheckpointCell.h"
-#import "THSparePartsViewController.h"
 #import "THUtils.h"
 #import "THHunt+OrderedCheckpoints.h"
 #import "THHuntBackgroundViewController.h"
 #import "UIView+Additions.h"
 
-@interface THHuntViewController () {
-    THCheckpointCell *_measurementCell;
-    THSparePartsViewController *_sparePartsViewController;
-    BOOL _isReordering;
-}
+@interface THHuntViewController ()
 
 - (void)configureView;
 - (void)configureCell:(THCheckpointCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -107,11 +102,21 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return _sparePartsViewController.checkpointsSectionHeaderView;
+    if ([_hunt.checkpoints count] > 0) {
+        return _sparePartsViewController.checkpointsSectionHeaderView;
+    }
+    else {
+        return nil;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return _sparePartsViewController.checkpointsSectionHeaderView.frame.size.height;
+    if ([_hunt.checkpoints count] > 0) {
+        return _sparePartsViewController.checkpointsSectionHeaderView.frame.size.height;
+    }
+    else {
+        return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -296,8 +301,8 @@
         [sheet showInView:self.view];
     }
     else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete hunt"
-                                                        message:@"In order to generate a PDF, you need at least two checkpoints and all checkpoints must have at least one clue."
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete trail"
+                                                        message:@"In order to generate a PDF, you need an unbroken trail from start to goal."
                                                        delegate:nil
                                               cancelButtonTitle:nil
                                               otherButtonTitles:@"OK", nil];

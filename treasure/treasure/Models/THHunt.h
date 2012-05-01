@@ -16,9 +16,9 @@
 
 @interface THHunt : NSManagedObject
 
-@property (nonatomic, retain) NSDate * timeStamp;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSOrderedSet *checkpoints;
+@property (nonatomic) NSDate * timeStamp;
+@property (nonatomic) NSString * title;
+@property (nonatomic) NSOrderedSet *checkpoints;
 @end
 
 @interface THHunt (CoreDataGeneratedAccessors)
