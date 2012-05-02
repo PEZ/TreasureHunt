@@ -144,7 +144,7 @@ class THCheckpointAPIHandler(THAPIHandler):
 
     def get(self, checkpoint_key_str):
         try:
-            checkpoint = ndb.key(urlsafe=urllib.unquote(checkpoint_key_str)).get()
+            checkpoint = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str)).get()
             self.respond(checkpoint.as_dict())
         except:
             self.bail_with_message(None, 'unknown checkpoint', 404)
@@ -162,6 +162,18 @@ class THCheckpointAPIHandler(THAPIHandler):
             self.respond(checkpoint.as_dict())
         except Exception, e:
             logging.error('Error creating checkpoint for hunt %s: %s' % (hunt_key_str, e.message))
+            raise
+
+    def delete(self, checkpoint_key_str):
+        try:
+            checkpoint = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str)).get()
+        except:
+            self.bail_with_message(None, 'unknown checkpoint', 404)
+        try:
+            checkpoint.key.delete()
+            self.respond({'key': checkpoint_key_str, 'result': 'deleted'})
+        except Exception, e:
+            logging.error('Error deleting checkpoint %s: %s' % (checkpoint_key_str, e.message))
             raise
 
 class THCheckpointUpdateAPIHandler(THAPIHandler):
@@ -188,6 +200,7 @@ class THCheckpointUpdateAPIHandler(THAPIHandler):
             logging.error('Error updating checkpoint %s: %s' % (checkpoint_key_str, e.message))
             raise
 
+
 class THCheckpointWebHandler(WebHandler):
     BASE_URL = '/c'
     PATTERN = '%s/%s' % (BASE_URL, PARAM_REGEX)
@@ -213,7 +226,8 @@ application = webapp.WSGIApplication([(THCreateUserAPIHandler.PATTERN, THCreateU
                                       (THGenerateCheckpointUploadUrlAPIHandler.PATTERN, THGenerateCheckpointUploadUrlAPIHandler),
                                       (THUploadCheckpointImageHandler.PATTERN, THUploadCheckpointImageHandler),
                                       (THServeBlobHandler.PATTERN, THServeBlobHandler),
-                                      (THCheckpointWebHandler.PATTERN, THCheckpointWebHandler)],
+                                      (THCheckpointWebHandler.PATTERN, THCheckpointWebHandler),
+                                      (THCheckpointUpdateAPIHandler.PATTERN, THCheckpointUpdateAPIHandler)],
                                      debug=True)
 
 def main():
