@@ -6,9 +6,10 @@ Created on May 1, 2012
 '''
 
 from google.appengine.ext import db, blobstore
+from th_models import THModel
 from th_models.th_hunt import THHunt
 
-class THCheckpoint(db.Model):
+class THCheckpoint(THModel):
     hunt = db.ReferenceProperty(THHunt, collection_name='checkpoints', required=True)
     created_at = db.DateTimeProperty(auto_now_add=True)
     updated_at = db.DateTimeProperty(auto_now=True)
@@ -21,15 +22,12 @@ class THCheckpoint(db.Model):
                        'title': self.title,
                        'created_at': self.created_at.isoformat(),
                        'updated_at': self.updated_at.isoformat(),
-                       'has_image_clue': self.has_image_clue}
+                       'has_image_clue': self.has_image_clue,
+                       'has_text_clue': self.has_text_clue}
         if full:
-            image_clue_key = self.image_clue_key
-            if image_clue_key is not None:
-                image_clue_key = str(image_clue_key)
-            return_dict.update({'text_clue': self.text_clue,
-                               'image_clue_key': image_clue_key})
+            return_dict.update({'text_clue': self.text_clue})
         return return_dict
-    
+
     @property
     def image_clue_key(self):
         return THCheckpointImage.all(keys_only=True).ancestor(self).get()
@@ -43,7 +41,7 @@ class THCheckpoint(db.Model):
 
     @property
     def has_text_clue(self):
-        return self.text_clue is not None and self.text_clue.trim() != ""
+        return self.text_clue is not None and self.text_clue.strip() != ""
 
 class THCheckpointImage(db.Model):
     image = blobstore.BlobReferenceProperty()

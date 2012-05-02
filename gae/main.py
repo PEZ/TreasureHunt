@@ -3,7 +3,6 @@ from google.appengine.ext import db, blobstore
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.ext.webapp import template
-from google.appengine.api import memcache
 
 import json
 import os
@@ -46,35 +45,12 @@ class WebHandler(webapp.RequestHandler):
         if code == 404:
             self.Render("404.html", {})
 
-def get_db_object(model_class, db_key):
-    db_object = None
-    if db_key:
-        try:
-            mem_key = '%s:%s' % (model_class.__name__, db_key)
-            db_object = memcache.get(mem_key)  #@UndefinedVariable
-            if db_object is None:
-                db_object = model_class.get(db_key)
-                if not memcache.add(mem_key, db_object): #@UndefinedVariable
-                    logging.error('Error setting memcache for key %s' % mem_key)
-        except Exception as e:
-            logging.warning('Failed loading %s with key: %s (%s)' % (model_class.__name__, db_key, e.message))
-    return db_object
-
-def get_user(user_key):
-    return get_db_object(THUser, user_key)
-
-def get_hunt(hunt_key):
-    return get_db_object(THHunt, hunt_key)
-
-def get_checkpoint(checkpoint_key):
-    return get_db_object(THCheckpoint, checkpoint_key)
-
 class THGetUserAPIHandler(THAPIHandler):
     BASE_URL = '/api/user'
     PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
 
     def get(self, user_key):
-        user = get_user(user_key)
+        user = THUser.get_db_object(user_key)
         if (user is not None):
             self.respond(user.as_dict())
         else:
@@ -94,7 +70,7 @@ class THHuntAPIHandler(THAPIHandler):
     PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
 
     def get(self, hunt_key):
-        hunt = get_hunt(hunt_key)
+        hunt = THHunt.get_db_object(hunt_key)
         if (hunt is not None):
             self.respond(hunt.as_dict())
         else:
@@ -102,10 +78,11 @@ class THHuntAPIHandler(THAPIHandler):
 
     def post(self, user_key):
         title = self.request.get('title')
-        user = get_user(user_key)
+        user = THUser.get_db_object(user_key)
         if (user is not None):
             hunt = THHunt(user=user, title=title)
-            hunt.put()
+            hunt.put()  
+            hunt.update_in_memcache()
             self.respond(hunt.as_dict())
         else:
             self.bail_with_message(None, 'never seen that dude', 404)
@@ -115,13 +92,14 @@ class THUploadCheckpointImageHandler(blobstore_handlers.BlobstoreUploadHandler, 
     PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
 
     def post(self, checkpoint_key):
-        checkpoint = get_checkpoint(checkpoint_key)
+        checkpoint = THCheckpoint.get_db_object(checkpoint_key)
         files = self.get_uploads('image_clue')
         blob_info = files[0]
         if checkpoint is not None:
             image = THCheckpointImage(parent=checkpoint, image=blob_info.key())
             checkpoint.has_image_clue = True
             db.put([image, checkpoint])
+            checkpoint.update_in_memcache()
             self.respond(checkpoint.as_dict(full=True))
         else:
             blob_info.delete()
@@ -132,7 +110,7 @@ class THGenerateCheckpointUploadUrlAPIHandler(THAPIHandler):
     PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
 
     def get(self, checkpoint_key):
-        checkpoint = get_checkpoint(checkpoint_key)
+        checkpoint = THCheckpoint.get_db_object(checkpoint_key)
         if (checkpoint is not None):
             upload_url = blobstore.create_upload_url('%s/%s' % (THUploadCheckpointImageHandler.BASE_URL, checkpoint_key))
             self.respond(upload_url)
@@ -153,7 +131,7 @@ class THCheckpointAPIHandler(THAPIHandler):
     PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
 
     def get(self, checkpoint_key):
-        checkpoint = get_checkpoint(checkpoint_key)
+        checkpoint = THCheckpoint.get_db_object(checkpoint_key)
         if (checkpoint is not None):
             self.respond(checkpoint.as_dict())
         else:
@@ -162,20 +140,40 @@ class THCheckpointAPIHandler(THAPIHandler):
     def post(self, hunt_key):
         title = self.request.get('title')
         text_clue = self.request.get('text_clue')
-        hunt = get_hunt(hunt_key)
+        hunt = THHunt.get_db_object(hunt_key)
         if (hunt is not None):
             checkpoint = THCheckpoint(hunt=hunt, title=title, text_clue=text_clue)
             checkpoint.put()
+            checkpoint.update_in_memcache()
             self.respond(checkpoint.as_dict())
         else:
             self.bail_with_message(None, 'unknown hunt', 404)
+
+class THCheckpointUpdateAPIHandler(THAPIHandler):
+    BASE_URL = '/api/update/checkpoint'
+    PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
+
+    def post(self, checkpoint_key):
+        title = self.request.get('title', None)
+        text_clue = self.request.get('text_clue', None)
+        checkpoint = THCheckpoint.get_db_object(checkpoint_key)
+        if (checkpoint is not None):
+            if title is not None:
+                checkpoint.title = title
+            if text_clue is not None:
+                checkpoint.text_clue = text_clue
+            checkpoint.put()
+            checkpoint.update_in_memcache()
+            self.respond(checkpoint.as_dict())
+        else:
+            self.bail_with_message(None, 'unknown checkpoint', 404)
 
 class THCheckpointWebHandler(WebHandler):
     BASE_URL = '/c'
     PATTERN = '%s/%s' % (BASE_URL, PARAM_REGEX)
     
     def get(self, checkpoint_key):
-        checkpoint = get_checkpoint(checkpoint_key)
+        checkpoint = THCheckpoint.get_db_object(checkpoint_key)
         if (checkpoint is not None):
             template_values = {
                 'title': 'Checkpoint',

@@ -6,8 +6,9 @@ Created on May 1, 2012
 '''
 
 from google.appengine.ext import db
+from th_models import THModel
 
-class THUser(db.Model):
+class THUser(THModel):
     created_at = db.DateTimeProperty(auto_now_add=True)
     
     def as_dict(self):
