@@ -16,6 +16,7 @@ class THCheckpoint(THModel):
     title = ndb.StringProperty(default='')
     text_clue = ndb.StringProperty(default='')
     has_image_clue = ndb.BooleanProperty(default=False)
+    deleted = ndb.BooleanProperty(default=False)
 
     def as_dict(self, full=False):
         return_dict = {'key': str(self.key.urlsafe()),
@@ -46,3 +47,5 @@ class THCheckpoint(THModel):
 
 class THCheckpointImage(THModel):
     image = ndb.BlobKeyProperty()
+    deleted = ndb.BooleanProperty(default=False)
+

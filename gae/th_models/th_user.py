@@ -10,6 +10,7 @@ from th_models import THModel
 
 class THUser(THModel):
     created_at = ndb.DateTimeProperty(auto_now_add=True)
+    deleted = ndb.BooleanProperty(default=False)
     
     def as_dict(self):
         return {'key': str(self.key.urlsafe()),

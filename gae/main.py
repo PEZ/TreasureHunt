@@ -80,7 +80,7 @@ class THHuntAPIHandler(THAPIHandler):
         title = self.request.get('title')
         user_key = ndb.Key(urlsafe=urllib.unquote(user_key_str))
         user = user_key.get()
-        if user is not None or user.is_of_class_name('THUser'):
+        if user is not None and user.is_of_class_name('THUser'):
             try:
                 hunt = THHunt(user=user.key, title=title)
                 hunt.put()  

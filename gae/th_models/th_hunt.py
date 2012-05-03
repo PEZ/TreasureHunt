@@ -14,6 +14,7 @@ class THHunt(THModel):
     created_at = ndb.DateTimeProperty(auto_now_add=True)
     updated_at = ndb.DateTimeProperty(auto_now=True)
     title = ndb.StringProperty(default='')
+    deleted = ndb.BooleanProperty(default=False)
 
     def as_dict(self):
         return {'key': str(self.key.urlsafe()),
