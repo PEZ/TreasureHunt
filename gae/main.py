@@ -50,10 +50,10 @@ class THGetUserAPIHandler(THAPIHandler):
     PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
 
     def get(self, user_key):
-        try:
-            user = ndb.Key(urlsafe=urllib.unquote(user_key)).get()
+        user = ndb.Key(urlsafe=urllib.unquote(user_key)).get()
+        if user is not None and user.is_of_class_name('THUser'):
             self.respond(user.as_dict())
-        except:
+        else:
             self.bail_with_message(None, 'never seen that dude', 404)
 
 class THCreateUserAPIHandler(THAPIHandler):
@@ -70,27 +70,26 @@ class THHuntAPIHandler(THAPIHandler):
     PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
 
     def get(self, hunt_key_str):
-        try:
-            hunt = ndb.Key(urlsafe=urllib.unquote(hunt_key_str)).get()
+        hunt = ndb.Key(urlsafe=urllib.unquote(hunt_key_str)).get()
+        if hunt is not None and hunt.is_of_class_name('THHunt'):
             self.respond(hunt.as_dict())
-        except:
+        else:
             self.bail_with_message(None, 'unknown hunt', 404)
 
     def post(self, user_key_str):
         title = self.request.get('title')
-        try:
-            user_key = ndb.Key(urlsafe=urllib.unquote(user_key_str))
-            user = user_key.get()
-        except:
+        user_key = ndb.Key(urlsafe=urllib.unquote(user_key_str))
+        user = user_key.get()
+        if user is not None or user.is_of_class_name('THUser'):
+            try:
+                hunt = THHunt(user=user.key, title=title)
+                hunt.put()  
+                self.respond(hunt.as_dict())
+            except Exception, e:
+                logging.error('Error creating hunt for user %s: %s' % (user_key_str, e.message))
+                raise
+        else:
             self.bail_with_message(None, 'never seen that dude', 404)
-            return
-        try:
-            hunt = THHunt(user=user.key, title=title)
-            hunt.put()  
-            self.respond(hunt.as_dict())
-        except Exception, e:
-            logging.error('Error creating hunt for user %s: %s' % (user_key_str, e.message))
-            raise
 
 class THUploadCheckpointImageHandler(blobstore_handlers.BlobstoreUploadHandler, THAPIHandler):
     BASE_URL = '/api/upload/checkpoint'
@@ -100,33 +99,34 @@ class THUploadCheckpointImageHandler(blobstore_handlers.BlobstoreUploadHandler, 
         logging.debug(checkpoint_key_str)
         files = self.get_uploads('image_clue')
         blob_info = files[0]
-        try:
-            checkpoint_key = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str))
-            checkpoint = checkpoint_key.get()
-        except:
+        checkpoint_key = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str))
+        checkpoint = checkpoint_key.get()
+        if checkpoint is not None and checkpoint.is_of_class_name('THCheckpoint'):
+            try:
+                image = THCheckpointImage(parent=checkpoint.key, image=blob_info.key())
+                checkpoint.has_image_clue = True
+                ndb.put_multi([image, checkpoint])
+                self.respond(checkpoint.as_dict(full=True))
+            except Exception, e:
+                blob_info.delete()
+                logging.error('Error creating image for checkpoint %s: %s' % (checkpoint_key_str, e.message))
+                raise
+        else:
             blob_info.delete()
             self.bail_with_message(None, 'unknown checkpoint', 404)
             return
-        try:
-            image = THCheckpointImage(parent=checkpoint.key, image=blob_info.key())
-            checkpoint.has_image_clue = True
-            ndb.put_multi([image, checkpoint])
-            self.respond(checkpoint.as_dict(full=True))
-        except Exception, e:
-            blob_info.delete()
-            logging.error('Error creating image for checkpoint %s: %s' % (checkpoint_key_str, e.message))
-            raise
 
 class THGenerateCheckpointUploadUrlAPIHandler(THAPIHandler):
     BASE_URL = '/api/generate_upload_url/checkpoint'
     PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
 
     def get(self, checkpoint_key_str):
-        try:
-            checkpoint_key = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str))
+        checkpoint_key = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str))
+        checkpoint = checkpoint_key.get()
+        if checkpoint is not None and checkpoint.is_of_class_name('THCheckpoint'):
             upload_url = blobstore.create_upload_url('%s/%s' % (THUploadCheckpointImageHandler.BASE_URL, checkpoint_key.urlsafe()))
             self.respond(upload_url)
-        except:
+        else:
             self.bail_with_message(None, 'unknown checkpoint', 404)
 
 class THServeBlobHandler(blobstore_handlers.BlobstoreDownloadHandler):
@@ -143,38 +143,38 @@ class THCheckpointAPIHandler(THAPIHandler):
     PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
 
     def get(self, checkpoint_key_str):
-        try:
-            checkpoint = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str)).get()
+        checkpoint = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str)).get()
+        if checkpoint is not None and checkpoint.is_of_class_name('THCheckpoint'):
             self.respond(checkpoint.as_dict())
-        except:
+        else:
             self.bail_with_message(None, 'unknown checkpoint', 404)
 
     def post(self, hunt_key_str):
         title = self.request.get('title')
         text_clue = self.request.get('text_clue')
-        try:
-            hunt = ndb.Key(urlsafe=urllib.unquote(hunt_key_str)).get()
-        except:
+        hunt = ndb.Key(urlsafe=urllib.unquote(hunt_key_str)).get()
+        if hunt is not None and hunt.is_of_class_name('THHunt'):
+            try:
+                checkpoint = THCheckpoint(hunt=hunt.key, title=title, text_clue=text_clue)
+                checkpoint.put()
+                self.respond(checkpoint.as_dict())
+            except Exception, e:
+                logging.error('Error creating checkpoint for hunt %s: %s' % (hunt_key_str, e.message))
+                raise
+        else:
             self.bail_with_message(None, 'unknown hunt', 404)
-        try:
-            checkpoint = THCheckpoint(hunt=hunt.key, title=title, text_clue=text_clue)
-            checkpoint.put()
-            self.respond(checkpoint.as_dict())
-        except Exception, e:
-            logging.error('Error creating checkpoint for hunt %s: %s' % (hunt_key_str, e.message))
-            raise
 
     def delete(self, checkpoint_key_str):
-        try:
-            checkpoint = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str)).get()
-        except:
+        checkpoint = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str)).get()
+        if checkpoint is not None and checkpoint.is_of_class_name('THCheckpoint'):
+            try:
+                checkpoint.key.delete()
+                self.respond({'key': checkpoint_key_str, 'result': 'deleted'})
+            except Exception, e:
+                logging.error('Error deleting checkpoint %s: %s' % (checkpoint_key_str, e.message))
+                raise
+        else:
             self.bail_with_message(None, 'unknown checkpoint', 404)
-        try:
-            checkpoint.key.delete()
-            self.respond({'key': checkpoint_key_str, 'result': 'deleted'})
-        except Exception, e:
-            logging.error('Error deleting checkpoint %s: %s' % (checkpoint_key_str, e.message))
-            raise
 
 class THCheckpointUpdateAPIHandler(THAPIHandler):
     BASE_URL = '/api/update/checkpoint'
@@ -183,41 +183,40 @@ class THCheckpointUpdateAPIHandler(THAPIHandler):
     def post(self, checkpoint_key_str):
         title = self.request.get('title', None)
         text_clue = self.request.get('text_clue', None)
-        try:
-            checkpoint_key = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str))
-            checkpoint = checkpoint_key.get()
-        except:
+        checkpoint_key = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str))
+        checkpoint = checkpoint_key.get()
+        if checkpoint is not None and checkpoint.is_of_class_name('THCheckpoint'):
+            if title is not None:
+                checkpoint.title = title
+            if text_clue is not None:
+                checkpoint.text_clue = text_clue
+            try:
+                checkpoint.put()
+                self.respond(checkpoint.as_dict())
+            except Exception, e:
+                logging.error('Error updating checkpoint %s: %s' % (checkpoint_key_str, e.message))
+                raise
+        else:
             self.bail_with_message(None, 'unknown checkpoint', 404)
-        
-        if title is not None:
-            checkpoint.title = title
-        if text_clue is not None:
-            checkpoint.text_clue = text_clue
-        try:
-            checkpoint.put()
-            self.respond(checkpoint.as_dict())
-        except Exception, e:
-            logging.error('Error updating checkpoint %s: %s' % (checkpoint_key_str, e.message))
-            raise
-
 
 class THCheckpointWebHandler(WebHandler):
     BASE_URL = '/c'
     PATTERN = '%s/%s' % (BASE_URL, PARAM_REGEX)
     
-    def get(self, checkpoint_key_str):
-        try:
-            checkpoint_key = ndb.Key(urlsafe=urllib.unquote(checkpoint_key_str))
-            checkpoint = checkpoint_key.get()
+    def get(self, checkpoint_id):
+        checkpoint_key = ndb.Key(THCheckpoint, int(checkpoint_id))
+        checkpoint = checkpoint_key.get()
+        if checkpoint is not None and checkpoint.is_of_class_name('THCheckpoint'):
             template_values = {
                 'title': 'Checkpoint',
                 'checkpoint': checkpoint,
-                'image_clue_url': '%s/%s' % (THServeBlobHandler.BASE_URL, checkpoint.image_clue_blob_info_key)
+                'image_clue_url': None 
             }
+            if checkpoint.has_image_clue:
+                template_values['image_clue_url'] = '%s/%s' % (THServeBlobHandler.BASE_URL, checkpoint.image_clue_blob_info_key)
             self.Render("checkpoint.html", template_values)
-        except:
+        else:
             self.error(404)
-            raise
 
 application = webapp.WSGIApplication([(THCreateUserAPIHandler.PATTERN, THCreateUserAPIHandler),
                                       (THGetUserAPIHandler.PATTERN, THGetUserAPIHandler),

@@ -13,3 +13,7 @@ import logging
 
 class THModel(polymodel.PolyModel):
     deleted = ndb.BooleanProperty(default=False)
+
+    def is_of_class_name(self, class_name):
+        return self.__class__.__name__ == class_name
+        

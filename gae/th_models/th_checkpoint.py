@@ -19,6 +19,7 @@ class THCheckpoint(THModel):
 
     def as_dict(self, full=False):
         return_dict = {'key': str(self.key.urlsafe()),
+                       'id': self.key.id(),
                        'title': self.title,
                        'created_at': self.created_at.isoformat(),
                        'updated_at': self.updated_at.isoformat(),
