@@ -16,10 +16,12 @@
 
 @interface THCheckpoint : NSManagedObject
 
-@property (nonatomic) NSNumber *displayOrder;
 @property (nonatomic) UIImage *imageClue;
 @property (nonatomic) UIImage *imageClueThumbnail;
 @property (nonatomic) NSNumber *isQR;
+@property (nonatomic) NSNumber *isSynced;
+@property (nonatomic) NSString *serverId;
+@property (nonatomic) NSString *serverKey;
 @property (nonatomic) NSString *textClue;
 @property (nonatomic) NSString *title;
 @property (nonatomic) THHunt *hunt;

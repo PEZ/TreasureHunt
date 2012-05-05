@@ -55,6 +55,9 @@
 		EBD6AB16155335D6007FDD3F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD6AB15155335D6007FDD3F /* SystemConfiguration.framework */; };
 		EBD6AB18155335F7007FDD3F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD6AB17155335F7007FDD3F /* MobileCoreServices.framework */; };
 		EBD6AB1A15533612007FDD3F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD6AB1915533612007FDD3F /* libz.dylib */; };
+		EBD6AB1D155467DF007FDD3F /* THServerConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD6AB1C155467DF007FDD3F /* THServerConnection.m */; };
+		EBD6AB2015546826007FDD3F /* THUser.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD6AB1F15546826007FDD3F /* THUser.m */; };
+		EBD6AB2315558399007FDD3F /* THUser+FetchFirstOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD6AB2215558399007FDD3F /* THUser+FetchFirstOnly.m */; };
 		EBE2ED4A1532D6C800808CC5 /* THHunt.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE2ED491532D6C800808CC5 /* THHunt.m */; settings = {COMPILER_FLAGS = ""; }; };
 		EBE8D4671531859A003EF33F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4661531859A003EF33F /* UIKit.framework */; };
 		EBE8D4691531859A003EF33F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE8D4681531859A003EF33F /* Foundation.framework */; };
@@ -163,6 +166,12 @@
 		EBD6AB15155335D6007FDD3F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EBD6AB17155335F7007FDD3F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		EBD6AB1915533612007FDD3F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		EBD6AB1B155467DF007FDD3F /* THServerConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THServerConnection.h; sourceTree = "<group>"; };
+		EBD6AB1C155467DF007FDD3F /* THServerConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THServerConnection.m; sourceTree = "<group>"; };
+		EBD6AB1E15546826007FDD3F /* THUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THUser.h; sourceTree = "<group>"; };
+		EBD6AB1F15546826007FDD3F /* THUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THUser.m; sourceTree = "<group>"; };
+		EBD6AB2115558399007FDD3F /* THUser+FetchFirstOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "THUser+FetchFirstOnly.h"; sourceTree = "<group>"; };
+		EBD6AB2215558399007FDD3F /* THUser+FetchFirstOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "THUser+FetchFirstOnly.m"; sourceTree = "<group>"; };
 		EBE2ED481532D6C800808CC5 /* THHunt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THHunt.h; sourceTree = "<group>"; };
 		EBE2ED491532D6C800808CC5 /* THHunt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THHunt.m; sourceTree = "<group>"; };
 		EBE8D4621531859A003EF33F /* treasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -249,6 +258,8 @@
 				EB6850841533092900A8B8B0 /* NSDate+FormattingAdditions.m */,
 				EB7CE85A15375BFC00D5D77C /* THUtils.h */,
 				EB7CE85B15375BFC00D5D77C /* THUtils.m */,
+				EBD6AB1B155467DF007FDD3F /* THServerConnection.h */,
+				EBD6AB1C155467DF007FDD3F /* THServerConnection.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -318,6 +329,10 @@
 		EBE2ED471532D64300808CC5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EBD6AB1E15546826007FDD3F /* THUser.h */,
+				EBD6AB1F15546826007FDD3F /* THUser.m */,
+				EBD6AB2115558399007FDD3F /* THUser+FetchFirstOnly.h */,
+				EBD6AB2215558399007FDD3F /* THUser+FetchFirstOnly.m */,
 				EB68507E1532D7B800A8B8B0 /* THCheckpoint.h */,
 				EB68507F1532D7B800A8B8B0 /* THCheckpoint.m */,
 				EB0EFA19154E84FC00567DCE /* THCheckpoint+Behavior.h */,
@@ -592,6 +607,9 @@
 				EBD6AB0F15533585007FDD3F /* ASIInputStream.m in Sources */,
 				EBD6AB1015533585007FDD3F /* ASINetworkQueue.m in Sources */,
 				EBD6AB1115533585007FDD3F /* Reachability.m in Sources */,
+				EBD6AB1D155467DF007FDD3F /* THServerConnection.m in Sources */,
+				EBD6AB2015546826007FDD3F /* THUser.m in Sources */,
+				EBD6AB2315558399007FDD3F /* THUser+FetchFirstOnly.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

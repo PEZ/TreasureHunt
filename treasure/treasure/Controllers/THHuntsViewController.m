@@ -10,6 +10,8 @@
 #import "THHuntsViewController.h"
 #import "THHuntViewController.h"
 #import "THUtils.h"
+#import "THServerConnection.h"
+#import "THUser+FetchFirstOnly.h"
 
 @interface THHuntsViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -20,6 +22,7 @@
 @synthesize headerView = _headerView;
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
+@synthesize userServerKey = _userServerKey;
 
 - (void)configureView
 {
@@ -114,6 +117,13 @@
         hunt = [[self fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
     }
     if (hunt) {
+        if (hunt.serverKey == nil) {
+            [THServerConnection obtainHuntKeyForUser:[THUser firstInManagedObjectContext:__managedObjectContext]
+                                             andHunt:hunt
+                                           withBlock:^(NSString *serverKey) {
+                                               hunt.serverKey = serverKey;
+                                           }];
+        }
         THHuntViewController* huntController = [segue destinationViewController];
         huntController.hunt = hunt;
         huntController.managedObjectContext = self.managedObjectContext;

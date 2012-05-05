@@ -12,10 +12,12 @@
 
 @implementation THCheckpoint
 
-@dynamic displayOrder;
 @dynamic imageClue;
 @dynamic imageClueThumbnail;
 @dynamic isQR;
+@dynamic isSynced;
+@dynamic serverId;
+@dynamic serverKey;
 @dynamic textClue;
 @dynamic title;
 @dynamic hunt;

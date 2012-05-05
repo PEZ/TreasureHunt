@@ -17,6 +17,8 @@
 @interface THHunt : NSManagedObject
 
 @property (nonatomic) NSDate * timeStamp;
+@property (nonatomic) NSNumber *isSynced;
+@property (nonatomic) NSString *serverKey;
 @property (nonatomic) NSString * title;
 @property (nonatomic) NSOrderedSet *checkpoints;
 @end

@@ -6,6 +6,7 @@
         <attribute name="imageClueThumbnail" optional="YES" attributeType="Transformable" storedInTruthFile="YES" syncable="YES"/>
         <attribute name="isImageClueUploaded" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isQR" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="isSynced" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="serverId" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="serverKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="textClue" optional="YES" attributeType="String" maxValueString="100" syncable="YES"/>
@@ -13,17 +14,18 @@
         <relationship name="hunt" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Hunt" inverseName="checkpoints" inverseEntity="Hunt" syncable="YES"/>
     </entity>
     <entity name="Hunt" representedClassName="THHunt">
+        <attribute name="isSynced" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="serverKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeStamp" optional="YES" attributeType="Date"/>
         <attribute name="title" optional="YES" attributeType="String" maxValueString="50" syncable="YES"/>
         <relationship name="checkpoints" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Checkpoint" inverseName="hunt" inverseEntity="Checkpoint" syncable="YES"/>
     </entity>
-    <entity name="User" syncable="YES">
+    <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="serverKey" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkpoint" positionX="277" positionY="252" width="128" height="195"/>
-        <element name="Hunt" positionX="81" positionY="189" width="128" height="105"/>
+        <element name="Checkpoint" positionX="331" positionY="255" width="128" height="210"/>
+        <element name="Hunt" positionX="81" positionY="189" width="128" height="120"/>
         <element name="User" positionX="-99" positionY="189" width="128" height="60"/>
     </elements>
 </model>

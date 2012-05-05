@@ -13,6 +13,8 @@
 @implementation THHunt
 
 @dynamic timeStamp;
+@dynamic isSynced;
+@dynamic serverKey;
 @dynamic title;
 @dynamic checkpoints;
 

@@ -9,6 +9,7 @@
 #import "THAppDelegate.h"
 
 #import "THHuntsViewController.h"
+#import "THServerConnection.h"
 
 @implementation THAppDelegate
 
@@ -19,10 +20,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-  UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-  THHuntsViewController *controller = (THHuntsViewController *)navigationController.topViewController;
-  controller.managedObjectContext = self.managedObjectContext;
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    THHuntsViewController *controller = (THHuntsViewController *)navigationController.topViewController;
+    controller.managedObjectContext = self.managedObjectContext;
+    [THServerConnection setManagedObjectContext:self.managedObjectContext];
+    [THServerConnection obtainUserKey:^(NSString *key) {
+        controller.userServerKey = key;
+    }];
     return YES;
 }
 							
@@ -104,7 +108,7 @@
     }
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"treasure.sqlite"];
-    
+    //NSLog(@"Core Data store path = \"%@\"", [storeURL path]);
     //[[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

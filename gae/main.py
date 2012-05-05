@@ -84,7 +84,7 @@ class THHuntAPIHandler(THAPIHandler):
             try:
                 hunt = THHunt(user=user.key, title=title)
                 hunt.put()  
-                self.respond(hunt.as_dict())
+                self.respond(user.as_dict())
             except Exception, e:
                 logging.error('Error creating hunt for user %s: %s' % (user_key_str, e.message))
                 raise
@@ -106,7 +106,7 @@ class THUploadCheckpointImageHandler(blobstore_handlers.BlobstoreUploadHandler, 
                 image = THCheckpointImage(parent=checkpoint.key, image=blob_info.key())
                 checkpoint.has_image_clue = True
                 ndb.put_multi([image, checkpoint])
-                self.respond(checkpoint.as_dict(full=True))
+                self.respond({'result': True})
             except Exception, e:
                 blob_info.delete()
                 logging.error('Error creating image for checkpoint %s: %s' % (checkpoint_key_str, e.message))
@@ -125,7 +125,7 @@ class THGenerateCheckpointUploadUrlAPIHandler(THAPIHandler):
         checkpoint = checkpoint_key.get()
         if checkpoint is not None and checkpoint.is_of_class_name('THCheckpoint'):
             upload_url = blobstore.create_upload_url('%s/%s' % (THUploadCheckpointImageHandler.BASE_URL, checkpoint_key.urlsafe()))
-            self.respond(upload_url)
+            self.respond(json.dumps({'upload_url': upload_url}))
         else:
             self.bail_with_message(None, 'unknown checkpoint', 404)
 
