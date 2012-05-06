@@ -37,12 +37,16 @@ typedef void (^THServerConnectionUpdateDoneBlock)(BOOL);
                      andHunt:(THHunt*)hunt
                    withBlock:(THServerConnectionKeyObtainedBlock)keyObtainedBlock;
 
+#define API_UPDATE_HUNT_URL_STRING API_BASE_URL_STRING @"/update/hunt"
++ (void)updateHunt:(THHunt*)hunt withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock;
+
 #define API_CREATE_CHECKPOINT_URL_STRING API_BASE_URL_STRING @"/checkpoint"
 + (void)obtainCheckpointKeyAndIdForHunt:(THHunt*)hunt
                           andCheckpoint:(THCheckpoint*)checkpoint
                               withBlock:(THServerConnectionKeyAndIdObtainedBlock)keyAndIdObtainedBlock;
 
-#define API_UPDATE_HUNT_URL_STRING API_BASE_URL_STRING @"/update/hunt"
-+ (void)updateHunt:(THHunt*)hunt withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock;
+#define API_UPDATE_CHECKPOINT_URL_STRING API_BASE_URL_STRING @"/update/checkpoint"
++ (void)updateCheckpoint:(THCheckpoint*)checkpoint withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock;
+
 
 @end

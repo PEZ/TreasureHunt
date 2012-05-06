@@ -28,6 +28,8 @@ static NSManagedObjectContext *_context;
                           andCheckpoint:(THCheckpoint*)checkpoint
                               withBlock:(THServerConnectionKeyAndIdObtainedBlock)keyAndIdObtainedBlock;
 
++ (void)updateKeyedCheckpoint:(THCheckpoint*)checkpoint withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock;
+
 @end
 
 @implementation THServerConnection
@@ -129,6 +131,20 @@ static NSManagedObjectContext *_context;
     }
 }
 
++ (void)updateCheckpoint:(THCheckpoint *)checkpoint withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock
+{
+    if (checkpoint.serverKey == nil) {
+        [self obtainCheckpointKeyAndIdForHunt:checkpoint.hunt
+                                andCheckpoint:checkpoint
+                                    withBlock:^(NSString *serverKey, NSString *serverId) {
+            [self updateKeyedCheckpoint:checkpoint withBlock:updateDoneBlock];
+        }];
+    }
+    else {
+        [self updateKeyedCheckpoint:checkpoint withBlock:updateDoneBlock];
+    }
+}
+
 #pragma mark - Private
 
 + (void)obtainHuntKeyForNotNilUser:(THUser *)user
@@ -218,6 +234,36 @@ static NSManagedObjectContext *_context;
     [request setFailedBlock:^{
         NSError *error = [request error];
         NSLog(@"Error updating hunt on server: key=%@, title=%@, error=%@", hunt.serverKey, hunt.title, error);
+        updateDoneBlock(NO);
+    }];
+    [request startAsynchronous];
+}
+
++ (void)updateKeyedCheckpoint:(THCheckpoint*)checkpoint withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", API_UPDATE_CHECKPOINT_URL_STRING, checkpoint.serverKey]];
+    __weak ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:url];
+    [request setPostValue:checkpoint.title forKey:@"title"];
+    [request setPostValue:checkpoint.textClue forKey:@"text_clue"];
+    [request setCompletionBlock:^{
+        NSError *error;
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[request responseData]
+                                                             options:NSJSONReadingAllowFragments
+                                                               error:&error];
+        NSString *serverKey = [json objectForKey:@"key"];
+        if (error || serverKey == nil) {
+            [request failWithError:[self errorOrNewError:error fromRequest:request]];
+        }
+        else {
+            checkpoint.isSynced = [NSNumber numberWithBool:YES];
+            [THUtils saveContext:_context];
+            NSLog(@"Checkpoint scalar data updated on server: %@, %@", checkpoint.serverKey, checkpoint.title);
+            updateDoneBlock(YES);
+        }
+    }];
+    [request setFailedBlock:^{
+        NSError *error = [request error];
+        NSLog(@"Error updating checkpoint scalar data on server: key=%@, title=%@, error=%@", checkpoint.serverKey, checkpoint.title, error);
         updateDoneBlock(NO);
     }];
     [request startAsynchronous];

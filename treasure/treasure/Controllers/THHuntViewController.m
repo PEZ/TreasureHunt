@@ -65,6 +65,11 @@
     _sparePartsViewController = [storyboard instantiateViewControllerWithIdentifier:@"SpareParts"];
     [_sparePartsViewController loadView];
     [self configureView];
+    for (THCheckpoint *checkpoint in _hunt.checkpoints) {
+        if (![checkpoint.isSynced boolValue]) {
+            [THServerConnection updateCheckpoint:checkpoint withBlock:^(BOOL isSuccess) {}];
+        }
+    }
 }
 
 - (void)viewDidUnload
@@ -273,6 +278,7 @@
 - (void)checkpointEdited:(THCheckpoint *)checkpoint {
     [THUtils saveContext:self.managedObjectContext];
     [self.tableView reloadData];
+    [THServerConnection updateCheckpoint:checkpoint withBlock:^(BOOL isSuccess) {}];
 }
 
 
