@@ -139,6 +139,7 @@
     NSString *oldTitle = _checkpoint.title ? : @"";
     if (![newTitle isEqualToString:oldTitle]) {
         _checkpoint.title = newTitle;
+        _checkpoint.isScalarDataSynced = [NSNumber numberWithBool:NO];
         [self.delegate checkpointEdited:_checkpoint];
     }
 }
@@ -166,6 +167,7 @@
     NSString *oldTextClue = _checkpoint.textClue ? : @"";
     if (![newTextClue isEqualToString:oldTextClue]) {
         _checkpoint.textClue = newTextClue;
+        _checkpoint.isScalarDataSynced = [NSNumber numberWithBool:NO];
         [self.delegate checkpointEdited:_checkpoint];
     }
 }

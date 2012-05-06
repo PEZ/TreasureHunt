@@ -346,6 +346,8 @@ typedef void (^THServerConnectionCheckpointUploadUrlObtainedBlock)(NSString*);
             [request failWithError:[self errorOrNewError:error fromRequest:request]];
         }
         else {
+            NSLog(@"Uploaded url for checkpoint retrieved: url=%@, key=%@, title=%@",
+                  uploadUrl, checkpoint.serverKey, checkpoint.title);
             urlObtainedBlock(uploadUrl);
         }
     }];
