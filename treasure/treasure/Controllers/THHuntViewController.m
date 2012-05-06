@@ -60,9 +60,13 @@
 - (void)conditionalSync:(THCheckpoint*)checkpoint
 {
     if (![checkpoint.isScalarDataSynced boolValue]) {
-        [THServerConnection updateScalarDataForCheckpoint:checkpoint withBlock:^(BOOL isSuccess) {}];
+        [THServerConnection updateScalarDataForCheckpoint:checkpoint withBlock:^(BOOL isSuccess) {
+            if ([checkpoint shouldUploadImage]) {
+                [THServerConnection uploadImageForCheckpoint:checkpoint withBlock:^(BOOL isSuccess) {}];
+            }
+        }];
     }
-    if (checkpoint.imageClue && [checkpoint.isQR boolValue] && ![checkpoint.isClueImageSynced boolValue]) {
+    else if ([checkpoint shouldUploadImage]) {
         [THServerConnection uploadImageForCheckpoint:checkpoint withBlock:^(BOOL isSuccess) {}];
     }
 }

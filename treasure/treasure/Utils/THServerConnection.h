@@ -11,10 +11,17 @@
 #import "THHunt.h"
 #import "THCheckpoint.h"
 
+#define DEV_BASE_URL_STRING @"http://localhost:8080/api"
+#define LIVE_BASE_URL_STRING @"http://trailofclues.appspot.com/api"
+
 #ifdef DEBUG
-    #define API_BASE_URL_STRING @"http://localhost:8080/api"
+    #if TARGET_IPHONE_SIMULATOR
+        #define API_BASE_URL_STRING DEV_BASE_URL_STRING
+    #else
+        #define API_BASE_URL_STRING LIVE_BASE_URL_STRING
+    #endif
 #else
-    #define API_BASE_URL_STRING @"http://trailofclues.appspot.com/api"
+    #define API_BASE_URL_STRING LIVE_BASE_URL_STRING
 #endif
 
 typedef void (^THServerConnectionKeyObtainedBlock)(NSString*);

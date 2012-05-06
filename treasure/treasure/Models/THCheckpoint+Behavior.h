@@ -12,4 +12,6 @@
 
 @property (readonly) BOOL hasClue;
 
+- (BOOL)shouldUploadImage;
+
 @end

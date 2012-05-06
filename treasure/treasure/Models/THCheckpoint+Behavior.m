@@ -16,4 +16,9 @@
     return self.imageClue || (self.textClue && ![self.textClue isEqualToString:@""]);
 }
 
+- (BOOL)shouldUploadImage
+{
+    return self.imageClue && [self.isQR boolValue] && ![self.isClueImageSynced boolValue];
+}
+
 @end
