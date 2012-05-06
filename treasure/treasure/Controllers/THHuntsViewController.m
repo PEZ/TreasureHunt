@@ -43,6 +43,11 @@
 {
     [super viewDidLoad];
     [self configureView];
+    for (THHunt *hunt in [self.fetchedResultsController fetchedObjects]) {
+        if (!hunt.isSynced) {
+            [THServerConnection updateHunt:hunt withBlock:^(BOOL isSuccess) {}];
+        }
+    }
 }
 
 - (void)viewDidUnload
@@ -135,7 +140,9 @@
 
 - (void)huntEdited:(THHunt *)hunt {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    [THUtils saveContext:context]; 
+    hunt.isSynced = [NSNumber numberWithBool:NO];
+    [THUtils saveContext:context];
+    [THServerConnection updateHunt:hunt withBlock:^(BOOL success) {}];
 }
 
 #pragma mark - Fetched results controller

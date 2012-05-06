@@ -27,6 +27,8 @@ class THAPIHandler(webapp.RequestHandler):
         self.error(code)
         if err is not None:
             logging.warning("%s\n%s" % (err.message, traceback.format_exc()))
+        if isinstance(message_struct, str):
+            message_struct = {'message': message_struct}
         self.respond(message_struct)
 
 class WebHandler(webapp.RequestHandler):
@@ -84,12 +86,33 @@ class THHuntAPIHandler(THAPIHandler):
             try:
                 hunt = THHunt(user=user.key, title=title)
                 hunt.put()  
-                self.respond(user.as_dict())
+                self.respond(hunt.as_dict())
             except Exception, e:
                 logging.error('Error creating hunt for user %s: %s' % (user_key_str, e.message))
                 raise
         else:
             self.bail_with_message(None, 'never seen that dude', 404)
+
+class THHuntUpdateAPIHandler(THAPIHandler):
+    BASE_URL = '/api/update/hunt'
+    PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
+
+    def post(self, hunt_key_str):
+        title = self.request.get('title', None)
+        hunt_key = ndb.Key(urlsafe=urllib.unquote(hunt_key_str))
+        hunt = hunt_key.get()
+        if hunt is not None and hunt.is_of_class_name('THHunt'):
+            if title is not None:
+                hunt.title = title
+                try:
+                    hunt.put()
+                except Exception, e:
+                    logging.error('Error updating checkpoint %s: %s' % (hunt_key_str, e.message))
+                    raise
+            self.respond(hunt.as_dict())
+        else:
+            self.bail_with_message(None, 'unknown hunt', 404)
+
 
 class THUploadCheckpointImageHandler(blobstore_handlers.BlobstoreUploadHandler, THAPIHandler):
     BASE_URL = '/api/upload/checkpoint'
@@ -221,12 +244,13 @@ class THCheckpointWebHandler(WebHandler):
 application = webapp.WSGIApplication([(THCreateUserAPIHandler.PATTERN, THCreateUserAPIHandler),
                                       (THGetUserAPIHandler.PATTERN, THGetUserAPIHandler),
                                       (THHuntAPIHandler.PATTERN, THHuntAPIHandler),
+                                      (THHuntUpdateAPIHandler.PATTERN, THHuntUpdateAPIHandler),
                                       (THCheckpointAPIHandler.PATTERN, THCheckpointAPIHandler),
+                                      (THCheckpointUpdateAPIHandler.PATTERN, THCheckpointUpdateAPIHandler),
                                       (THGenerateCheckpointUploadUrlAPIHandler.PATTERN, THGenerateCheckpointUploadUrlAPIHandler),
                                       (THUploadCheckpointImageHandler.PATTERN, THUploadCheckpointImageHandler),
                                       (THServeBlobHandler.PATTERN, THServeBlobHandler),
-                                      (THCheckpointWebHandler.PATTERN, THCheckpointWebHandler),
-                                      (THCheckpointUpdateAPIHandler.PATTERN, THCheckpointUpdateAPIHandler)],
+                                      (THCheckpointWebHandler.PATTERN, THCheckpointWebHandler)],
                                      debug=True)
 
 def main():

@@ -11,9 +11,16 @@
 #import "THHunt.h"
 #import "THCheckpoint.h"
 
+#ifdef DEBUG
+    #define API_BASE_URL_STRING @"http://localhost:8080/api"
+#else
+    #define API_BASE_URL_STRING @"http://trailofclues.appspot.com/api"
+#endif
+
+
 typedef void (^THServerConnectionKeyObtainedBlock)(NSString*);
 typedef void (^THServerConnectionKeyAndIdObtainedBlock)(NSString*, NSUInteger);
-typedef void (^THServerConnectionUpdateDoneBlock)(NSString*);
+typedef void (^THServerConnectionUpdateDoneBlock)(BOOL);
 
 @interface THServerConnection : NSObject
 
@@ -21,12 +28,21 @@ typedef void (^THServerConnectionUpdateDoneBlock)(NSString*);
 + (BOOL)isUserCreated;
 + (BOOL)isHuntUpdated:(THHunt*)hunt;
 + (BOOL)isCheckpointUpdated:(THCheckpoint*)checkpoint;
+
+#define API_CREATE_USER_URL_STRING API_BASE_URL_STRING @"/user"
 + (void)obtainUserKey:(THServerConnectionKeyObtainedBlock)keyObtainedBlock;
+
+#define API_CREATE_HUNT_URL_STRING API_BASE_URL_STRING @"/hunt"
 + (void)obtainHuntKeyForUser:(THUser*)user
                      andHunt:(THHunt*)hunt
                    withBlock:(THServerConnectionKeyObtainedBlock)keyObtainedBlock;
+
+#define API_CREATE_CHECKPOINT_URL_STRING API_BASE_URL_STRING @"/checkpoint"
 + (void)obtainCheckpointKeyAndIdForHunt:(THHunt*)hunt
                           andCheckpoint:(THCheckpoint*)checkpoint
                               withBlock:(THServerConnectionKeyAndIdObtainedBlock)keyAndIdObtainedBlock;
+
+#define API_UPDATE_HUNT_URL_STRING API_BASE_URL_STRING @"/update/hunt"
++ (void)updateHunt:(THHunt*)hunt withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock;
 
 @end
