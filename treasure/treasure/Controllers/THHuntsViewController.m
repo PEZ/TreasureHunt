@@ -44,7 +44,7 @@
     [super viewDidLoad];
     [self configureView];
     for (THHunt *hunt in [self.fetchedResultsController fetchedObjects]) {
-        if (!hunt.isSynced) {
+        if (![hunt.isSynced boolValue]) {
             [THServerConnection updateHunt:hunt withBlock:^(BOOL isSuccess) {}];
         }
     }

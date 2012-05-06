@@ -19,6 +19,7 @@ static NSManagedObjectContext *_context;
                            andHunt:(THHunt *)hunt
                          withBlock:(THServerConnectionKeyObtainedBlock)keyObtainedBlock;
 + (void)updateKeyedHunt:(THHunt*)hunt withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock;
++ (NSError *)errorOrNewError:(NSError*)error forRequest:(__weak ASIHTTPRequest *)request;
 @end
 
 @implementation THServerConnection
@@ -113,7 +114,7 @@ static NSManagedObjectContext *_context;
                                                                error:&error];
         NSString *serverKey = [json objectForKey:@"key"];
         if (error || serverKey == nil) {
-            [request failWithError:error];
+            [request failWithError:[self errorOrNewError:error forRequest:request]];
         }
         else {
             hunt.serverKey = serverKey;
@@ -141,7 +142,7 @@ static NSManagedObjectContext *_context;
                                                                error:&error];
         NSString *serverKey = [json objectForKey:@"key"];
         if (error || serverKey == nil) {
-            [request failWithError:error];
+            [request failWithError:[self errorOrNewError:error forRequest:request]];
         }
         else {
             hunt.isSynced = [NSNumber numberWithBool:YES];
@@ -156,6 +157,17 @@ static NSManagedObjectContext *_context;
         updateDoneBlock(NO);
     }];
     [request startAsynchronous];
+}
+
++ (NSError *)errorOrNewError:(NSError*)error forRequest:(__weak ASIHTTPRequest *)request
+{
+    if (error == nil) {
+        error = [NSError errorWithDomain:@"http status"
+                                    code:[request responseStatusCode]
+                                userInfo:[NSDictionary dictionaryWithObject:[request responseStatusMessage]
+                                                                     forKey:@"message"]];
+    }
+    return error;
 }
 
 @end
