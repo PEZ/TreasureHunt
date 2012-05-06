@@ -60,7 +60,7 @@
 }
 
 + (NSString*)trim:(NSString *)string {
-    return [THUtils trim:string fromCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
+    return [THUtils trim:string fromCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 @end

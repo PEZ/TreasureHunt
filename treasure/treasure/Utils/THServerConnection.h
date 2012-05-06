@@ -17,17 +17,14 @@
     #define API_BASE_URL_STRING @"http://trailofclues.appspot.com/api"
 #endif
 
-
 typedef void (^THServerConnectionKeyObtainedBlock)(NSString*);
 typedef void (^THServerConnectionKeyAndIdObtainedBlock)(NSString*, NSString*);
 typedef void (^THServerConnectionUpdateDoneBlock)(BOOL);
+typedef void (^THServerConnectionCheckpointImageUploadedBlock)(BOOL);
 
 @interface THServerConnection : NSObject
 
 + (void)setManagedObjectContext:(NSManagedObjectContext*)context;
-+ (BOOL)isUserCreated;
-+ (BOOL)isHuntUpdated:(THHunt*)hunt;
-+ (BOOL)isCheckpointUpdated:(THCheckpoint*)checkpoint;
 
 #define API_CREATE_USER_URL_STRING API_BASE_URL_STRING @"/user"
 + (void)obtainUserKey:(THServerConnectionKeyObtainedBlock)keyObtainedBlock;
@@ -46,7 +43,9 @@ typedef void (^THServerConnectionUpdateDoneBlock)(BOOL);
                               withBlock:(THServerConnectionKeyAndIdObtainedBlock)keyAndIdObtainedBlock;
 
 #define API_UPDATE_CHECKPOINT_URL_STRING API_BASE_URL_STRING @"/update/checkpoint"
-+ (void)updateCheckpoint:(THCheckpoint*)checkpoint withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock;
++ (void)updateScalarDataForCheckpoint:(THCheckpoint*)checkpoint withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock;
 
++ (void)uploadImageForCheckpoint:(THCheckpoint*)checkpoint
+                       withBlock:(THServerConnectionCheckpointImageUploadedBlock)imageUploadedBlock;
 
 @end

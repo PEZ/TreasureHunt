@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Checkpoint" representedClassName="THCheckpoint" syncable="YES">
-        <attribute name="displayOrder" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="imageClue" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES" syncable="YES"/>
         <attribute name="imageClueThumbnail" optional="YES" attributeType="Transformable" storedInTruthFile="YES" syncable="YES"/>
-        <attribute name="isImageClueUploaded" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="isQR" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isClueImageSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isQR" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isScalarDataSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="serverId" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="serverKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="textClue" optional="YES" attributeType="String" maxValueString="100" syncable="YES"/>
@@ -24,8 +23,8 @@
         <attribute name="serverKey" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkpoint" positionX="277" positionY="252" width="128" height="210"/>
-        <element name="Hunt" positionX="81" positionY="189" width="128" height="120"/>
+        <element name="Checkpoint" positionX="277" positionY="252" width="128" height="195"/>
+        <element name="Hunt" positionX="81" positionY="189" width="128" height="90"/>
         <element name="User" positionX="-99" positionY="189" width="128" height="60"/>
     </elements>
 </model>

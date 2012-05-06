@@ -57,6 +57,16 @@
     }
 }
 
+- (void)conditionalSync:(THCheckpoint*)checkpoint
+{
+    if (![checkpoint.isScalarDataSynced boolValue]) {
+        [THServerConnection updateScalarDataForCheckpoint:checkpoint withBlock:^(BOOL isSuccess) {}];
+    }
+    if (checkpoint.imageClue && [checkpoint.isQR boolValue] && ![checkpoint.isClueImageSynced boolValue]) {
+        [THServerConnection uploadImageForCheckpoint:checkpoint withBlock:^(BOOL isSuccess) {}];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -66,9 +76,7 @@
     [_sparePartsViewController loadView];
     [self configureView];
     for (THCheckpoint *checkpoint in _hunt.checkpoints) {
-        if (![checkpoint.isSynced boolValue]) {
-            [THServerConnection updateCheckpoint:checkpoint withBlock:^(BOOL isSuccess) {}];
-        }
+        [self conditionalSync:checkpoint];
     }
 }
 
@@ -278,7 +286,7 @@
 - (void)checkpointEdited:(THCheckpoint *)checkpoint {
     [THUtils saveContext:self.managedObjectContext];
     [self.tableView reloadData];
-    [THServerConnection updateCheckpoint:checkpoint withBlock:^(BOOL isSuccess) {}];
+    [self conditionalSync:checkpoint];
 }
 
 
@@ -292,8 +300,12 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    _hunt.title = [THUtils trim:textField.text];
-    [self.delegate huntEdited:self.hunt];
+    NSString *newTitle = [THUtils trim:textField.text];
+    NSString *oldTitle = _hunt.title ? : @"";
+    if (![newTitle isEqualToString:oldTitle]) {
+        _hunt.title = newTitle;
+        [self.delegate huntEdited:self.hunt];
+    }
 }
 
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string

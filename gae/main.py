@@ -148,7 +148,7 @@ class THGenerateCheckpointUploadUrlAPIHandler(THAPIHandler):
         checkpoint = checkpoint_key.get()
         if checkpoint is not None and checkpoint.is_of_class_name('THCheckpoint'):
             upload_url = blobstore.create_upload_url('%s/%s' % (THUploadCheckpointImageHandler.BASE_URL, checkpoint_key.urlsafe()))
-            self.respond(json.dumps({'upload_url': upload_url}))
+            self.respond({'upload_url': upload_url})
         else:
             self.bail_with_message(None, 'unknown checkpoint', 404)
 

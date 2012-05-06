@@ -135,8 +135,12 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    _checkpoint.title = [THUtils trim:textField.text];
-    [self.delegate checkpointEdited:_checkpoint];
+    NSString *newTitle = [THUtils trim:textField.text];
+    NSString *oldTitle = _checkpoint.title ? : @"";
+    if (![newTitle isEqualToString:oldTitle]) {
+        _checkpoint.title = newTitle;
+        [self.delegate checkpointEdited:_checkpoint];
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -158,8 +162,12 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    _checkpoint.textClue = [THUtils trim:textView.text];
-    [self.delegate checkpointEdited:_checkpoint];
+    NSString *newTextClue = [THUtils trim:textView.text];
+    NSString *oldTextClue = _checkpoint.textClue ? : @"";
+    if (![newTextClue isEqualToString:oldTextClue]) {
+        _checkpoint.textClue = newTextClue;
+        [self.delegate checkpointEdited:_checkpoint];
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -193,6 +201,7 @@
     UIImage *clueImage = [image scaleToSize:_imageClueImageView.frame.size];
     _checkpoint.imageClue = _imageClueImageView.image = clueImage;
     _checkpoint.imageClueThumbnail = [clueImage scaleToSize:_checkpointCell.imageClueImageView.frame.size];
+    _checkpoint.isClueImageSynced = [NSNumber numberWithBool:NO];
     [self.delegate checkpointEdited:_checkpoint];
     [picker dismissModalViewControllerAnimated:YES];
 }

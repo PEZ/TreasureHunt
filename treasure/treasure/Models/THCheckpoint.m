@@ -15,7 +15,8 @@
 @dynamic imageClue;
 @dynamic imageClueThumbnail;
 @dynamic isQR;
-@dynamic isSynced;
+@dynamic isScalarDataSynced;
+@dynamic isClueImageSynced;
 @dynamic serverId;
 @dynamic serverKey;
 @dynamic textClue;
