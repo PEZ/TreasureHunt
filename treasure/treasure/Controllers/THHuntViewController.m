@@ -17,6 +17,8 @@
 #import "THHunt+OrderedCheckpoints.h"
 #import "THHuntBackgroundViewController.h"
 #import "UIView+Additions.h"
+#import "THServerConnection.h"
+
 
 @interface THHuntViewController ()
 
@@ -197,6 +199,11 @@
             if (!checkpoint) {
                 NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
                 checkpoint = [self.hunt.checkpoints objectAtIndex:indexPath.row];
+            }
+            if (checkpoint.serverKey == nil) {
+                [THServerConnection obtainCheckpointKeyAndIdForHunt:_hunt
+                                                      andCheckpoint:checkpoint
+                                                          withBlock:^(NSString *serverKey, NSString *serverId) {}];
             }
             THCheckpointViewController* checkpointController = [segue destinationViewController];
             [checkpointController setCheckpoint:checkpoint];

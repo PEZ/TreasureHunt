@@ -125,9 +125,7 @@
         if (hunt.serverKey == nil) {
             [THServerConnection obtainHuntKeyForUser:[THUser firstInManagedObjectContext:__managedObjectContext]
                                              andHunt:hunt
-                                           withBlock:^(NSString *serverKey) {
-                                               hunt.serverKey = serverKey;
-                                           }];
+                                           withBlock:^(NSString *serverKey) {}];
         }
         THHuntViewController* huntController = [segue destinationViewController];
         huntController.hunt = hunt;

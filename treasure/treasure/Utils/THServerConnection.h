@@ -19,7 +19,7 @@
 
 
 typedef void (^THServerConnectionKeyObtainedBlock)(NSString*);
-typedef void (^THServerConnectionKeyAndIdObtainedBlock)(NSString*, NSUInteger);
+typedef void (^THServerConnectionKeyAndIdObtainedBlock)(NSString*, NSString*);
 typedef void (^THServerConnectionUpdateDoneBlock)(BOOL);
 
 @interface THServerConnection : NSObject

@@ -15,11 +15,19 @@
 static NSManagedObjectContext *_context;
 
 @interface THServerConnection (Private)
+
 + (void)obtainHuntKeyForNotNilUser:(THUser *)user
                            andHunt:(THHunt *)hunt
                          withBlock:(THServerConnectionKeyObtainedBlock)keyObtainedBlock;
+
 + (void)updateKeyedHunt:(THHunt*)hunt withBlock:(THServerConnectionUpdateDoneBlock)updateDoneBlock;
+
 + (NSError *)errorOrNewError:(NSError*)error forRequest:(__weak ASIHTTPRequest *)request;
+
++ (void)obtainCheckpointKeyForKeyedHunt:(THHunt*)hunt
+                          andCheckpoint:(THCheckpoint*)checkpoint
+                              withBlock:(THServerConnectionKeyAndIdObtainedBlock)keyAndIdObtainedBlock;
+
 @end
 
 @implementation THServerConnection
@@ -67,16 +75,43 @@ static NSManagedObjectContext *_context;
                      andHunt:(THHunt *)hunt
                    withBlock:(THServerConnectionKeyObtainedBlock)keyObtainedBlock
 {
-    if (user != nil) {
-        [THServerConnection obtainHuntKeyForNotNilUser:user andHunt:hunt withBlock:keyObtainedBlock];
-    }
-    else {
+    if (user == nil) {
         [THServerConnection obtainUserKey:^(NSString *userServerKey) {
             if (userServerKey != nil) {
                 THUser *user = [THUser firstInManagedObjectContext:_context];
                 [THServerConnection obtainHuntKeyForNotNilUser:user andHunt:hunt withBlock:keyObtainedBlock];
             }
+            else {
+                keyObtainedBlock(nil);
+            }
         }];
+    }
+    else {
+        [THServerConnection obtainHuntKeyForNotNilUser:user andHunt:hunt withBlock:keyObtainedBlock];
+    }
+}
+
++ (void)obtainCheckpointKeyAndIdForHunt:(THHunt *)hunt
+                          andCheckpoint:(THCheckpoint *)checkpoint
+                              withBlock:(THServerConnectionKeyAndIdObtainedBlock)keyAndIdObtainedBlock
+{
+    if (hunt.serverKey == nil) {
+        THUser *user = [THUser firstInManagedObjectContext:_context];
+        [THServerConnection obtainHuntKeyForUser:user andHunt:hunt withBlock:^(NSString *huntServerKey) {
+            if (huntServerKey != nil) {
+                [THServerConnection obtainCheckpointKeyForKeyedHunt:hunt
+                                                      andCheckpoint:checkpoint
+                                                          withBlock:keyAndIdObtainedBlock];
+            }
+            else {
+                keyAndIdObtainedBlock(nil, nil);
+            }
+        }];
+    }
+    else {
+        [THServerConnection obtainCheckpointKeyForKeyedHunt:hunt
+                                              andCheckpoint:checkpoint
+                                                  withBlock:keyAndIdObtainedBlock];
     }
 }
 
@@ -86,15 +121,11 @@ static NSManagedObjectContext *_context;
     if (hunt.serverKey == nil) {
         THUser *user = [THUser firstInManagedObjectContext:_context];
         [THServerConnection obtainHuntKeyForUser:user andHunt:hunt withBlock:^(NSString *serverKey) {
-            [self updateKeyedHunt:hunt withBlock:^(BOOL isSuccess) {
-                updateDoneBlock(isSuccess);
-            }];
+            [self updateKeyedHunt:hunt withBlock:updateDoneBlock];
         }];
     }
     else {
-        [self updateKeyedHunt:hunt withBlock:^(BOOL isSuccess) {
-            updateDoneBlock(isSuccess);
-        }];
+        [self updateKeyedHunt:hunt withBlock:updateDoneBlock];
     }
 }
 
@@ -114,7 +145,7 @@ static NSManagedObjectContext *_context;
                                                                error:&error];
         NSString *serverKey = [json objectForKey:@"key"];
         if (error || serverKey == nil) {
-            [request failWithError:[self errorOrNewError:error forRequest:request]];
+            [request failWithError:[self errorOrNewError:error fromRequest:request]];
         }
         else {
             hunt.serverKey = serverKey;
@@ -126,6 +157,39 @@ static NSManagedObjectContext *_context;
         NSError *error = [request error];
         NSLog(@"Error creating hunt on server: %@", error);
         keyObtainedBlock(nil);
+    }];
+    [request startAsynchronous];
+}
+
++ (void)obtainCheckpointKeyForKeyedHunt:(THHunt*)hunt
+                          andCheckpoint:(THCheckpoint*)checkpoint
+                         withBlock:(THServerConnectionKeyAndIdObtainedBlock)keyAndIdObtainedBlock
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", API_CREATE_CHECKPOINT_URL_STRING, hunt.serverKey]];
+    __weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    request.requestMethod = @"POST";
+    [request setCompletionBlock:^{
+        NSError *error;
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[request responseData]
+                                                             options:NSJSONReadingAllowFragments
+                                                               error:&error];
+        NSString *serverKey = [json objectForKey:@"key"];
+        NSString *serverId = [json objectForKey:@"id"];
+        if (error || serverKey == nil) {
+            [request failWithError:[self errorOrNewError:error fromRequest:request]];
+        }
+        else {
+            checkpoint.serverKey = serverKey;
+            checkpoint.serverId = serverId;
+            [THUtils saveContext:_context];
+            NSLog(@"Checkpoint created on server: key=%@", checkpoint.serverKey);
+            keyAndIdObtainedBlock(checkpoint.serverKey, checkpoint.serverId);
+        }
+    }];
+    [request setFailedBlock:^{
+        NSError *error = [request error];
+        NSLog(@"Error creating checkpoint on server: error=%@", error);
+        keyAndIdObtainedBlock(nil, nil);
     }];
     [request startAsynchronous];
 }
@@ -142,7 +206,7 @@ static NSManagedObjectContext *_context;
                                                                error:&error];
         NSString *serverKey = [json objectForKey:@"key"];
         if (error || serverKey == nil) {
-            [request failWithError:[self errorOrNewError:error forRequest:request]];
+            [request failWithError:[self errorOrNewError:error fromRequest:request]];
         }
         else {
             hunt.isSynced = [NSNumber numberWithBool:YES];
@@ -159,7 +223,7 @@ static NSManagedObjectContext *_context;
     [request startAsynchronous];
 }
 
-+ (NSError *)errorOrNewError:(NSError*)error forRequest:(__weak ASIHTTPRequest *)request
++ (NSError *)errorOrNewError:(NSError*)error fromRequest:(__weak ASIHTTPRequest *)request
 {
     if (error == nil) {
         error = [NSError errorWithDomain:@"http status"
