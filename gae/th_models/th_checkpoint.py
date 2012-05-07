@@ -32,7 +32,11 @@ class THCheckpoint(THModel):
 
     @property
     def image_clue_key(self):
-        return THCheckpointImage.query(ancestor=self.key).get(keys_only=True)
+        return THCheckpointImage.query(ancestor=self.key).order(-THCheckpointImage.created_at).get(keys_only=True)
+
+    @property
+    def image_clue_keys(self):
+        return THCheckpointImage.query(ancestor=self.key).fetch(keys_only=True)
 
     @property
     def image_clue_blob_info_key(self):
@@ -42,10 +46,19 @@ class THCheckpoint(THModel):
                 return image.image
 
     @property
+    def image_clue_blob_infos(self):
+        if self.has_image_clue:
+            for image_key in self.image_clue_keys:
+                image = image_key.get()
+                if image is not None:
+                    yield image.image
+
+    @property
     def has_text_clue(self):
         return self.text_clue is not None and self.text_clue.strip() != ""
 
 class THCheckpointImage(THModel):
+    created_at = ndb.DateTimeProperty(auto_now_add=True)
     image = ndb.BlobKeyProperty()
     deleted = ndb.BooleanProperty(default=False)
 

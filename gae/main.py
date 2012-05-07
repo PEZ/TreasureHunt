@@ -126,6 +126,12 @@ class THUploadCheckpointImageHandler(blobstore_handlers.BlobstoreUploadHandler, 
         checkpoint = checkpoint_key.get()
         if checkpoint is not None and checkpoint.is_of_class_name('THCheckpoint'):
             try:
+                blobstore.delete(checkpoint.image_clue_blob_infos)
+                ndb.delete_multi(checkpoint.image_clue_keys)
+            except Exception, e:
+                logging.error('Error deleting old images for checkpoint=%s', checkpoint_key_str)
+                raise
+            try:
                 image = THCheckpointImage(parent=checkpoint.key, image=blob_info.key())
                 checkpoint.has_image_clue = True
                 ndb.put_multi([image, checkpoint])
