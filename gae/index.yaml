@@ -14,9 +14,4 @@ indexes:
   ancestor: yes
   properties:
   - name: created_at
-
-- kind: THCheckpointImage
-  ancestor: yes
-  properties:
-  - name: created_at
     direction: desc
