@@ -21,3 +21,12 @@ class THHunt(THModel):
                 'title': self.title,
                 'created_at': self.created_at.isoformat(),
                 'updated_at': self.updated_at.isoformat()}
+
+    @property
+    def checkpoints_keys(self):
+        from th_models.th_checkpoint import THCheckpoint
+        return THCheckpoint.query(THCheckpoint.hunt == self.key).fetch(keys_only=True)
+
+    @property
+    def checkpoints(self):
+        return [key.get() for key in self.checkpoints_keys]

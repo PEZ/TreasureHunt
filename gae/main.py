@@ -93,6 +93,20 @@ class THHuntAPIHandler(THAPIHandler):
         else:
             self.bail_with_message(None, 'never seen that dude', 404)
 
+    def delete(self, hunt_key_str):
+        hunt_key = ndb.Key(urlsafe=urllib.unquote(hunt_key_str))
+        hunt = hunt_key.get()
+        if hunt is not None and hunt.is_of_class_name('THHunt'):
+            try:
+                ndb.delete_multi(hunt.checkpoints_keys)
+                hunt_key.delete()
+                self.respond('Hunt deleted')
+            except Exception, e:
+                logging.error('Error deleting hunt, key=%s, error=%s' % (hunt_key_str, e.message))
+                raise
+        else:
+            self.bail_with_message(None, 'Unknown hunt', 404)
+
 class THHuntUpdateAPIHandler(THAPIHandler):
     BASE_URL = '/api/update/hunt'
     PATTERN = '^%s/%s' % (BASE_URL, PARAM_REGEX)
